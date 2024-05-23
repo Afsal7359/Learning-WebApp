@@ -1,0 +1,139 @@
+#login .container #login-row #login-column #login-box {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    max-width: 600px;
+    height: 700px;
+    border: 1px solid #9C9C9C;
+    background-color: #EAEAEA;
+    padding: 3em;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #login {
+    background-color: #064f89;
+    min-height: 100vh; /* Ensure the background covers full height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #login .container #login-row #login-column #login-box #login-form {
+    padding: 20px;
+  }
+  #login .container #login-row #login-column #login-box #login-form #register-link {
+    margin-top: -85px;
+  }
+  .containers {
+      text-align: center; /* Center align content */
+  }
+  
+  
+  .checkbox-group {
+      display: inline-block;
+  }
+  
+  .checkbox-container {
+      display: inline-block;
+      position: relative;
+      padding-left: 55px;
+      margin-right: 15px;
+      cursor: pointer;
+  }
+  
+  .checkbox-container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+  }
+  
+  .checkmark {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      height: 65px;
+      width: 65px;
+      background-color: transparent;
+      border-radius: 50%;
+      border: 2px solid #999;
+  }
+  
+  .checkmark i {
+      display: block;
+      color: #000;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+  
+  .checkbox-container input:checked ~ .checkmark {
+      background-color: #5a9ed5;
+      border-color: #5a9ed5;
+  }
+  
+  .checkbox-container input:checked ~ .checkmark i {
+      color: #fff;
+  }
+  
+  .label-text {
+      display: flex;
+      margin-top: 105px;
+      font-size: 14px;
+      margin-left: -45px;
+  }
+  
+  @media (max-width: 768px) {
+    #login-box {
+      padding: 2em;
+    }
+  
+    .checkbox-group {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .label-text {
+      margin-top: 10px;
+    }
+  
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+  
+    .input-group {
+      flex-direction: column;
+    }
+  
+    .input-group-append {
+      margin-left: 0;
+      margin-top: 0.5rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    #login-box {
+      padding: 1.5em;
+    }
+  
+    .checkbox-group {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .checkbox-container {
+      margin: 10px 0;
+    }
+  
+    .checkmark {
+      height: 30px;
+      width: 30px;
+    }
+  
+    .label-text {
+      margin-top: 5px;
+    }
+  }
+  

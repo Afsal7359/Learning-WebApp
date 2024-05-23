@@ -1,0 +1,29 @@
+.modal-dialog {
+    overflow-y: auto; /* Enable vertical scrollbar */
+    max-height: calc(100% - 60px); /* Adjust max-height to fit within the viewport */
+  }
+  
+  .modal-content {
+    overflow: hidden; /* Hide overflowing content */
+  }
+  /* Style the select element */
+.custom-select {
+    /* Define general styles for the select element */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 8px 24px 8px 8px; /* Adjust padding to suit your design */
+    position: relative;
+  }
+  
+  /* Style the pseudo-element that creates the arrow */
+  .custom-select::after {
+    content: '\25BC'; /* Unicode for down arrow */
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Ensures the arrow doesn't interfere with clicks */
+  }
