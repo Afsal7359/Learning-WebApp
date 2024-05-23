@@ -32,7 +32,7 @@ function App() {
 
   return (
     <>
-            <Router basename="/login">
+            <Router>
               <Suspense fallback={<div className="loader-container"><div className="loader"></div></div>}>
                 <Routes>
                 <Route path="/" element={student?<Home/>:<Navigate to={"/login"}/>}/>
