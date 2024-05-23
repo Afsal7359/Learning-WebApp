@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './Login.css'
 import { Loginuser } from '../../Api/Authentication';
 import { toast } from 'react-toastify';
+import Tutor from '../../assets/images/tutor.png'
+import STudent from '../../assets/images/student.png'
 
 function Login() {
 
@@ -74,7 +76,7 @@ function Login() {
                         <i>
                             {' '}
                             <img
-                            src="/src/assets/images/student.png"
+                            src={STudent}
                             style={{ borderRadius: 25 }}
                             alt=""
                             height="35px"
@@ -94,7 +96,7 @@ function Login() {
                         <i>
                             {' '}
                             <img
-                            src="/src/assets/images/tutor.png"
+                            src={Tutor}
                             alt=""
                             style={{ borderRadius: 25 }}
                             height="35px"
