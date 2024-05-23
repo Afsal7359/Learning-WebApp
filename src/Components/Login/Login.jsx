@@ -27,7 +27,7 @@ function Login() {
         if(response.success === true){
             console.log(response);
             console.log("ffffffffffffffffffff");
-            // toast.success(`${response.message}`)
+            toast.success(`${response.message}`)
             
             if (response.data[0].person === "tutor"){
                 window.location.href=('/tutor')
@@ -43,6 +43,7 @@ function Login() {
         }else{
             console.log(response,"tttttttttt");
             setMessage(response.message)
+            toast.error(`${response.message}`)
             console.log(response,"tttttttttt");
         }
         console.log(data,"formsubmit");
@@ -53,12 +54,13 @@ function Login() {
 
   return (
     <div>
-        <div id="login">
+        {/* <div id="login">
         <h3 className="text-center text-white pt-5" />
         <div className="container">
         <div
-            id="login-row"
+            id="row"
             className="row justify-content-center align-items-center"
+            style={{background:"white",paddingTop:"2em",paddingBottom:"3em",height:"100%"}}
         >
             <div id="login-column" className="col-md-6">
             <div id="login-box" className="col-md-12">
@@ -169,7 +171,69 @@ function Login() {
             </div>
         </div>
         </div>
-        </div>
+        </div> */}
+        <>
+  <section>
+    {" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span />
+    <div className="signin">
+      <div className="content">
+        <h2>Sign In</h2>
+        <form className="form">
+          <div className="inputBox">
+            <input type="text" value={email}
+                    onChange={(e)=>setEmail(e.target.value)} required /> <i>Username</i>
+          </div>
+          <div className="inputBox">
+            <input type="password"  value={password}
+             onChange={(e)=> setPassword(e.target.value)} required/> <i>Password</i>
+          </div>
+          <div className="links">
+            {" "}
+            <a href="/forgot-password" style={{color:"#000"}}>Forgot Password</a> <a href="/register">Signup</a>
+          </div>
+          <div className="inputBox">
+            <input type="submit" defaultValue="Login" onClick={onSubmit} />
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>{" "}
+  {/* partial */}
+</>
+
     </div>
   )
 }

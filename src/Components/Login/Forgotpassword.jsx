@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { ForgotPassword } from '../../Api/Authentication';
+import './Login.css'
 
 const Forgotpassword = () => {
     const [message,setMessage]=useState('');
@@ -28,7 +29,7 @@ const Forgotpassword = () => {
       };
   return (
     <div>
-    <div id="login" style={{ backgroundColor: "#064f89", height: "100vh" }}>
+    {/* <div id="login" style={{ backgroundColor: "#064f89", height: "100vh" }}>
     <h3 className="text-center text-white pt-5" />
     <div className="container">
     <div
@@ -72,7 +73,63 @@ const Forgotpassword = () => {
         </div>
     </div>
     </div>
+    </div> */}
+      <section>
+    {" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span />
+    <div className="signin">
+      <div className="content">
+        <h2>Sign In</h2>
+        <form className="form">
+          <div className="inputBox">
+            <input type="text"          value={email}
+                onChange={(e)=>setEmail(e.target.value)} required /> <i>Email</i>
+          </div>
+          
+          <div className="links">
+            {" "}
+            <a href="/login" style={{color:"#000"}}>Login</a>
+             <a href="/register">Signup</a>
+          </div>
+          <div className="inputBox">
+            <input type="submit" defaultValue="Login" onClick={onSubmit} />
+          </div>
+        </form>
+      </div>
     </div>
+  </section>{" "}
 </div>
   )
 }

@@ -47,7 +47,7 @@ function Registration() {
 
   return (
     <div>
-        <div id="login" style={{ backgroundColor: "#064f89", height: "100%" }}>
+     <div id="login" className='master' style={{ backgroundColor: "#064f89", height: "100%" }}>
             <div className="container">
             <div
                 id="login-row"

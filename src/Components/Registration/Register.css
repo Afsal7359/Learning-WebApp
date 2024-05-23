@@ -13,3 +13,9 @@
   #login .container #login-row #login-column #login-box #login-form #register-link {
     margin-top: -85px;
   }
+  @media (max-width: 600px) {
+    #login {
+      height: 100vh;
+    }
+  }
+  
