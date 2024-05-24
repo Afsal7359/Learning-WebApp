@@ -44,7 +44,7 @@ function App() {
                 <Route path="/tutor/course-detail" element={tutor?<Tutorcourse/>:<Navigate to={"/login"}/>}/>
                 <Route path="/tutor/Profile" element={tutor?<Profile/>:<Navigate to={"/login"}/>}/>
 
-                <Route path="/admin/login" element={admin ? <Navigate to={"/admin"}/>: <Adminlogin/>}/>
+                <Route path="/admin-login" element={admin ? <Navigate to={"/admin"}/>: <Adminlogin/>}/>
                 <Route path="/admin/Users" element={<Adminhome/>}/>
                 <Route path="/admin" element={<CourseList/>}/>
                 <Route path="/admin/carosuel" element={<Carousel/>}/>
