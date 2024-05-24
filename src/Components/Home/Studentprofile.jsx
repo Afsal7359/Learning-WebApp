@@ -4,6 +4,7 @@ import ProfileEdit from '../Modals/ProfileEdit';
 import profile from '../../assets/images/profileimg.png'
 import { toast } from 'react-toastify';
 import { GetUserProfile } from '../../Api/Profile';
+import { Link } from 'react-router-dom';
 
 function Studentprofile() {
 
@@ -58,9 +59,9 @@ function Studentprofile() {
             <nav className="main-menu">
             <div className="container">
                 <div className="main-menu__logo mb-4">
-                <a href="/">
+                <Link to="/">
                     <i className="icon-arrow-left" />
-                </a>
+                </Link>
                 </div>
                 {/* /.main-menu__logo */}
                 <div className="main-menu__nav"></div>

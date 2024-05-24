@@ -4,6 +4,7 @@ import { Loginuser } from '../../Api/Authentication';
 import { toast } from 'react-toastify';
 import Tutor from '../../assets/images/tutor.png'
 import STudent from '../../assets/images/student.png'
+import { Link } from 'react-router-dom';
 
 function Login() {
 
@@ -214,7 +215,7 @@ function Login() {
         <form className="form">
           <div className="inputBox">
             <input type="text" value={email}
-                    onChange={(e)=>setEmail(e.target.value)} required /> <i>Username</i>
+                    onChange={(e)=>setEmail(e.target.value)} required /> <i>Email</i>
           </div>
           <div className="inputBox">
             <input type="password"  value={password}
@@ -222,7 +223,7 @@ function Login() {
           </div>
           <div className="links">
             {" "}
-            <a href="/forgot-password" style={{color:"#000"}}>Forgot Password</a> <a href="/register">Signup</a>
+            <Link to="/forgot-password" style={{color:"#000"}}>Forgot Password</Link> <Link to="/register">Signup</Link>
           </div>
           <div className="inputBox">
             <input type="submit" defaultValue="Login" onClick={onSubmit} />

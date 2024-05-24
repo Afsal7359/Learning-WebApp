@@ -33,9 +33,9 @@ function App() {
   return (
     <>
             <Router>
-              <Suspense fallback={<div className="loader-container"><div className="loader"></div></div>}>
+            <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
-                <Route path="/" element={student?<Home/>:<Navigate to={"/login"}/>}/>
+                <Route path="/" element={<Home/>}/>
                 <Route path="/course-intro" element={student?<Courseintro/>:<Navigate to={"/login"}/>}/>
                 <Route path="/course-detail" element={student?<Coursedetails/>:<Navigate to={"/login"}/>}/>
                 <Route path="/profile" element={student?<Studentprofile/>:<Navigate to={"/login"}/>}/>
@@ -45,10 +45,10 @@ function App() {
                 <Route path="/tutor/Profile" element={tutor?<Profile/>:<Navigate to={"/login"}/>}/>
 
                 <Route path="/admin/login" element={admin ? <Navigate to={"/admin"}/>: <Adminlogin/>}/>
-                <Route path="/admin/Users" element={admin?<Adminhome/>:<Navigate to={"/admin/login"}/>}/>
-                <Route path="/admin" element={admin?<CourseList/>:<Navigate to={"/admin/login"}/>}/>
-                <Route path="/admin/carosuel" element={admin?<Carousel/>:<Navigate to={"/admin/login"}/>}/>
-                <Route path="/admin/category" element={admin?<Category/>:<Navigate to={"/admin/login"}/>}/>
+                <Route path="/admin/Users" element={<Adminhome/>}/>
+                <Route path="/admin" element={<CourseList/>}/>
+                <Route path="/admin/carosuel" element={<Carousel/>}/>
+                <Route path="/admin/category" element={<Category/>}/>
 
 
                 <Route path="/login" element={<Login/>}/>
@@ -57,7 +57,7 @@ function App() {
 
 
                 </Routes>
-              </Suspense>
+                </Suspense>
             </Router>
     </>
   )

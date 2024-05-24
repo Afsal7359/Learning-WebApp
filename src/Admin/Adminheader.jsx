@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Adminheader() {
   return (
@@ -23,16 +24,16 @@ function Adminheader() {
                 <a href="/admin">Dashboard</a>
               </li> */}
               <li>
-                <a href="/admin">Dashboard</a>
+                <Link to={"/admin"}>Dashboard</Link>
               </li>
               <li>
-                <a href="/admin/category">Category</a>
+              <Link to={"/admin/category"}>Category</Link>
               </li>
               <li>
-                <a href="/admin/carosuel">Carousel</a>
+              <Link to={"/admin/carosuel"}>Carousel</Link>
               </li>
               <li>
-                <a href="/admin/Users">Users</a>
+              <Link to={"/admin/Users"}>Users</Link>
               </li>
             </ul>
           </div>

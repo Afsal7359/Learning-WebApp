@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { AdminLogin } from '../Api/Authentication';
+import './Admin.css'
+import { toast } from 'react-toastify';
 
 const Adminlogin = () => {
 
@@ -12,7 +14,8 @@ const Adminlogin = () => {
       setPasswordVisible(!passwordVisible);
     };
 
-    const onSubmit = async () => {
+    const onSubmit = async (event) => {
+        event.preventDefault();
         try {
             const data ={
                 email:email,
@@ -20,6 +23,7 @@ const Adminlogin = () => {
             }
             const response = await AdminLogin(data);
             if(response.success === true){
+                toast.success(`${response.message}`)
                 console.log(response);
                 console.log("ffffffffffffffffffff");
                 localStorage.setItem("token-admin-access-vini" , response.access)
@@ -27,6 +31,7 @@ const Adminlogin = () => {
              
                     window.location.href=('/admin')
             }else{
+                toast.error(`${response.message}`)
                 console.log(response,"tttttttttt");
                 setMessage(response.message)
                 console.log(response,"tttttttttt");
@@ -39,7 +44,7 @@ const Adminlogin = () => {
 
   return (
     <div>
-        <div id="login" style={{ backgroundColor: "#064f89", height: "100vh" }}>
+        {/* <div id="login" style={{ backgroundColor: "#064f89", height: "100vh" }}>
         <h3 className="text-center text-white pt-5" />
         <div className="container">
         <div
@@ -92,11 +97,7 @@ const Adminlogin = () => {
                                 </div>
                             </div>
                             </div>
-                {/* <div className="form-group">
-                    <label className="text-inf" />
-                    <br />
-                    <a href="/register">if you don't have an account please register !!!</a>
-                </div> */}
+               
                 <p className="text-danger text-inf mb-4 mt-4" >{message?message:""}</p>
                 <div className="form-group mt-3">
                     <button type="submit" className="btn btn-primary" onClick={onSubmit}>
@@ -107,7 +108,65 @@ const Adminlogin = () => {
             </div>
         </div>
         </div>
-        </div>
+        </div> */}
+          <section>
+    {" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
+    <span /> <span /> <span /> <span />
+    <div className="signin">
+      <div className="content">
+        <h2>Sign In</h2>
+        <form className="form">
+          <div className="inputBox">
+            <input type="text" value={email}
+                    onChange={(e)=>setEmail(e.target.value)} required /> <i>Email</i>
+          </div>
+          <div className="inputBox">
+            <input type="password"  value={password}
+             onChange={(e)=> setPassword(e.target.value)} required/> <i>Password</i>
+          </div>
+          {/* <div className="links">
+            {" "}
+            <Link to="/forgot-password" style={{color:"#000"}}>Forgot Password</Link> <Link to="/register">Signup</Link>
+          </div> */}
+          <div className="inputBox">
+            <input type="submit" defaultValue="Login" onClick={onSubmit} />
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>{" "}
     </div>
   )
 }

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import './Register.css'
 import { RegisterUser } from '../../Api/Authentication';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Registration() {
 
@@ -31,6 +33,7 @@ function Registration() {
             console.log(data);
             const response = await RegisterUser(data)
             if(response.success === true){
+                toast.success(`${response.message}`)
                 console.log("sucess",response,"response data");
                 setMessage("Register sucessfully Please Login")
                 setTimeout(() => {
@@ -38,6 +41,7 @@ function Registration() {
                 }, 1000); 
             }else{
                 console.log(response);
+                toast.error(`${response.message}`)
                 setMessage(response.message)
             }
         } catch (error) {
@@ -168,9 +172,9 @@ function Registration() {
                     <div className="form-group mb-3">
                         <label htmlFor="password" className="text-inf" />
                         <br />
-                        <a href="/login">
+                        <Link to="/login">
                         if you already have an account please Login !!!
-                        </a>
+                        </Link>
                     </div>
                     <p className="text-danger text-inf mb-4 mt-4" >{message?message:""}</p>
                     <div className="form-group mb-3 mt-3">

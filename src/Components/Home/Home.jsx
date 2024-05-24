@@ -4,13 +4,14 @@ import { GetCategory } from '../../Api/Category';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import Courseintro from '../Course/Courseintro';
+import { Link } from 'react-router-dom';
 
 
 function Home() {
 
   const [CourseData,setCourseData]=useState([])
   const [CategoryData,setCategoryData]=useState([]) 
-  const [isloading,setIsLoading]=useState(true)
+  const [isloading,setIsLoading]=useState(false)
 
   const [courseintro,setCourseIntro]=useState(false)
   const [courseitem,setCourseItem]=useState([])
@@ -95,36 +96,36 @@ function Home() {
   
   
 
-  const CourseDatafetch =async()=>
-    {
-      try {
-        if(isloading)
-          {
-            const Category = await GetCategory();
-            if(Category.success===true){
-              console.log(Category,"success");
-              setCategoryData(Category.data)
-            }else{
-              console.log(Category,"error");
-            }
-            const response = await GetAllCourse();
-            if(response.success=== true){
-              console.log(response,"success");
-               setCourseData(response.courses)
+  // const CourseDatafetch =async()=>
+  //   {
+  //     try {
+  //       if(isloading)
+  //         {
+  //           const Category = await GetCategory();
+  //           if(Category.success===true){
+  //             console.log(Category,"success");
+  //             setCategoryData(Category.data)
+  //           }else{
+  //             console.log(Category,"error");
+  //           }
+  //           const response = await GetAllCourse();
+  //           if(response.success=== true){
+  //             console.log(response,"success");
+  //              setCourseData(response.courses)
               
-            }else{
-              console.log(response,"error");
-            }
-          }
-          setIsLoading(false)
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    useEffect(()=>
-    {
-      CourseDatafetch();
-    },[])
+  //           }else{
+  //             console.log(response,"error");
+  //           }
+  //         }
+  //         setIsLoading(false)
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+    // useEffect(()=>
+    // {
+    //   CourseDatafetch();
+    // },[])
     const handleCourseClick=(data)=>{
       try {
         console.log(data);
@@ -147,14 +148,14 @@ function Home() {
             <nav className="main-menu">
             <div className="container">
                 <div className="main-menu__logo">
-                <a href="#">
+                <Link to="#">
                     <img
                     src="/src/assets/images/logo-light.png"
                     width={183}
                     height={48}
                     alt="Eduact"
                     />
-                </a>
+                </Link>
                 </div>
                 {/* /.main-menu__logo */}
                 <div className="main-menu__nav"></div>
@@ -164,13 +165,13 @@ function Home() {
                     <i class="fa fa-bars"></i>
                 </a> */}
                 {/* /.mobile menu btn */}
-                <a href="#" className="main-menu__search search-toggler">
+                <Link to="#" className="main-menu__search search-toggler">
                     <i className="icon-Search" />
-                </a>
+                </Link>
                 {/* /.search btn */}
-                <a href="/profile" className="main-menu__login">
+                <Link to="/profile" className="main-menu__login">
                     <i className="icon-account-1" />
-                </a>
+                </Link>
                 {/* /.login btn */}
                 {/* <a href="contact.html" class="eduact-btn"><span class="eduact-btn__curve"></span>Get In Touch</a>/.contact btn */}
                 </div>

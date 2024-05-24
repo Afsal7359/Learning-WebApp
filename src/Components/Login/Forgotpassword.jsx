@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { ForgotPassword } from '../../Api/Authentication';
 import './Login.css'
+import { Link } from 'react-router-dom';
 
 const Forgotpassword = () => {
     const [message,setMessage]=useState('');
@@ -120,8 +121,8 @@ const Forgotpassword = () => {
           
           <div className="links">
             {" "}
-            <a href="/login" style={{color:"#000"}}>Login</a>
-             <a href="/register">Signup</a>
+            <Link to="/login" style={{color:"#000"}}>Login</Link>
+             <Link to="/register">Signup</Link>
           </div>
           <div className="inputBox">
             <input type="submit" defaultValue="Login" onClick={onSubmit} />
