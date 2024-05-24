@@ -28,7 +28,7 @@ section::before
   background: linear-gradient(#000,#064f89,#000);
   animation: animate 5s linear infinite;
 }
-@keyframes animate 
+/* @keyframes animate 
 {
   0%
   {
@@ -38,7 +38,7 @@ section::before
   {
     transform: translateY(100%);
   }
-}
+} */
 section span 
 {
   position: relative;

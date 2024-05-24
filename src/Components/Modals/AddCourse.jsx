@@ -157,10 +157,11 @@ console.log(module,"modules");
                               <span className="text-danger">Name is required</span>
                             )}
                     </div>
+                 {image?   <img src={image} alt="" />:""}
                     <div className="form-group m-2 mt-2">
                       <label htmlFor="thumbnail">Thumbnail Image</label>
                       <input
-                          {...register('thumbnail', { required: 'Thumbnail Image is required' })}
+                          {...register('thumbnail')}
                           type="file"
                           className="form-control"
                           name="thumbnail"
@@ -220,7 +221,7 @@ console.log(module,"modules");
                     <div className="form-group m-2 mt-2">
                       <label htmlFor="modules"></label>
                       <input
-                          {...register('modules', { required: 'At least one module is required' })}
+                          {...register('modules')}
                           className="form-control"
                           type="file"
                           // multiple
@@ -228,7 +229,7 @@ console.log(module,"modules");
                           name="modules"
                           onChange={(e)=>handleFileSelect(e)}
                       />
-                      {errors.modules && <span className="text-danger">{errors.modules.message}</span>}
+                      {/* {errors.modules && <span className="text-danger">{errors.modules.message}</span>} */}
                   </div>
                   <div className="form-group m-2 mt-2">
                       <textarea
