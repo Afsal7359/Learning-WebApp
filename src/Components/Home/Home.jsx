@@ -5,6 +5,13 @@ import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-re
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import Courseintro from '../Course/Courseintro';
 import { Link } from 'react-router-dom';
+import bannerimg from '../../assets/images/shapes/banner-bg-1.png'
+import bannerimg2 from '../../assets/images/shapes/banner-1-shape-1.png'
+import bannerimg3 from '../../assets/images/resources/banner-1-1.png'
+import bannerimg4 from '../../assets/images/shapes/banner-cap.png'
+import bannerimg5 from '../../assets/images/shapes/banner-star.png'
+import bannerimg6 from '../../assets/images/shapes/banner-map.png'
+import bannerimg7 from '../../assets/images/shapes/category-bg-1.jpg'
 
 
 function Home() {
@@ -96,36 +103,36 @@ function Home() {
   
   
 
-  // const CourseDatafetch =async()=>
-  //   {
-  //     try {
-  //       if(isloading)
-  //         {
-  //           const Category = await GetCategory();
-  //           if(Category.success===true){
-  //             console.log(Category,"success");
-  //             setCategoryData(Category.data)
-  //           }else{
-  //             console.log(Category,"error");
-  //           }
-  //           const response = await GetAllCourse();
-  //           if(response.success=== true){
-  //             console.log(response,"success");
-  //              setCourseData(response.courses)
+  const CourseDatafetch =async()=>
+    {
+      try {
+        if(isloading)
+          {
+            const Category = await GetCategory();
+            if(Category.success===true){
+              console.log(Category,"success");
+              setCategoryData(Category.data)
+            }else{
+              console.log(Category,"error");
+            }
+            const response = await GetAllCourse();
+            if(response.success=== true){
+              console.log(response,"success");
+               setCourseData(response.courses)
               
-  //           }else{
-  //             console.log(response,"error");
-  //           }
-  //         }
-  //         setIsLoading(false)
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-    // useEffect(()=>
-    // {
-    //   CourseDatafetch();
-    // },[])
+            }else{
+              console.log(response,"error");
+            }
+          }
+          setIsLoading(false)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    useEffect(()=>
+    {
+      CourseDatafetch();
+    },[])
     const handleCourseClick=(data)=>{
       try {
         console.log(data);
@@ -190,7 +197,7 @@ function Home() {
     {/*Hero Banner Start*/}
     <section
       className="hero-banner"
-      style={{ backgroundImage: "url(/src/assets/images/shapes/banner-bg-1.png)" }}
+      style={{ backgroundImage: bannerimg }}
     >
       <div className="container">
         <div className="row">
@@ -218,7 +225,7 @@ function Home() {
                 All the Lorem Ipsum generators on the Internet tend to repeat
                 <br /> predefined chunks as necessary,
                 <img
-                  src="/src/assets/images/shapes/banner-1-shape-1.png"
+                  src={bannerimg2}
                   alt="eduact"
                 />
               </p>
@@ -246,26 +253,26 @@ function Home() {
               className="hero-banner__thumb wow fadeInUp"
               data-wow-delay="700ms"
             >
-              <img src="/src/assets/images/resources/banner-1-1.png" alt="eduact" />
+              <img src={bannerimg3} alt="eduact" />
               <div
                 className="hero-banner__cap wow slideInDown"
                 data-wow-delay="800ms"
               >
-                <img src="/src/assets/images/shapes/banner-cap.png" alt="eduact" />
+                <img src={bannerimg4} alt="eduact" />
               </div>
               {/* banner-cap */}
               <div
                 className="hero-banner__star wow slideInDown"
                 data-wow-delay="850ms"
               >
-                <img src="/src/assets/images/shapes/banner-star.png" alt="eduact" />
+                <img src={bannerimg5} alt="eduact" />
               </div>
               {/* banner-star */}
               <div
                 className="hero-banner__map wow slideInDown"
                 data-wow-delay="900ms"
               >
-                <img src="/src/assets/images/shapes/banner-map.png" alt="eduact" />
+                <img src={bannerimg6} alt="eduact" />
               </div>
               {/* banner-map */}
             </div>
@@ -282,7 +289,7 @@ function Home() {
       {CourseData?CourseData.map((item,index)=>(
         <section
       className="category-one"
-      style={{ backgroundImage: "url(/src/assets/images/shapes/category-bg-1.jpg)" }}
+      style={{ backgroundImage: bannerimg7 }}
     >
       <div className="container" >
         <div className="section-title text-center">

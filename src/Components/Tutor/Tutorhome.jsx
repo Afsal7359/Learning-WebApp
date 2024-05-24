@@ -3,6 +3,8 @@ import AddCourse from '../Modals/AddCourse';
 import { DeleteCourse, GetAllCourse } from '../../Api/Course';
 import Tutorcourse from './Tutorcourse';
 import { toast } from 'react-toastify';
+import img1 from '../../assets/images/shapes/course-shape-2.png'
+import img2 from '../../assets/images/shapes/course-shape-1.png'
 
 
 const Tutorhome = () => {
@@ -122,7 +124,7 @@ const Tutorhome = () => {
         className="course-two__shape-top wow fadeInRight"
         data-wow-delay="300ms"
       >
-        <img src="/src/assets/images/shapes/course-shape-1.png" alt="eduact" />
+        <img src={img2} alt="eduact" />
       </div>
       <div className="container">
         <div className="row">
@@ -177,7 +179,7 @@ const Tutorhome = () => {
         className="course-two__shape-bottom wow fadeInLeft"
         data-wow-delay="400ms"
       >
-        <img src="/src/assets/images/shapes/course-shape-2.png" alt="eduact" />
+        <img src={img1} alt="eduact" />
       </div>
     </section>
     </>}

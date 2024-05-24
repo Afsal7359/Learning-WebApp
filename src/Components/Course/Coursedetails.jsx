@@ -139,9 +139,12 @@ console.log(modules,"moduless");
                           ></iframe>
                         ):(
                           <div className="document-viewer">
-                            <DocViewer
-                              documents={[{ uri: item.module_content_ppt }]}
-                            />
+                            <iframe
+                            height="375"
+                            width="600"
+                            src={item.module_content_ppt}
+                            allowFullScreen
+                          ></iframe>
                           </div>
                         )}
                         

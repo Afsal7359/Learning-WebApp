@@ -208,9 +208,12 @@ console.log(module,"modules");
                     </div> */}
                   {module.map((item,index)=>(
                     <div className="document-viewer">
-                    <DocViewer
-                      documents={[{ uri: item }]}
-                    />
+                            <iframe
+                            height="375"
+                            width="600"
+                            src={item.module_content_ppt?item.module_content_ppt:item.module_content_video}
+                            allowFullScreen
+                          ></iframe>
                   </div>
                   ))}
 
