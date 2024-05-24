@@ -27,13 +27,13 @@ function Adminheader() {
                 <Link to={"/admin"}>Dashboard</Link>
               </li>
               <li>
-              <Link to={"/admin/category"}>Category</Link>
+              <Link to={"/admin-category"}>Category</Link>
               </li>
               <li>
-              <Link to={"/admin/carosuel"}>Carousel</Link>
+              <Link to={"/admin-carosuel"}>Carousel</Link>
               </li>
               <li>
-              <Link to={"/admin/Users"}>Users</Link>
+              <Link to={"/admin-Users"}>Users</Link>
               </li>
             </ul>
           </div>

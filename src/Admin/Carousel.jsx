@@ -13,6 +13,7 @@ const Carousel = () => {
     const [carouselData,setCarouselData]=useState([]);
     const [image, setImage] = useState(null);
     const { register, handleSubmit, watch, formState: { errors },} = useForm()
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -26,12 +27,20 @@ const Carousel = () => {
     //       reader.readAsDataURL(file);
     //     }
     //   };
+    
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
     const handleImageChange = (event) => {
       setImage(event.target.files[0]);
     };
     const CarosuelDataFetch = async()=>{
         try {
-           if (carouselData.length === 0){
+           
             const response =await GetAllCarousel()
             if(response.success === true){
                 setCarouselData(response.data);
@@ -39,7 +48,7 @@ const Carousel = () => {
             }else{
                 console.log(response);
             }
-           }
+           
         } catch (error) {
             console.log(error);
         }
@@ -64,8 +73,8 @@ const Carousel = () => {
             if (response.success === true){
                 console.log(response);
                 toast.success(`${response.message}`)
-                window.location.href = '/admin/carosuel'
-                
+                CarosuelDataFetch();
+                setIsModalOpen(false);
             }else{
                 console.log(response,"error");
                 toast.error(`${response.message}`)
@@ -100,8 +109,7 @@ const Carousel = () => {
       <div className="row">
       <div className='d-flex justify-content-center mt-5 mb-5'>
         <div className='align-center' style={{ maxWidth: '200px' }}>
-            <button className='btn btn-success'    data-bs-target="#modaldemo1"
-                data-bs-toggle="modal" >Add Carousel</button>
+            <button className='btn btn-success'  onClick={openModal} >Add Carousel</button>
         </div>
       </div>
       {isloading?(
@@ -133,9 +141,10 @@ const Carousel = () => {
 </div>
 
   {/* Addmodal */}
-  <div id="modaldemo1" className="modal fade">
-      <div className="modal-dialog" role="document">
-        <div className="modal-content">
+  {isModalOpen && (
+    <div className="modal " tabIndex="-1" role="dialog" style={{ display: 'block'}}>
+            <div className="modal-dialog" role="document">
+            <div className="modal-content" >
         <form onSubmit={onSubmitForm}>
             <div className="modal-body">
               <button
@@ -143,6 +152,7 @@ const Carousel = () => {
                 className="btn-close"
                 data-bs-dismiss="modal"
                 type="button"
+                onClick={closeModal}
               >
               </button>
              
@@ -184,7 +194,7 @@ const Carousel = () => {
         {/* modal-content */}
       </div>
       {/* modal-dialog */}
-    </div>
+    </div>)}
     {/*Add modal close */}
 
     </div>
