@@ -16,6 +16,8 @@ const Carousel = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [selectedFile, setSelectedFile] = useState(null);
+    const [deleteid,setdeleteId]=useState(0);
+    const [deletemodal,setdeletemodal]=useState(false)
 
     // const handleFileChange = (event) => {
     //     const file = event.target.files[0];
@@ -90,6 +92,7 @@ const Carousel = () => {
         const token = await refreshToken(gettoken)
         if(token.access){
           const response = await DeleteCarosuel(payload,token.access);
+          CarosuelDataFetch();
         if(response.success === true){
           toast.success(`${response.message}`)
         }else{
@@ -101,6 +104,19 @@ const Carousel = () => {
       } catch (error) {
         console.log(error);
         // toast.error(`${error}`)
+      }
+    }
+    const handledelete =async()=>{
+      try {
+        const gettoken = await token("token-admin-refresh-vini")
+        const response = await DeleteCarosuel(deleteid,gettoken.access);
+        if(response.success){
+          toast.success(`${response.message}`)
+          CarosuelDataFetch();
+          setdeletemodal(false)
+        }
+      } catch (error) {
+        
       }
     }
  return (
@@ -130,7 +146,9 @@ const Carousel = () => {
                           Some quick example text to build on the card title and make up the bulk of
                           the card's content.
                       </p> */}
-                      <a  className="btn btn-danger" onClick={(item)=>handleDelete(item.id)}>
+                      <a  className="btn btn-danger"   onClick={()=>{
+                        setdeleteId(item.id)
+                        setdeletemodal(true)}} >
                           Delete
                       </a>
                   </div>
@@ -196,6 +214,31 @@ const Carousel = () => {
       {/* modal-dialog */}
     </div>)}
     {/*Add modal close */}
+
+    {deletemodal && (
+    <div className="modal " tabIndex="-1" role="dialog" style={{ display: 'block'}}>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                   
+                    <div class="modal-body">
+                        <div class="modal-header" >
+                            <h5 class="modal-title" id="exampleModalLabel">Confirmation </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"  onClick={()=>setdeletemodal(false)}>
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                           </div>
+                           <div class="modal-body">
+                            <p>Are you sure you want to delete?</p>
+                          </div>
+                          <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary" id="close-modal" onClick={()=>setdeletemodal(false)}>No</button>
+                            <a   class="btn btn-danger" type="button" onClick={handledelete}>Yes</a>
+                           </div>
+                
+                </div>
+            </div>
+        </div>
+       </div>)}
 
     </div>
   )

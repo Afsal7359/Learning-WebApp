@@ -5,6 +5,7 @@ import Tutorcourse from './Tutorcourse';
 import { toast } from 'react-toastify';
 import img1 from '../../assets/images/shapes/course-shape-2.png'
 import img2 from '../../assets/images/shapes/course-shape-1.png'
+import { Link } from 'react-router-dom';
 
 
 const Tutorhome = () => {
@@ -95,8 +96,8 @@ const Tutorhome = () => {
             <div className="main-menu__nav"></div>
             {/* /.main-menu__nav */}
             <div className="main-menu__right">
-            <a
-                href="/tutor/Profile"
+            <Link
+                to="/tutor/Profile"
                 className="main-menu__login p-2"
                 style={{
                 height: 40,
@@ -109,7 +110,7 @@ const Tutorhome = () => {
                 <i className="icon-account-1" />
                 <span className="eduact-btn__curve" />
                 Profile
-            </a>
+            </Link>
             {/* /.login btn */}
             {/* <a href="contact.html" class="eduact-btn"><span class="eduact-btn__curve"></span>Get In Touch</a>/.contact btn */}
             </div>

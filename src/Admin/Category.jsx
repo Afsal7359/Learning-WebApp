@@ -7,6 +7,14 @@ import { toast } from 'react-toastify'
 
 const Category = () => {
     const { register, handleSubmit, watch, formState: { errors },} = useForm()
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => {
+        setIsModalOpen(true);
+      };
+    
+      const closeModal = () => {
+        setIsModalOpen(false);
+      };
 
     const [categorydata,setCategoryData]=useState([])
     const [deleteid,setdeleteId]=useState(0);
@@ -49,7 +57,8 @@ const Category = () => {
             if(response.success === true){
                 toast.success(`${response.message}`)
                 console.log(response,"response");
-                window.location.href=('/admin/category')
+                Categorydatafetch()
+                setIsModalOpen(false)
             }else{
                 toast.error(`${response.message}`)
                 console.log(response,"response error");
@@ -76,7 +85,7 @@ const Category = () => {
             setIsLoading(false)
             if(response.success === true){
                 toast.success(response.message)
-                window.location.href = '/admin/category'
+                window.location.href = '/admin-category'
             }
            
         } catch (error) {
@@ -88,8 +97,7 @@ const Category = () => {
         <Adminheader/>
         <div className='d-flex justify-content-center mt-5 mb-5'>
         <div className='align-center' style={{ maxWidth: '200px' }}>
-            <button className='btn btn-success'    data-bs-target="#modaldemo1"
-                data-bs-toggle="modal" >Add Category</button>
+            <button className='btn btn-success'      onClick={openModal}>Add Category</button>
         </div>
       </div>
       {isloading?(<div class="loader-container">
@@ -120,12 +128,12 @@ const Category = () => {
                             </table>
                         </div>)}
         {/* Addmodal */}
-        <div id="modaldemo1" className="modal fade">
-        {isloading? (<div class="loader-container">
-                      <div class="loader"></div>
-                    </div>):(   
-      <div className="modal-dialog" role="document">
-        <div className="modal-content">
+        {isModalOpen && (
+    <div className="modal " tabIndex="-1" role="dialog" style={{ display: 'block'}}>
+     
+ 
+            <div className="modal-dialog" role="document">
+            <div className="modal-content" >
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="modal-body">
               <button
@@ -162,8 +170,8 @@ const Category = () => {
           {/* modal-body */}
         </div>
         {/* modal-content */}
-      </div>)}
-            </div>
+      </div>
+            </div>)}
     {/*Add modal close */}
 
     {/* <!-- Delete Modal --> */}

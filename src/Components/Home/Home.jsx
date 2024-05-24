@@ -12,6 +12,7 @@ import bannerimg4 from '../../assets/images/shapes/banner-cap.png'
 import bannerimg5 from '../../assets/images/shapes/banner-star.png'
 import bannerimg6 from '../../assets/images/shapes/banner-map.png'
 import bannerimg7 from '../../assets/images/shapes/category-bg-1.jpg'
+import logo from '../../assets/images/logo-light.png'
 
 
 function Home() {
@@ -157,7 +158,7 @@ function Home() {
                 <div className="main-menu__logo">
                 <Link to="#">
                     <img
-                    src="/src/assets/images/logo-light.png"
+                    src={logo}
                     width={183}
                     height={48}
                     alt="Eduact"
