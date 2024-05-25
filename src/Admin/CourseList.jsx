@@ -110,7 +110,7 @@ const CourseList = () => {
         </div>
         {Modal&& <UpdateToTrending setModal={setModal} id={deleteid} CourseDatafetch={CourseDatafetch} setLoading={setLoading}/>}
         </section>
-        <div className="modal " tabIndex="-1" role="dialog" style={{ display: 'block',
+       {deleteModal&& <div className="modal " tabIndex="-1" role="dialog" style={{ display: 'block',
             background: "rgba(102, 54, 255, 0.12)",
             borderRadius: "16px",
             boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
@@ -150,7 +150,7 @@ const CourseList = () => {
           </div>
         </div>
     </div>
-        </div>
+        </div>}
     </div>
   )
 }

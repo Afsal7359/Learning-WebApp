@@ -209,7 +209,7 @@ function Tutor() {
                           aria-label="Close"
                           data-bs-dismiss="modal"
                           id="close-modal" onClick={()=>setVerifyModal(false)}>No</button>
-                          <a onClick={handleverifyClick}  class="btn btn-danger" type="button">Yes</a>
+                          <a onClick={handleverifyClick}  class="btn btn-danger" type="button">Block</a>
                          </div>
             
             </div>
