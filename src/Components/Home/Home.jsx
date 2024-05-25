@@ -13,7 +13,8 @@ import bannerimg5 from '../../assets/images/shapes/banner-star.png'
 import bannerimg6 from '../../assets/images/shapes/banner-map.png'
 import bannerimg7 from '../../assets/images/shapes/category-bg-1.jpg'
 import logo from '../../assets/images/logo-light.png'
-
+import logo2 from '../../assets/images/logo-vinjan.png'
+import proficon from '../../assets/images/proficon2.png'
 
 function Home() {
 
@@ -107,8 +108,7 @@ function Home() {
   const CourseDatafetch =async()=>
     {
       try {
-        if(isloading)
-          {
+        
             const Category = await GetCategory();
             if(Category.success===true){
               console.log(Category,"success");
@@ -124,7 +124,6 @@ function Home() {
             }else{
               console.log(response,"error");
             }
-          }
           setIsLoading(false)
       } catch (error) {
         console.log(error);
@@ -152,15 +151,15 @@ function Home() {
         <div className="loader"></div>
       </div>
     ):<div>
-        <header className="main-header">
+        <header className="main-header" style={{backgroundColor:"#fff"}}>
             <nav className="main-menu">
             <div className="container">
                 <div className="main-menu__logo">
                 <Link to="#">
                     <img
-                    src={logo}
-                    width={183}
-                    height={48}
+                    src={logo2}
+                    width={410}
+                    height={60}
                     alt="Eduact"
                     />
                 </Link>
@@ -173,12 +172,13 @@ function Home() {
                     <i class="fa fa-bars"></i>
                 </a> */}
                 {/* /.mobile menu btn */}
-                <Link to="#" className="main-menu__search search-toggler">
+                {/* <Link to="#" className="main-menu__search search-toggler">
                     <i className="icon-Search" />
-                </Link>
+                </Link> */}
                 {/* /.search btn */}
                 <Link to="/profile" className="main-menu__login">
-                    <i className="icon-account-1" />
+                    {/* <i className="icon-account-1"/> */}
+                    <img src={proficon} alt="" />
                 </Link>
                 {/* /.login btn */}
                 {/* <a href="contact.html" class="eduact-btn"><span class="eduact-btn__curve"></span>Get In Touch</a>/.contact btn */}
@@ -190,10 +190,7 @@ function Home() {
             {/* /.main-menu */}
         </header>
 
-    <div className="stricky-header stricked-menu main-menu">
-      <div className="sticky-header__content" />
-      {/* /.sticky-header__content */}
-    </div>
+   
     {/* /.stricky-header */}
     {/*Hero Banner Start*/}
     <section
@@ -223,8 +220,10 @@ function Home() {
                 className="hero-banner__text wow fadeInUp"
                 data-wow-delay="500ms"
               >
-                All the Lorem Ipsum generators on the Internet tend to repeat
-                <br /> predefined chunks as necessary,
+              Education, through Vijnjan, fosters critical thinking, creativity, and <br/> 
+              essential skills for personal and societal growth.
+                {/* All the Lorem Ipsum generators on the Internet tend to repeat
+                <br /> predefined chunks as necessary, */}
                 <img
                   src={bannerimg2}
                   alt="eduact"
@@ -287,7 +286,7 @@ function Home() {
       {/* banner-border */}
     </section>
     
-      {CourseData?CourseData.map((item,index)=>(
+      {CourseData.length !==0 ?CourseData.map((item,index)=>(
         <section
       className="category-one"
       style={{ backgroundImage: bannerimg7 }}
@@ -390,7 +389,9 @@ function Home() {
         </CarouselProvider>
       </div>
     </section>
-      )):""}
+      )):(
+        <div className="loader-container"><p className='text-danger'>No Course Found !!!</p></div>
+      )}
 
     <div className="search-popup">
       <div className="search-popup__overlay search-toggler" />

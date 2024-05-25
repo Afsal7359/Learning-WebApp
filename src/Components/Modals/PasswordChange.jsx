@@ -41,9 +41,23 @@ const PasswordChange = ({Modal,setModal}) => {
   return (
     <div>
        
-      <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
+       <div className="modal bg" tabIndex="-1" role="dialog" style={{
+            display: 'block',
+            background: "rgba(102, 54, 255, 0.12)",
+            borderRadius: "16px",
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+            backdropFilter: "blur(15.8px)",
+            WebkitBackdropFilter: "blur(5.8px)",
+            border: "1px solid rgba(255, 255, 255, 0.26)"
+      }}>
           <div className="modal-dialog" role="document">
-          <div className="modal-content">
+          <div className="modal-content" style={{  display: 'block',
+          background: "rgba(102, 54, 255, 0.12)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(5.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"}}>
         <form onSubmit={handleSubmit(onSubmits)}>
             <div className="modal-body">
               <button
@@ -56,7 +70,7 @@ const PasswordChange = ({Modal,setModal}) => {
               </button>
              
               <div className="form-group m-2 mt-4">
-                <label htmlFor="old_password">old password</label>
+                <label htmlFor="old_password" style={{color:"#fff"}}>old password</label>
                 <input
                     {...register('old_password', { required: 'old password is required' })}
                     type="text"
@@ -66,7 +80,7 @@ const PasswordChange = ({Modal,setModal}) => {
                 {errors.old_password && <span className="text-danger">{errors.old_password.message}</span>}
             </div>
             <div className="form-group m-2 mt-4">
-                <label htmlFor="new_password">New password</label>
+                <label htmlFor="new_password"  style={{color:"#fff"}}>New password</label>
                 <input
                     {...register('new_password', { required: 'new password is required' })}
                     type="text"
@@ -75,17 +89,21 @@ const PasswordChange = ({Modal,setModal}) => {
                 />
                 {errors.new_password && <span className="text-danger">{errors.new_password.message}</span>}
             </div>
-              <button className="btn btn-primary btn-block mt-5" type="submit">
-                Submit
-              </button>
+            <div className="d-flex justify-content-between">
+            
               <button
                 aria-label="Close"
                 className="btn btn-outline-danger mt-5"
                 data-bs-dismiss="modal"
                 type="button"
+                onClick={()=>setModal(false)}
               >
                 Cancel
               </button>
+              <button className="btn btn-primary btn-block mt-5" type="submit">
+                Change Password
+              </button>
+            </div>
             </div>
           </form>
           {/* modal-body */}

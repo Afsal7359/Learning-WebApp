@@ -7,6 +7,7 @@ import { refreshToken } from '../../Api/Authentication'
 import { token } from '../../Api/token'
 import './Modal.css'
 import DocViewer from 'react-doc-viewer';
+import info from '../../assets/images/info.png'
 
 const AddCourse = ({setPage,setModal,datafetch}) => {
 
@@ -17,7 +18,7 @@ const AddCourse = ({setPage,setModal,datafetch}) => {
     const [module,setModule]=useState([])
     const [categorydata,setCategoryData]=useState([])
         
-        
+    
         const handleFileSelect =async(event) =>{
             const files = event.target.files[0];
             
@@ -119,60 +120,94 @@ const AddCourse = ({setPage,setModal,datafetch}) => {
             }
           
           };
+          const handleRemoveModule = (index) => {
+            setModule(module.filter((_, i) => i !== index));
+          };
 console.log(module,"modules");
   return (
         <> 
-         {state?(
-          <div className="loader-container">
-          <div className="loader"></div>
-          <p className='text-danger'>Please Wait... Module is Uploading, this may take some time</p>
-        </div>
-        
-         ):(<div className="modal " tabIndex="-1" role="dialog" style={{ display: 'block'}}>
+     <div className="modal bg" tabIndex="-1" role="dialog" style={{
+          display: 'block',
+          background: "rgba(102, 54, 255, 0.12)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(10.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"
+      }}>
+      
             <div className="modal-dialog" role="document">
-            <div className="modal-content" >
+            <div className="modal-content p-2" style={{
+          display: 'block',
+          background: "rgba(102, 54, 255, 0.12)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(5.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"
+      }} >
+             
               <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="modal-body">
-                    <button
-                    aria-label="Close"
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    onClick={() => {
-                      setModal(false);
-                      setPage(true);
-                    }}
-                      type="button"
-                    >
-                      {/* <span aria-hidden="true">&times;</span> */}
-                    </button>
-                    <div className="form-group m-2 mt-2">
-                      <input
-                      {...register('name', { required: true, minLength: 1 })}
+              {state?(
+                <div className="loader-container"> <div className="loader"></div> </div>
+              ):(
+                <div className="modal-body">
+                    
+                    <h4 style={{textAlign:"center"}}>Add course</h4>
+                    <div className="form-group m-2 mt-5" >
+                    <label htmlFor="thumbnail" style={{color:"#2A254D"}}>Course Name</label>
+                      <input style={{borderRadius:"10px"}}
+                       {...register('name', {
+                        required: 'Course name is required',
+                        minLength: { value: 1, message: 'Minimum length is 1' },
+                        pattern: {
+                          value: /^[a-zA-Z0-9\s]*$/,
+                          message: 'Only alphabets and numbers are allowed'
+                        }
+                      })}
                         type="text"
                         className="form-control"
                         placeholder="Course name "
                         required=""
                       />
-                      {errors.name && errors.name.type === 'required' && (
-                              <span className="text-danger">Name is required</span>
-                            )}
+                       {errors.name && <p className='text-danger'> <i>{errors.name.message}</i> </p>}
+                      <p className='text-black mt-2'  style={{fontSize:"13px",color:"#3f3a5e"}}> <img src={info} alt="" height={14} /> <i>Only alphabets and numbers are allowed</i> </p>
+                      
                     </div>
-                 {image?   <img src={image} alt="" />:""}
-                    <div className="form-group m-2 mt-2">
-                      <label htmlFor="thumbnail">Thumbnail Image</label>
-                      <input
+                    <div className="form-group m-2 mt-3">
+                  <label htmlFor="thumbnail" style={{color:"#2A254D"}}>Description</label>
+                  <textarea style={{borderRadius:"10px"}}
+                         {...register('description', {
+                          required: 'Course Description is required',
+                          validate: (value) => {
+                            const wordCount = value.trim().split(/\s+/).length;
+                            return wordCount <= 10000 || 'Description must not exceed 10,000 words';
+                          }
+                        })}
+                        className={`form-control ${errors.description ? 'is-invalid' : ''}`}
+                          placeholder="Course Description"
+                          rows={2}
+                      />
+                       
+                      {errors.description && <div className="invalid-feedback">{errors.description.message}</div>}
+                  </div>
+                    <div className="form-group m-2 mt-3">
+                    <label htmlFor="thumbnail" style={{color:"#2A254D"}}>Thumbnail Image</label>
+                      <input style={{borderRadius:"10px"}}
                           {...register('thumbnail')}
                           type="file"
                           className="form-control"
                           name="thumbnail"
                           onChange={handleImage}
                       />
+                        {image?   <img className='mt-4 mb-3' src={image} height={55} alt="" />:""}
                       {errors.thumbnail && <span className="text-danger">{errors.thumbnail.message}</span>}
                   </div>
-                  <div className="form-group m-2 mt-2  ">
-                      <select
+                  <div className="form-group m-2 mt-3  ">
+                  <label htmlFor="thumbnail" style={{color:"#2A254D"}}>Category</label>
+                  <select style={{borderRadius:"10px",height:"35px",width:"100%"}}
                           {...register('category', { required: 'Category is required' })}
-                          className="form-control custom-select"
+                       
                           name="category"
                           onClick={handleCategory}
                           onMouseEnter={handleCategory}
@@ -187,15 +222,17 @@ console.log(module,"modules");
                       {errors.category && <span className="text-danger">{errors.category.message}</span>}
                   </div>
                 
-                  <div className="form-group m-2 mt-2">
-                      <input
+                  <div className="form-group m-2 mt-3">
+                  <label htmlFor="thumbnail" style={{color:"#2A254D"}}>Duration </label>
+                  <input style={{borderRadius:"10px"}}
                           {...register('duration', { required: 'Duration is required' })}
-                          type="text"
+                          type="number"
                           className="form-control"
                           placeholder="Duration"
                           name="duration"
                       />
                       {errors.duration && <span className="text-danger">{errors.duration.message}</span>}
+                      <p className='text-black mt-2'  style={{fontSize:"13px",color:"#3f3a5e"}}> <img src={info} alt="" height={14} /> <i>Type Duration in Minutes</i> </p>
                   </div>
                     {/* <div className="form-group m-2 mt-4">
                       <input
@@ -207,20 +244,49 @@ console.log(module,"modules");
                         required=""
                       />
                     </div> */}
-                  {module.map((item,index)=>(
+                  {/* {module.map((item,index)=>(
                     <div className="document-viewer">
                             <iframe
-                            height="375"
-                            width="600"
+                            height="200"
+                            width="500"
                             src={item.module_content_ppt?item.module_content_ppt:item.module_content_video}
                             allowFullScreen
                           ></iframe>
                   </div>
-                  ))}
+                  ))} */}
+                    {module.map((item, index) => (
+        <div key={index} className="document-viewer" style={{ position: 'relative', marginBottom: '20px' }}>
+          <iframe
+            height="150"
+            width="400"
+            src={item.module_content_ppt ? item.module_content_ppt : item.module_content_video}
+            allowFullScreen
+          ></iframe>
+          <button
+            onClick={() => handleRemoveModule(index)}
+            style={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              background: 'red',
+              color: 'white',
+              border: 'none',
+              borderRadius: '50%',
+              width: '25px',
+              height: '25px',
+              textAlign: 'center',
+              cursor: 'pointer',
+              lineHeight: '25px',
+            }}
+          >
+            &times;
+          </button>
+        </div>
+      ))}
 
-                    <div className="form-group m-2 mt-2">
-                      <label htmlFor="modules"></label>
-                      <input
+                    <div className="form-group m-2 mt-3">
+                    <label htmlFor="thumbnail" style={{color:"#2A254D"}}>Modules</label>
+                      <input style={{borderRadius:"10px"}}
                           {...register('modules')}
                           className="form-control"
                           type="file"
@@ -229,33 +295,28 @@ console.log(module,"modules");
                           name="modules"
                           onChange={(e)=>handleFileSelect(e)}
                       />
+                       <p className='text-black mt-2'  style={{fontSize:"13px",color:"#3f3a5e"}}> <img src={info} alt="" height={14} /> <i>Please Upload Modules One by One</i> </p>
                       {/* {errors.modules && <span className="text-danger">{errors.modules.message}</span>} */}
                   </div>
-                  <div className="form-group m-2 mt-2">
-                      <textarea
-                          {...register('description')}
-                          className="form-control"
-                          placeholder="Course Description"
-                          rows={2}
-                      />
-                  </div>
-                    <button className="btn btn-primary btn-block mt-2" type="submit">
-                      Save
-                    </button>
+                  <div className="d-flex justify-content-between mt-5">
+                    
                     <button
                       aria-label="Close"
                       className="btn btn-outline-danger mt-2"
                       data-bs-dismiss="modal"
                       type="button"
-                    >
-                      Cancel
+                      onClick={()=>setModal(false)}>Cancel</button>
+                    <button className="btn btn-primary btn-block mt-2" type="submit">
+                      Add Course
                     </button>
+                    </div>
                   </div>
+              ) }
                 </form>
                 {/* modal-body */}
               </div>
             </div>
-          </div>)}
+          </div>
           </>
   )
 }

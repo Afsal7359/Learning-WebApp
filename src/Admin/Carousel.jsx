@@ -122,12 +122,15 @@ const Carousel = () => {
  return (
     <div>
         <Adminheader/>
-      <div className="row">
-      <div className='d-flex justify-content-center mt-5 mb-5'>
-        <div className='align-center' style={{ maxWidth: '200px' }}>
-            <button className='btn btn-success'  onClick={openModal} >Add Carousel</button>
-        </div>
-      </div>
+      <div className="row home">
+      <div className='d-flex justify-content-end mt-5 mb-5' style={{ paddingRight: '5em' }}>
+  <div style={{ maxWidth: '200px' }}>
+    <button className='btn btn-success' onClick={openModal}>
+      Add Carousel
+    </button>
+  </div>
+</div>
+
       {isloading?(
         <div class="loader-container">
         <div class="loader"></div>
@@ -138,7 +141,7 @@ const Carousel = () => {
                       className="card-img-top" 
                       src={item.carousel_image ? item.carousel_image : ""} 
                       alt="Card image cap" 
-                      style={{ width: "400px", height: "190px" }} // Adjust width and height as needed
+                      style={{ width: "300px", height: "190px" }} // Adjust width and height as needed
                   />
                   <div className="card-body">
                       <h5 className="card-title">{item.id}</h5>
@@ -160,9 +163,21 @@ const Carousel = () => {
 
   {/* Addmodal */}
   {isModalOpen && (
-    <div className="modal " tabIndex="-1" role="dialog" style={{ display: 'block'}}>
+    <div className="modal " tabIndex="-1" role="dialog"  style={{ display: 'block',
+    background: "rgba(102, 54, 255, 0.12)",
+    borderRadius: "16px",
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+    backdropFilter: "blur(10.8px)",
+    WebkitBackdropFilter: "blur(5.8px)",
+    border: "1px solid rgba(255, 255, 255, 0.26)"}}>
             <div className="modal-dialog" role="document">
-            <div className="modal-content" >
+            <div className="modal-content"  style={{ display: 'block',
+    background: "rgba(102, 54, 255, 0.12)",
+    borderRadius: "16px",
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+    backdropFilter: "blur(10.8px)",
+    WebkitBackdropFilter: "blur(25.8px)",
+    border: "1px solid rgba(255, 255, 255, 0.26)"}}>
         <form onSubmit={onSubmitForm}>
             <div className="modal-body">
               <button
@@ -175,7 +190,7 @@ const Carousel = () => {
               </button>
              
               <div className="form-group m-2 mt-4">
-                {/* <label htmlFor="thumbnail">carousel Image</label> */}
+                <label htmlFor="thumbnail" className='text-black'>carousel Image</label>
                 {/* {selectedFile && (
                                        <img
                                        src={selectedFile}
@@ -194,17 +209,21 @@ const Carousel = () => {
                 />
                 {errors.carousel_image && <span className="text-danger">{errors.carousel_image.message}</span>}
             </div>
-              <button className="btn btn-primary btn-block mt-5" type="submit">
-                Submit
-              </button>
+            <div className="d-flex justify-content-between ">
+              
               <button
                 aria-label="Close"
-                className="btn btn-outline-danger mt-5"
+                className="btn btn-danger mt-5"
                 data-bs-dismiss="modal"
                 type="button"
+                onClick={()=>setIsModalOpen(false)}
               >
                 Cancel
               </button>
+              <button className="btn btn-primary btn-block mt-5" type="submit">
+                Submit
+              </button>
+              </div>
             </div>
           </form>
           {/* modal-body */}
@@ -216,23 +235,31 @@ const Carousel = () => {
     {/*Add modal close */}
 
     {deletemodal && (
-    <div className="modal " tabIndex="-1" role="dialog" style={{ display: 'block'}}>
+    <div className="modal " tabIndex="-1" role="dialog"  style={{ display: 'block',
+    background: "rgba(102, 54, 255, 0.12)",
+    borderRadius: "16px",
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+    backdropFilter: "blur(10.8px)",
+    WebkitBackdropFilter: "blur(5.8px)",
+    border: "1px solid rgba(255, 255, 255, 0.26)"}}>
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content" style={{ display: 'block',
+    background: "rgba(102, 54, 255, 0.12)",
+    borderRadius: "16px",
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+    backdropFilter: "blur(10.8px)",
+    WebkitBackdropFilter: "blur(5.8px)",
+    border: "1px solid rgba(255, 255, 255, 0.26)"}}>
                    
                     <div class="modal-body">
-                        <div class="modal-header" >
                             <h5 class="modal-title" id="exampleModalLabel">Confirmation </h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"  onClick={()=>setdeletemodal(false)}>
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                           </div>
+
                            <div class="modal-body">
-                            <p>Are you sure you want to delete?</p>
-                          </div>
-                          <div class="modal-footer">
+                            <p className='text-white'>Are you sure you want to delete?</p>
+                            <div className="d-flex justify-content-between ">
                            <button type="button" class="btn btn-secondary" id="close-modal" onClick={()=>setdeletemodal(false)}>No</button>
                             <a   class="btn btn-danger" type="button" onClick={handledelete}>Yes</a>
+                           </div>
                            </div>
                 
                 </div>

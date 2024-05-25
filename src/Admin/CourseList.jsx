@@ -10,6 +10,7 @@ const CourseList = () => {
     const [isloading,setLoading]=useState(true)
     const [deleteid,setDeleteId]=useState(null)
     const [Modal,setModal]=useState(false)
+    const [deleteModal,setDeleteModal]=useState(false)
 
     const CourseDatafetch=async()=>{
         try {
@@ -34,6 +35,7 @@ const CourseList = () => {
           const response = await DeleteCourse(deleteid,tokens.access)
           if(response.success === true){
             console.log(response,"success");
+            setDeleteModal(false)
             toast.success(`${response.message}`)
             CourseDatafetch();
           }else{
@@ -96,7 +98,7 @@ const CourseList = () => {
                       setDeleteId(item.id)
                       setModal(true)
                      }}>Add To Trending</button>:""}
-                      <button className='btn btn-danger' onClick={()=>{setDeleteId(item.id)}} data-bs-target="#deletemodal" data-bs-toggle="modal">Delete</button>
+                      <button className='btn btn-danger' onClick={()=>{setDeleteId(item.id),setDeleteModal(true)}} data-bs-target="#deletemodal" data-bs-toggle="modal">Delete</button>
                     </div>
                     </a>
                   </div>
@@ -108,33 +110,47 @@ const CourseList = () => {
         </div>
         {Modal&& <UpdateToTrending setModal={setModal} id={deleteid} CourseDatafetch={CourseDatafetch} setLoading={setLoading}/>}
         </section>
-        <div id="deletemodal" class="modal fade">
+        <div className="modal " tabIndex="-1" role="dialog" style={{ display: 'block',
+            background: "rgba(102, 54, 255, 0.12)",
+            borderRadius: "16px",
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+            backdropFilter: "blur(10.8px)",
+            WebkitBackdropFilter: "blur(5.8px)",
+            border: "1px solid rgba(255, 255, 255, 0.26)"}}>
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style={{
+          display: 'block',
+          background: "rgba(102, 54, 255, 0.12)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(5.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"
+      }}>
             <div className="modal-body">
             <button
               aria-label="Close"
               className="btn-close"
               data-bs-dismiss="modal"
-              type="button"
+              type="button" onClick={()=>setDeleteModal(false)}
             >
               {/* <span aria-hidden="true">&times;</span> */}
             </button>
             <div class="modal-body">
-                        <p>Are you sure you want to delete?</p>
+                        <p className='text-white'>Are you sure you want to delete?</p>
                       </div>
-                      <div class="modal-footer">
+                      <div className="d-flex justify-content-between mt-5">
                        <button type="button" class="btn btn-secondary"
                         aria-label="Close"
                         data-bs-dismiss="modal"
-                        id="close-modal">No</button>
+                        id="close-modal" onClick={()=>setDeleteModal(false)}>No</button>
                         <a onClick={handleDeleteCourse}  class="btn btn-danger" type="button">Yes</a>
                        </div>
           
           </div>
         </div>
     </div>
-   </div>
+        </div>
     </div>
   )
 }

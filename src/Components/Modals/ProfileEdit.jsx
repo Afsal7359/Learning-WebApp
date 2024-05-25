@@ -35,9 +35,10 @@ const ProfileEdit = ({Modal,setModal,handle}) => {
                 const response = await ProfileImageChange(formdata,tokencreate.access)
                 setLoading(false)
                 if(response.success === true){
+                    handle()
                  toast.success(`${response.message}`)
                  setModal(false)
-                 handle()
+               
                 }else{
                  toast.error(`${response.message}`)
                  console.log(response);
@@ -51,9 +52,25 @@ const ProfileEdit = ({Modal,setModal,handle}) => {
 
   return (
     <div>
-        <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
+    <div className="modal bg" tabIndex="-1" role="dialog" style={{
+          display: 'block',
+          background: "rgba(102, 54, 255, 0.12)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(15.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"
+      }}>
         <div className="modal-dialog" role="document">
-          <div className="modal-content">
+          <div className="modal-content" style={{
+                display: 'block',
+                background: "rgba(102, 54, 255, 0.12)",
+                borderRadius: "16px",
+                boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                backdropFilter: "blur(5.8px)",
+                WebkitBackdropFilter: "blur(5.8px)",
+                border: "1px solid rgba(255, 255, 255, 0.26)"
+          }}>
           {isloading?( <div class="loader-container">
         <div class="loader"></div>
       </div>):(
@@ -70,16 +87,7 @@ const ProfileEdit = ({Modal,setModal,handle}) => {
                 </button>
                 
                 <div className="form-group m-2 mt-4">
-                    {/* <label htmlFor="thumbnail">carousel Image</label> */}
-                    {/* {selectedFile && (
-                                        <img
-                                        src={selectedFile}
-                                        alt="Selected Image"
-                                        className="preview-image"
-                                        style={{ width: '100px', height: '100px', marginTop: '10px', margin:'2em' }}
-                                        />
-                                        
-                                            )} */}
+                   
                     <input
                         {...register('profile_image', { required: 'profile image is required' })}
                         type="file"
@@ -89,17 +97,21 @@ const ProfileEdit = ({Modal,setModal,handle}) => {
                     />
                     {errors.profile_image && <span className="text-danger">{errors.profile_image.message}</span>}
                 </div>
-                <button className="btn btn-primary btn-block mt-5" type="submit">
-                    Submit
-                </button>
-                <button
-                    aria-label="Close"
-                    className="btn btn-outline-danger mt-5"
-                    data-bs-dismiss="modal"
-                    type="button"
-                >
-                    Cancel
-                </button>
+              
+                <div className="d-flex justify-content-between mt-5">
+                    <button
+                        aria-label="Close"
+                        className="btn btn-danger"
+                        data-bs-dismiss="modal"
+                        type="button"    onClick={()=>setModal(false)}
+                    >
+                        Cancel
+                    </button>
+                    <button className="btn btn-primary" type="submit">
+                        Upload
+                    </button>
+                    </div>
+
                 </div>
             </form>
            

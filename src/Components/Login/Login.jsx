@@ -5,9 +5,11 @@ import { toast } from 'react-toastify';
 import Tutor from '../../assets/images/tutor.png'
 import STudent from '../../assets/images/student.png'
 import { Link } from 'react-router-dom';
+import bgimg from '../../assets/images/backgroundgif.gif'
+import { useForm } from 'react-hook-form';
 
 function Login() {
-
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -17,8 +19,7 @@ function Login() {
       setPasswordVisible(!passwordVisible);
     };
 
-  const onSubmit =async (event) => {
-    event.preventDefault();
+  const onSubmit =async () => {
     try {
         const data ={
             email:email,
@@ -55,75 +56,48 @@ function Login() {
 
   return (
     <div>
-        {/* <div id="login">
-        <h3 className="text-center text-white pt-5" />
-        <div className="container">
-        <div
-            id="row"
-            className="row justify-content-center align-items-center"
-            style={{background:"white",paddingTop:"2em",paddingBottom:"3em",height:"100%"}}
-        >
-            <div id="login-column" className="col-md-6">
-            <div id="login-box" className="col-md-12">
-            
-                <h3 className="text-center text-inf mb-4">Login</h3>
-                <div className="containers mb-5 mt-5">
-                    <div className="checkbox-group">
-                    <label className="checkbox-container">
+         <div id="login" className='master' style={{
+        backgroundImage: `url(${bgimg})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        height: "100vh",
+        display: "block",
+        justifyContent: "center",
+        alignItems: "center",
+        overflowY:"scroll",
+      }}>  
+
+            <div className="container">
+            <div
+                id="login-row"
+                className="row justify-content-center align-items-center"
+            >
+                <div id="login-column" className="col-md-6">
+                <div id="login-box" className="col-md-12">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <h3 className="text-center text-inf">Login</h3>
+                    <div className="form-group mb-3">
+                        <label htmlFor="email" className="text-inf">
+                        Email:
+                        </label>
+                        <br />
                         <input
-                        type="radio"
-                        name="userType"
-                        required
+                        type="text"
+                        placeholder='abcd@gmail.com'
+                        className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                        {...register('email', {
+                          required: 'Email is required',
+                          pattern: {
+                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                            message: 'Invalid email address',
+                          },
+                        })}
+                        value={email}
+                        onChange={(e)=> setEmail(e.target.value)}
                         />
-                        <span className="checkmark">
-                        <i>
-                            {' '}
-                            <img
-                            src={STudent}
-                            style={{ borderRadius: 25 }}
-                            alt=""
-                            height="35px"
-                            width="35px"
-                            />
-                        </i>
-                        </span>
-                        <span className="label-text">Student</span>
-                    </label>
-                    <label className="checkbox-container">
-                        <input
-                        type="radio"
-                        name="userType"
-                        required
-                        />
-                        <span className="checkmark">
-                        <i>
-                            {' '}
-                            <img
-                            src={Tutor}
-                            alt=""
-                            style={{ borderRadius: 25 }}
-                            height="35px"
-                            width="35px"
-                            />
-                        </i>
-                        </span>
-                        <span className="label-text">Tutor</span>
-                    </label>
+                         {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
                     </div>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="username" className="text-inf">
-                    Username or email:
-                    </label>
-                    <br />
-                    <input
-                    type="text"
-                    className={`form-control`}
-                    value={email}
-                    onChange={(e)=>setEmail(e.target.value)}
-                    />
-                </div>
-                <div className="form-group mb-3">
+                    <div className="form-group mb-3">
                             <label htmlFor="password" className="text-inf">
                                 Password:
                             </label>
@@ -131,77 +105,73 @@ function Login() {
                             <div className="input-group">
                                 <input
                                 type={passwordVisible ? "text" : "password"}
-                                name="password"
-                                id="password"
-                                className="form-control"
+                                placeholder='password'
+                                className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                                {...register('password', {
+                                    required: 'Password is required',
+                                    minLength: {
+                                      value: 8,
+                                      message: 'Password must be at least 8 characters long',
+                                    },
+                                    pattern: {
+                                      value: /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/,
+                                      message: 'Password must contain at least one number, one lowercase and one uppercase letter',
+                                    },
+                                  })}
                                 value={password}
-                                onChange={(e)=> setPassword(e.target.value)}
-                                required
+                                onChange={(e)=>setPassword(e.target.value)}
                                 />
+                                  
                                 <div className="input-group-append">
                                 <button
-                                    className="btn btn-outline-secondary"
+                                    className="btn btn-light mx-1"
                                     type="button"
+                                    style={{border:"1px solid #000"}}
                                     onClick={togglePasswordVisibility}
                                 >
                                     <i
                                     id="passwordIcon"
-                                    className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}
+                                    className={passwordVisible ? "fas fa-eye" : "fas fa-eye-slash"}
                                     />
                                 </button>
                                 </div>
+                                {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
                             </div>
+                            {/* Container for displaying password errors */}
                             </div>
-                            <div className="form-group">
-                    <label className="text-inf" />
-                    <br />
-                    <a href="/forgot-password">forgot password ?</a>
-                </div>  
-                <div className="form-group">
-                    <label className="text-inf" />
-                    <br />
-                    <a href="/register">if you don't have an account please register !!!</a>
+                 
+                            <div className="form-group-horizontal">
+                    <div className="form-group mb-3" >
+                       
+                        <label htmlFor="password" className="text-inf" />
+                        <br />
+                        <Link to="/forgot-password" style={{color:"#fff"}}>
+                        Forgot Password
+                        </Link>
+                       
+                      
+                    </div>
+                    
+                    <div className="form-group mb-3 mt-3" >
+                    <button type="submit" className="btn btn-primary " >
+                        Login
+                        </button>
+                    </div>
+                    </div>
+                    <div className="form-group mb-3">
+                        <label htmlFor="password" className="text-inf" />
+                        <br />
+                        <Link to="/register" style={{color:"#fff"}}>
+                        if you don't have an account please Register !!!
+                        </Link>
+                    </div>
+                    
+                    </form>
                 </div>
-                <p className="text-danger text-inf mb-4 mt-4" >{message?message:""}</p>
-                <div className="form-group mt-3">
-                    <button type="submit" className="btn btn-primary" onClick={onSubmit}>
-                    Submit
-                    </button>
                 </div>
             </div>
             </div>
         </div>
-        </div>
-        </div> */}
-        <>
-  <section>
-    {" "}
-    
-    <div className="signin">
-      <div className="content">
-        <h2>Sign In</h2>
-        <form className="form">
-          <div className="inputBox">
-            <input type="text" value={email}
-                    onChange={(e)=>setEmail(e.target.value)} required /> <i>Email</i>
-          </div>
-          <div className="inputBox">
-            <input type="password"  value={password}
-             onChange={(e)=> setPassword(e.target.value)} required/> <i>Password</i>
-          </div>
-          <div className="links">
-            {" "}
-            <Link to="/forgot-password" style={{color:"#000"}}>Forgot Password</Link> <Link to="/register">Signup</Link>
-          </div>
-          <div className="inputBox">
-            <input type="submit" defaultValue="Login" onClick={onSubmit} />
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>{" "}
-  {/* partial */}
-</>
 
     </div>
   )

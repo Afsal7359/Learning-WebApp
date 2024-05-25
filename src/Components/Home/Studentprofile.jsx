@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import PasswordChange from '../Modals/PasswordChange';
 import ProfileEdit from '../Modals/ProfileEdit';
-import profile from '../../assets/images/profileimg.png'
 import { toast } from 'react-toastify';
 import { GetUserProfile } from '../../Api/Profile';
 import { Link } from 'react-router-dom';
+import profileimg from "../../assets/images/gallery/fg-4.jpg"
+import Edit from "../../assets/images/edit.png"
+import './Profile.css'
+import { LogoutUser } from '../../Api/Authentication';
 
 function Studentprofile() {
 
@@ -12,6 +15,7 @@ function Studentprofile() {
   const [passwordModal,setPasswordModal]=useState(false) 
   const [EditModal,setEditModal]=useState(false) 
   const [isloading,setLoading]=useState(true)
+  const [logoutmodal,setLogoutModal]=useState(false)
 
 
     const passwordmodalvisible =()=>{
@@ -51,7 +55,26 @@ function Studentprofile() {
   console.log(data,"data");
   // console.log(data.profile_image,"link");
 
-
+  const handleConfirm =async()=>{
+    try  {
+        const data ={
+          refresh:localStorage.getItem('student-refresh-vini')
+        }
+        const response = await LogoutUser(data)
+        if (response.success){
+          localStorage.removeItem('student-refresh-vini')
+          localStorage.removeItem('student-access-vini')
+          localStorage.removeItem('student-data-vini')
+          toast.success(`${response.message}`)
+          window.location.href = '/login'
+          // navigate('/login')
+        }else{
+          toast.success(`${response.message}`)
+        }
+      }  catch (error) {
+        console.log(error);
+    }
+}
  
   return (
     <div>
@@ -77,107 +100,160 @@ function Studentprofile() {
           <div class="loader-container">
           <div class="loader"></div>
         </div>):(
-        <section style={{ backgroundColor: "#064f89",height:"100vh" }}>
-          <div className="container py-5">
-            <div className="row">
-              <div className="col-lg-4">
-                <div className="card mb-4">
-                  <div className="card-body text-center">
-                    <img
-                      src={data.profile_image?data.profile_image:profile}
-                      alt="profile image"
-                      className="rounded-circle img-fluid"
-                      style={{ width: 130 }}
-                    />
-                    <h5 className="my-3" id="tutoe" />
-                    <div className="d-flex justify-content-center mb-2">
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        style={{ backgroundColor: "#064f89" }}
-                        onClick={handleEditModal}
-                      >
-                        Update Profile Image
-                      </button>
-                    </div>
-                    <div className="d-flex justify-content-center mb-2">
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        style={{ backgroundColor: "#064f89" }}
-                        onClick={passwordmodalvisible}
-                      >
-                      Change Password
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-8">
-                <div className="card mb-4">
-                  <div className="card-body">
-                    <div className="row">
-                      <div className="col-sm-3">
-                        <p className="mb-0">User Name</p>
-                      </div>
-                      <div className="col-sm-9">
-                        <p className="text-muted mb-0">{data?data.username:""}</p>
-                      </div>
-                    </div>
-                    <hr />
-                    <div className="row">
-                      <div className="col-sm-3">
-                        <p className="mb-0">Email</p>
-                      </div>
-                      <div className="col-sm-9">
-                        <p className="text-muted mb-0">{data?data.email:""}</p>
-                      </div>
-                    </div>
-                    <hr />
-                    <div className="row">
-                      <div className="col-sm-3">
-                        <p className="mb-0">Date Of Birth</p>
-                      </div>
-                      <div className="col-sm-9">
-                        <p className="text-muted mb-0">{data?data.date_of_birth:""}</p>
-                      </div>
-                    </div>
-                    <hr />
-                    <div className="row">
-                      <div className="col-sm-3">
-                        <p className="mb-0">Gender</p>
-                      </div>
-                      <div className="col-sm-9">
-                        <p className="text-muted mb-0">{data?data.gender:""}</p>
-                      </div>
-                    </div>
-                    <hr />
-                  </div>
-                </div>
-              </div>
-              {/* <div className="col-lg-8">
-                <div className="card mb-4">
-                  <div className="card-body">
-                    <div className="row">
-                      <div className="col-sm-3">
-                        <p className="mb-0">Course</p>
-                      </div>
-                      <div className="col-sm-9">
-                        <div className="form-group local-forms">
-                          <div style={{backgroundColor:"#064f89" , height:"45px", width:"50%",borderRadius:"15px",}}>
-                              <p style={{color:"white",textAlign:"center"}}>Course Name</p>  
-                              <p style={{color:"black",textAlign:"center"}}>Course Name</p>  
-                          </div>
-                        
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-            </div>
-          </div>
-        </section>)}
+         <div className='mainbody mt-5'>
+         <div className="page-content page-container" id="page-content">
+ <div className="padding">
+   <div className="row container d-flex justify-content-center">
+     <div className="col-xl-12 col-md-12">
+       <div className="card user-card-full">
+         <div className="row m-l-0 m-r-0">
+           <div className="col-sm-4 bg-c-lite-green user-profile">
+             <div className="card-block text-center text-white">
+               <div className="m-b-1">
+               <img
+                    src={data.profile_image?data.profile_image:profileimg}
+                    className="img-radius"
+                    alt="User-Profile-Image"
+                    style={{ width: 130,borderRadius:"50%",height:130 }}
+                  />
+
+               </div>
+               <a style={{cursor:"pointer"}}>
+               <img src={Edit} alt="" className='m-b-25'  onClick={handleEditModal} />
+               </a>
+               <h6 className="f-w-600">{data?data.person:""}</h6>
+               <p>{data?data.username:""}</p>
+               <i className=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16" />
+             </div>
+           </div>
+           <div className="col-sm-8">
+             <div className="card-block">
+             <ul class="social-link list-unstyled m-t-40 m-b-10 " style={{marginLeft:"20em"}}>
+             <div className="d-flex justify-content-end mt-5">
+                <button className="btn btn-success" style={{ borderRadius: "25px" }} onClick={passwordmodalvisible}>
+                  Change password
+                </button>
+                <button className="btn btn-danger ms-4" style={{ borderRadius: "25px" }} onClick={() => setLogoutModal(true)}>
+                  Logout
+                </button>
+              </div> </ul>
+               <h6 className="m-b-20 p-b-5 b-b-default f-w-600">
+                 Contact
+               </h6>
+               <div className="row">
+                 <div className="col-sm-6">
+                   <p className="m-b-10 f-w-600">Email</p>
+                   <h6 className="text-muted f-w-400">{data?data.email:""}</h6>
+                 </div>
+                 <div className="col-sm-6">
+                   <p className="m-b-10 f-w-600">User Id</p>
+                   <h6 className="text-muted f-w-400">{data?data.id:""}</h6>
+                 </div>
+               </div>
+               <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">
+                 Informations
+               </h6>
+               <div className="row">
+                 <div className="col-sm-6">
+                   <p className="m-b-10 f-w-600">Gender</p>
+                   <h6 className="text-muted f-w-400">{data?data.username:""}</h6>
+                 </div>
+                 <div className="col-sm-6">
+                   <p className="m-b-10 f-w-600">Date Of Birth</p>
+                   <h6 className="text-muted f-w-400">{data?data.date_of_birth:""}</h6>
+                 </div>
+               </div>
+             
+             </div>
+           </div>
+         </div>
+       </div>
+       <div className="cards-container">
+      <div className="card" style={{ width: "18rem" }}>
+        <img className="card-img-top" src="..." alt="Card image cap" />
+        <div className="card-body">
+          <h5 className="card-title">Course Name</h5>
+          <p className="card-text">
+            Some quick example text to build on the card title and make up the bulk of
+            the card's content.
+          </p>
+       
+        </div>
+      </div>
+      <div className="card" style={{ width: "18rem" }}>
+        <img className="card-img-top" src="..." alt="Card image cap" />
+        <div className="card-body">
+          <h5 className="card-title">Course Name</h5>
+          <p className="card-text">
+            Some quick example text to build on the card title and make up the bulk of
+            the card's content.
+          </p>
+        
+        </div>
+      </div>
+      <div className="card" style={{ width: "18rem" }}>
+        <img className="card-img-top" src="..." alt="Card image cap" />
+        <div className="card-body">
+          <h5 className="card-title">Course Name</h5>
+          <p className="card-text">
+            Some quick example text to build on the card title and make up the bulk of
+            the card's content.
+          </p>
+          {/* <a href="#" className="btn btn-primary">
+            Go somewhere
+          </a> */}
+        </div>
+      </div>
+      {/* Add more cards if needed */}
+    </div>
+
+     </div>
+   </div>
+ </div>
+</div></div>)}
+{logoutmodal&&
+    (<div className="modal bg" tabIndex="-1" role="dialog" style={{
+      display: 'block',
+      background: "rgba(102, 54, 255, 0.12)",
+      borderRadius: "16px",
+      boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+      backdropFilter: "blur(15.8px)",
+      WebkitBackdropFilter: "blur(5.8px)",
+      border: "1px solid rgba(255, 255, 255, 0.26)"
+  }}>
+        <div class="modal-dialog" role="document">
+        <div class="modal-content" style={{
+          display: 'block',
+          background: "rgba(102, 54, 255, 0.12)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(5.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"
+        }}>
+        <div className="modal-body">
+        <button
+          aria-label="Close"
+          className="btn-close"
+          onClick={()=>setLogoutModal(false)}
+          type="button"
+        >
+          {/* <span aria-hidden="true">&times;</span> */}
+        </button>
+        <div class="modal-body">
+                    <p className='text-white'>Are you sure, you want to Logout?</p>
+                    <div className="d-flex justify-content-between mt-5">
+                   <button type="button" class="btn btn-secondary"
+                     onClick={()=>setLogoutModal(false)}>No</button>
+                    <a onClick={handleConfirm}  class="btn btn-danger" type="button">Logout</a>
+                   </div>
+                   </div>
+      
+      </div>
+    </div>
+</div>
+        </div>)
+}
    {passwordModal && <PasswordChange Modal={passwordModal} setModal={setPasswordModal}/>}
 
    {EditModal && <ProfileEdit Modal={EditModal} setModal={setEditModal}/>}

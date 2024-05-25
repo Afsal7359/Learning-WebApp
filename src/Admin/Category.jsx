@@ -18,6 +18,7 @@ const Category = () => {
 
     const [categorydata,setCategoryData]=useState([])
     const [deleteid,setdeleteId]=useState(0);
+    const [deletemodal,setDeleteModal]=useState(false)
 
     const [isloading,setIsLoading]=useState(true)
 
@@ -85,7 +86,7 @@ const Category = () => {
             setIsLoading(false)
             if(response.success === true){
                 toast.success(response.message)
-                window.location.href = '/admin-category'
+                setDeleteModal(false)
             }
            
         } catch (error) {
@@ -95,7 +96,7 @@ const Category = () => {
   return (
     <div>
         <Adminheader/>
-        <div className='d-flex justify-content-center mt-5 mb-5'>
+        <div className='d-flex justify-content-end mt-5 mb-5' style={{ paddingRight: '5em' }}>
         <div className='align-center' style={{ maxWidth: '200px' }}>
             <button className='btn btn-success'      onClick={openModal}>Add Category</button>
         </div>
@@ -103,7 +104,7 @@ const Category = () => {
       {isloading?(<div class="loader-container">
                       <div class="loader"></div>
                     </div>):(
-                        <div className="container">
+                      <div className='mt-0  m-5 p-3' style={{backgroundColor:"#fff",borderRadius:"25px"}}>
                             <table className="table">
                             <thead>
                                 <tr>
@@ -119,7 +120,7 @@ const Category = () => {
                                     <td>{item.category_name}</td>
                                     <td>
                                         <button className='btn btn-danger'  data-bs-target="#modaldemo3"
-                                        data-bs-toggle="modal" onClick={()=>setdeleteId(item.id)} >Delete</button>
+                                        data-bs-toggle="modal" onClick={()=>{setdeleteId(item.id),setDeleteModal(true)}} >Delete</button>
                                     </td>
                                 </tr>
                                 ))}
@@ -129,42 +130,58 @@ const Category = () => {
                         </div>)}
         {/* Addmodal */}
         {isModalOpen && (
-    <div className="modal " tabIndex="-1" role="dialog" style={{ display: 'block'}}>
+    <div className="modal " tabIndex="-1" role="dialog" style={{ display: 'block',
+    background: "rgba(102, 54, 255, 0.12)",
+    borderRadius: "16px",
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+    backdropFilter: "blur(10.8px)",
+    WebkitBackdropFilter: "blur(5.8px)",
+    border: "1px solid rgba(255, 255, 255, 0.26)"}}>
      
  
             <div className="modal-dialog" role="document">
-            <div className="modal-content" >
+            <div className="modal-content"  style={{ display: 'block',
+    background: "rgba(102, 54, 255, 0.12)",
+    borderRadius: "16px",
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+    backdropFilter: "blur(10.8px)",
+    WebkitBackdropFilter: "blur(5.8px)",
+    border: "1px solid rgba(255, 255, 255, 0.26)"}}>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="modal-body">
               <button
                 aria-label="Close"
                 className="btn-close"
                 data-bs-dismiss="modal"
-                type="button"
+                type="button" onClick={()=>setIsModalOpen(false)}
               >
               </button>
              
               <div className="form-group m-2 mt-4">
-                <label htmlFor="thumbnail">Category Name </label>
+                <label htmlFor="thumbnail" className='text-black'>Category Name </label>
                 <input
                     {...register('category_name', { required: 'category name is required' })}
                     type="text"
                     className="form-control"
+                    placeholder='category name'
                     name="category_name"
                 />
                 {errors.category_name && <span className="text-danger">{errors.category_name.message}</span>}
             </div>
-              <button className="btn btn-primary btn-block mt-5" type="submit">
-                Submit
-              </button>
-              <button
+            <div className="d-flex justify-content-between">
+            <button
                 aria-label="Close"
                 className="btn btn-outline-danger mt-5"
                 data-bs-dismiss="modal"
-                type="button"
+                type="button" onClick={()=>setIsModalOpen(false)}
               >
                 Cancel
               </button>
+              <button className="btn btn-primary btn-block mt-5" type="submit">
+                Submit
+              </button>
+             
+              </div>
             </div>
           </form>
           {/* modal-body */}
@@ -175,29 +192,43 @@ const Category = () => {
     {/*Add modal close */}
 
     {/* <!-- Delete Modal --> */}
-       <div id="modaldemo3" class="modal fade">
+   {deletemodal&& <div className="modal " tabIndex="-1" role="dialog" style={{ display: 'block',
+    background: "rgba(102, 54, 255, 0.12)",
+    borderRadius: "16px",
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+    backdropFilter: "blur(10.8px)",
+    WebkitBackdropFilter: "blur(5.8px)",
+    border: "1px solid rgba(255, 255, 255, 0.26)"}}>
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content" style={{
+          display: 'block',
+          background: "rgba(102, 54, 255, 0.12)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(5.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"
+      }}>
                    
                     <div class="modal-body">
                         <div class="modal-header" >
                             <h5 class="modal-title" id="exampleModalLabel">Confirmation </h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick={()=>setDeleteModal(false)}>
                             <span aria-hidden="true">&times;</span>
                             </button>
                            </div>
                            <div class="modal-body">
                             <p>Are you sure you want to delete?</p>
                           </div>
-                          <div class="modal-footer">
-                           <button type="button" class="btn btn-secondary" id="close-modal">No</button>
+                          <div className="d-flex justify-content-between mt-5">
+                           <button type="button" class="btn btn-secondary" id="close-modal" onClick={()=>setDeleteModal(false)}>No</button>
                             <a   class="btn btn-danger" type="button" onClick={handledelete}>Yes</a>
                            </div>
                 
                 </div>
             </div>
         </div>
-       </div>
+       </div>}
     
        {/* Delete Modal Close  */}
     </div>

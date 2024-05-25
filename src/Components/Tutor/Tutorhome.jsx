@@ -6,7 +6,11 @@ import { toast } from 'react-toastify';
 import img1 from '../../assets/images/shapes/course-shape-2.png'
 import img2 from '../../assets/images/shapes/course-shape-1.png'
 import { Link } from 'react-router-dom';
-
+import bgimg from '../../assets/images/backgroundgif.gif'
+import logo2 from '../../assets/images/logo-vinjan.png'
+import proficon from '../../assets/images/proficon.png'
+import bgimg1 from '../../assets/images/shapes/banner-bg-2.png'
+import bannerimg1 from '../../assets/images/resources/banner-2-1.jpg'
 
 const Tutorhome = () => {
     const [modalvisible,setModalvisible]=useState(false);
@@ -31,7 +35,7 @@ const Tutorhome = () => {
           setData(response.courses)
           setLoading(false)
         }else{
-          console.log(response,"error");
+          console.log(response,"error..................");
         }
       } catch (error) {
         console.log(error);
@@ -71,8 +75,8 @@ const Tutorhome = () => {
 
   return (
     <div>
-       {pageUI &&<>
-       <header className="main-header">
+     <>
+       {/* <header className="main-header">
         <nav className="main-menu">
         <div className="container">
             <div className="main-menu__logo">
@@ -92,9 +96,9 @@ const Tutorhome = () => {
                 Add Course
             </button>
             </div>
-            {/* /.main-menu__logo */}
+            
             <div className="main-menu__nav"></div>
-            {/* /.main-menu__nav */}
+         
             <div className="main-menu__right">
             <Link
                 to="/tutor/Profile"
@@ -111,25 +115,119 @@ const Tutorhome = () => {
                 <span className="eduact-btn__curve" />
                 Profile
             </Link>
-            {/* /.login btn */}
-            {/* <a href="contact.html" class="eduact-btn"><span class="eduact-btn__curve"></span>Get In Touch</a>/.contact btn */}
             </div>
-            {/* /.main-menu__right */}
         </div>
-        {/* /.container */}
         </nav>
-      </header>
-      
-    <section className="course-two course-two--page">
+      </header> */}
+      <header className="main-header-two">
+  <nav className="main-menu">
+    <div className="container">
+      <div className="main-menu__logo">
+        <Link href="index.html">
+          <img
+             src={logo2}
+             width={410}
+             height={60}
+            alt="Eduact"
+          />
+        </Link>
+      </div>
+      {/* /.main-menu__logo */}
+      <div className="main-menu__nav">
+        {/*  */}
+      </div>
+      {/* /.main-menu__nav */}
+      <div className="main-menu__right">
+       
+                <Link to="/tutor-Profile" className="main-menu__login">
+                {/* <i className="icon-account-1"/> */}
+                <img src={proficon} alt="" />
+            </Link>
+            </div>
+      {/* /.main-menu__right */}
+    </div>
+    {/* /.container */}
+  </nav>
+  {/* /.main-menu */}
+</header>
+<section
+  className="hero-banner-two"
+  style={{ backgroundImage:bgimg1 }}
+  id="home"
+>
+ 
+ 
+  <div
+    className="hero-banner-two__bg-shape1 wow fadeInUp"
+    data-wow-delay="500ms"
+  >
+    
+  </div>
+  {/* banner-bg-shape */}
+  <div className="container">
+    <div className="row">
+      <div className="col-lg-6 d-flex align-items-center">
+        <div className="hero-banner-two__content">
+          <h2
+            className="hero-banner-two__title wow fadeInUp"
+            data-wow-delay="400ms"
+          >
+            Come Along
+            <br /> As We Begin Our
+            <br /> Learning
+            <span>
+              Journey
+              
+            </span>
+          </h2>
+          <p
+            className="hero-banner-two__text wow fadeInUp"
+            data-wow-delay="500ms"
+          >
+            As a dedicated tutor with a passion for teaching, I am committed to<br /> 
+             inspiring and empowering students to reach their full potential.<br /> 
+              My motivation comes from seeing my students grow, succeed, and<br /> 
+               develop a lifelong love for learning.<br /> 
+            
+          </p>
+          <div
+            className="hero-banner-two__btn wow fadeInUp"
+            data-wow-delay="600ms"
+          >
+            <a  className="eduact-btn eduact-btn-second" onClick={handlemodal}>
+              <span className="eduact-btn__curve" />
+              Add Course
+              <i className="icon-arrow" />
+            </a>
+          </div>
+          {/* banner-btn */}
+        </div>
+        {/* banner-content */}
+      </div>
+      <div className="col-lg-6">
+        <div
+          className="eduact-stretch-element-inside-column wow slideInRight"
+          data-wow-delay="300ms"
+        >
+          <div className="hero-banner-two__stretch-image">
+            <img src={bannerimg1} alt="eduact" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section className="course-two course-two--page" >
       <div
         className="course-two__shape-top wow fadeInRight"
         data-wow-delay="300ms"
       >
-        <img src={img2} alt="eduact" />
+        {/* <img src={img2} alt="eduact" /> */}
       </div>
       <div className="container">
         <div className="row">
-          <div className="section-title text-center">
+          {/* <div className="section-title text-center">
             <h5 className="section-title__tagline">
               Hai Welcome Tutor
               <svg
@@ -146,7 +244,7 @@ const Tutorhome = () => {
               </svg>
             </h5>
             <h3 className="section-title__title">{data.length === 0 ?"No Course Found !!!":"Course List" }</h3>
-          </div>
+          </div> */}
           
         {isloading? (
           <div className="loader-container">
@@ -172,7 +270,7 @@ const Tutorhome = () => {
               </a>
             </div>
           </div>
-        )):<h5 style={{justifyContent:"center",position:"fixed"}}>No Course Found</h5>)}
+        )):<div className="loader-container"><p className='text-danger'>No Course Found !!!</p></div>)}
          
         </div>
       </div>
@@ -183,7 +281,7 @@ const Tutorhome = () => {
         <img src={img1} alt="eduact" />
       </div>
     </section>
-    </>}
+    </>
    
    {modalvisible && <AddCourse setPage={setPageUI} setModal={setModalvisible} datafetch={CourseDataFetch} setLoading={setLoading}/>}
 

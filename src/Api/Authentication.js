@@ -82,3 +82,11 @@ export const UnBlockUser = async(payload,token)=>{
         return error.response.data
     }
 }
+export const LogoutUser = async(payload)=>{
+    try {
+        const response = await instance.post('user/logout/',payload)
+        return response.data
+    } catch (error) {
+        return error.response.data
+    }
+}

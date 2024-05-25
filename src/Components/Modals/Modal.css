@@ -1,11 +1,13 @@
 .modal-dialog {
     overflow-y: auto; /* Enable vertical scrollbar */
-    max-height: calc(100% - 60px); /* Adjust max-height to fit within the viewport */
+    max-height: calc(100% - 10px); /* Adjust max-height to fit within the viewport */
+ 
   }
   
   .modal-content {
     overflow: hidden; /* Hide overflowing content */
   }
+
   /* Style the select element */
 .custom-select {
     /* Define general styles for the select element */
@@ -26,4 +28,12 @@
     right: 8px;
     transform: translateY(-50%);
     pointer-events: none; /* Ensures the arrow doesn't interfere with clicks */
+  }
+  .bg{
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.8px);
+    -webkit-backdrop-filter: blur(5.8px);
+    border: 1px solid rgba(255, 255, 255, 0.26)
   }

@@ -6458,7 +6458,7 @@ body.megamenu-popup-active .mobile-nav__content {
 }
 
 .hero-banner-two__text {
-  line-height: 32px;
+
   margin: 0 0 30px;
 }
 
@@ -16624,22 +16624,40 @@ body.boxed-wrapper .hero-banner__thumb {
   height: 100vh; /* Full height of the viewport */
 }
 
-.loader {
+/* .loader {
   border: 15px solid #f3f3f3;
   border-top: 15px solid #3498db;
   border-radius: 50%;
   width: 110px;
   height: 110px;
   animation: spin 1s linear infinite;
+} */
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 35px;
+  aspect-ratio: 1;
+  --_g: no-repeat radial-gradient(circle closest-side,#000 90%,#0000);
+  background: 
+    var(--_g) 0    0,
+    var(--_g) 0    100%,
+    var(--_g) 100% 100%;
+  background-size: 40% 40%;
+  animation:l11 1s infinite linear;
+}
+@keyframes l11 {
+    25% {background-position:100% 0   ,0 100%,100% 100%}
+    50% {background-position:100% 0   ,0 0   ,100% 100%}
+    75% {background-position:100% 0   ,0 0   ,0    100%}
+    100%{background-position:100% 100%,0 0   ,0    100%}
 }
 
-@keyframes spin {
+/* @keyframes spin {
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
   }
-}
+} */
 
 

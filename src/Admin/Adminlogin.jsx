@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import { AdminLogin } from '../Api/Authentication';
 import './Admin.css'
 import { toast } from 'react-toastify';
+import bgimg from '../assets/images/backgroundgif.gif'
+import { useForm } from 'react-hook-form';
+
 
 const Adminlogin = () => {
-
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -14,8 +17,7 @@ const Adminlogin = () => {
       setPasswordVisible(!passwordVisible);
     };
 
-    const onSubmit = async (event) => {
-        event.preventDefault();
+    const onSubmit = async () => {
         try {
             const data ={
                 email:email,
@@ -109,64 +111,106 @@ const Adminlogin = () => {
         </div>
         </div>
         </div> */}
-          <section>
-    {" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span /> <span /> <span /> <span /> <span />{" "}
-    <span /> <span /> <span /> <span />
-    <div className="signin">
-      <div className="content">
-        <h2>Sign In</h2>
-        <form className="form">
-          <div className="inputBox">
-            <input type="text" value={email}
-                    onChange={(e)=>setEmail(e.target.value)} required /> <i>Email</i>
-          </div>
-          <div className="inputBox">
-            <input type="password"  value={password}
-             onChange={(e)=> setPassword(e.target.value)} required/> <i>Password</i>
-          </div>
-          {/* <div className="links">
-            {" "}
-            <Link to="/forgot-password" style={{color:"#000"}}>Forgot Password</Link> <Link to="/register">Signup</Link>
-          </div> */}
-          <div className="inputBox">
-            <input type="submit" defaultValue="Login" onClick={onSubmit} />
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>{" "}
+            <div id="login" className='master' style={{
+        backgroundImage: `url(${bgimg})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        height: "100vh",
+        display: "block",
+        justifyContent: "center",
+        alignItems: "center",
+        overflowY:"scroll",
+      }}>  
+
+            <div className="container">
+            <div
+                id="login-row"
+                className="row justify-content-center align-items-center"
+            >
+                <div id="login-column" className="col-md-6">
+                <div id="login-box" className="col-md-12">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <h3 className="text-center text-inf">Admin Login</h3>
+                    <div className="form-group mb-3">
+                        <label htmlFor="email" className="text-inf">
+                        Email:
+                        </label>
+                        <br />
+                        <input
+                        type="text"
+                        placeholder='abcd@gmail.com'
+                        className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                        {...register('email', {
+                          required: 'Email is required',
+                          pattern: {
+                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                            message: 'Invalid email address',
+                          },
+                        })}
+                        value={email}
+                        onChange={(e)=> setEmail(e.target.value)}
+                        />
+                         {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
+                    </div>
+                    <div className="form-group mb-3">
+                            <label htmlFor="password" className="text-inf">
+                                Password:
+                            </label>
+                            <br />
+                            <div className="input-group">
+                                <input
+                                type={passwordVisible ? "text" : "password"}
+                                placeholder='password'
+                                className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                                {...register('password', {
+                                    required: 'Password is required',
+                                    minLength: {
+                                      value: 8,
+                                      message: 'Password must be at least 8 characters long',
+                                    },
+                                    pattern: {
+                                      value: /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/,
+                                      message: 'Password must contain at least one number, one lowercase and one uppercase letter',
+                                    },
+                                  })}
+                                value={password}
+                                onChange={(e)=>setPassword(e.target.value)}
+                                />
+                                  
+                                <div className="input-group-append">
+                                <button
+                                    className="btn btn-light mx-1"
+                                    type="button"
+                                    style={{border:"1px solid #000"}}
+                                    onClick={togglePasswordVisibility}
+                                >
+                                    <i
+                                    id="passwordIcon"
+                                    className={passwordVisible ? "fas fa-eye" : "fas fa-eye-slash"}
+                                    />
+                                </button>
+                                </div>
+                                {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
+                            </div>
+                            {/* Container for displaying password errors */}
+                            </div>
+                 
+                   
+                 
+                  
+                 
+                    <p className="text-danger text-inf mb-4 mt-4" >{message?message:""}</p>
+                    <div className="form-group mb-3 mt-3">
+                        <button type="submit" className="btn btn-primary">
+                        Submit
+                        </button>
+                    </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
     </div>
   )
 }
