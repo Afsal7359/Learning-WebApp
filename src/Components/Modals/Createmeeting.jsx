@@ -4,19 +4,19 @@ import { token } from '../../Api/token';
 import { AddMeeting } from '../../Api/Meeting';
 import { toast } from 'react-toastify';
 
-const Createmeeting = ({setModal,setPageUI,coursedata}) => {
+const Createmeeting = ({setModal,setPageUI,meetingfetch,tutor,coursedata,link}) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-
+console.log(coursedata,"coursedatatata");
     const onSubmit =async(data)=>{
         try {
             console.log(data);
             const formdata={
-                link:data.link,
+                link:link,
                 duration:data.duration,
                 time:data.time,
                 date:data.date,
-                tutor:coursedata.tutor_id,
+                tutor:tutor.id,
                 course:coursedata.id
             }
             const tokengenerate = await token("token-refresh-vini")
@@ -25,6 +25,7 @@ const Createmeeting = ({setModal,setPageUI,coursedata}) => {
                 toast.success(`${response.message}`)
                 setModal(false)
                 setPageUI(true)
+                meetingfetch()
                 console.log(response,"success");
             }else{
                 toast.error(`${response.message}`)
@@ -36,9 +37,25 @@ const Createmeeting = ({setModal,setPageUI,coursedata}) => {
     }
   return (
     <div>
-          <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
+          <div className="modal" tabIndex="-1" role="dialog" style={{
+          display: 'block',
+          background: "rgba(102, 54, 255, 0.12)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(10.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"
+      }}>
             <div className="modal-dialog" role="document">
-            <div className="modal-content">
+            <div className="modal-content" style={{
+          display: 'block',
+          background: "rgba(102, 54, 255, 0.12)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(10.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"
+      }}>
                          <div className="modal-body">
                         <button
                         className="btn-close"
@@ -56,9 +73,10 @@ const Createmeeting = ({setModal,setPageUI,coursedata}) => {
                             type="text"
                             className={`form-control ${errors.link ? 'is-invalid' : ''}`}
                             placeholder="Meeting Link"
-                            {...register('link', { required: 'Meeting Link is required' })}
+                            value={link}
+                            readOnly
                             />
-                            {errors.link && <div className="invalid-feedback">{errors.link.message}</div>}
+                    
                         </div>
                         <div className="form-group m-2 mt-4">
                             <input
@@ -82,12 +100,15 @@ const Createmeeting = ({setModal,setPageUI,coursedata}) => {
                             <input
                             type="text"
                             className={`form-control ${errors.duration ? 'is-invalid' : ''}`}
-                            placeholder="Duration"
+                            placeholder="Duration in minutes"
                             {...register('duration', { required: 'Duration is required' })}
                             />
                             {errors.duration && <div className="invalid-feedback">{errors.duration.message}</div>}
                         </div>
-                        <button type="submit" className="btn btn-primary m-2">Submit</button>
+                        <div className="d-flex justify-content-end">
+                        <button type="submit" className="btn btn-primary m-2">Add Meeting</button>
+                        </div>
+
                         </form>
                         </div>
                        

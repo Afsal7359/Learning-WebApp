@@ -2,13 +2,10 @@ import instance, { setAuthToken } from "./instance"
 
 export const AddCourses = async(payload,token)=>{
     try {
+        console.log(payload,"payload");
         setAuthToken(token)
         
-        const response = await instance.post("courses/create-course/" , payload,{
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        })
+        const response = await instance.post("courses/create-course/" , payload)
         return response.data;
     } catch (error) {
         return error.response.data
@@ -26,6 +23,7 @@ export const GetAllCourse = async()=>{
 export const GetModules = async(payload,token)=>{
     try {
         setAuthToken(token)
+        console.log(payload);
         const response = await instance.get(`courses/list-modules/${payload}/`)
         return response.data
     } catch (error) {
@@ -55,8 +53,9 @@ export const AddModules = async(payload,token,id)=>{
         return error.response.data
     }
 }
-export const AddFiles = async(payload,type)=>{
+export const AddFiles = async(payload,type,token)=>{
     try {
+        setAuthToken(token)
         const response = await instance.post(`courses/add-files/?${type}`,payload,{
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -67,3 +66,21 @@ export const AddFiles = async(payload,type)=>{
         return error.response.data
     }
 }
+export const SearchCourse = async (payload) => {
+    try {
+      console.log(payload, "pppp");
+      const response = await instance.get( `courses/search/?search=${payload}`)
+      return response.data;
+    } catch (error) {
+      console.error(error.response.data); 
+      return error.response.data;
+    }
+  }
+  export const CreateMeeting = async()=>{
+    try {
+        const response = await instance.get('meetings/generate-meeting-link/')
+        return response.data
+    } catch (error) {
+        return error.response.message
+    }
+  }

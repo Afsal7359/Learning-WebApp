@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useForm } from "react-hook-form"
 import { toast } from 'react-toastify'
 import { GetCategory } from '../../Api/Category'
@@ -17,7 +17,7 @@ const AddCourse = ({setPage,setModal,datafetch}) => {
   const [state,setState]=useState(false)
     const [module,setModule]=useState([])
     const [categorydata,setCategoryData]=useState([])
-        
+    const fileInputRef = useRef();
     
         const handleFileSelect =async(event) =>{
             const files = event.target.files[0];
@@ -28,7 +28,8 @@ const AddCourse = ({setPage,setModal,datafetch}) => {
               }
               setState(true)
               console.log(datas,"daaaat");
-              const response = await AddFiles(datas ,"video")
+              const tokens= await token("token-refresh-vini")
+              const response = await AddFiles(datas ,"video",tokens.access)
               if(response.success === true){
                 console.log(response);
                 const name = module.length
@@ -43,12 +44,13 @@ const AddCourse = ({setPage,setModal,datafetch}) => {
                 ppt : files,
               }
               setState(true)
-              const response = await AddFiles(datas,"ppt")
+              const tokens= await token("token-refresh-vini")
+              const response = await AddFiles(datas,"pdf",tokens.access)
               if(response.success){
                 console.log(response,"success");
                 const name = module.length+1
                 console.log(name,"length");
-                setModule([...module,{module_name:`Module ${name}`,module_type:"ppt",module_content_ppt:response.data.ppt}])
+                setModule([...module,{module_name:`Module ${name}`,module_type:"ppt",module_content_ppt:response.data.pdf}])
                 setState(false)
               }else{
                 console.log(response,"error");
@@ -77,44 +79,61 @@ const AddCourse = ({setPage,setModal,datafetch}) => {
          const handleImage  = async(event)=>{
           try {
             const files = event.target.files[0]
-            const data ={
-              thumbnail:files,
+            const fileSize = files.size / 1024 / 1024; // Convert bytes to MB
+
+            if (fileSize > 1) {
+              toast.error('File size exceeds 1 MB');
+              fileInputRef.current.value = null;
+            } else {
+              const data ={
+                thumbnail:files,
+              }
+              const tokens= await token("token-refresh-vini")
+             const response = await AddFiles(data,"thumbnail",tokens.access);
+             if(response.success === true){
+              console.log(response,"success");
+              setImage(response.data.thumbnail)
+             }else{
+              console.log(response,"error");
+             }
             }
-           const response = await AddFiles(data,"thumbnail");
-           if(response.success === true){
-            console.log(response,"success");
-            setImage(response.data.thumbnail)
-           }else{
-            console.log(response,"error");
-           }
+         
           } catch (error) {
             console.log(error);
           }
          } 
         const onSubmit =async (data) => {
-          setState(true)
+          
             try {
-              const tokencreate = await token("token-refresh-vini")
-               const formdata ={
-                    name:data.name,
-                    description : data.description,
-                    thumbnail:image,
-                    duration:data.duration,
-                    category:data.category,
-                    modules:module
-               }
-                const response = await AddCourses(formdata,tokencreate.access);
-                if(response.success === true){
-                  toast.success(response.message)
-                  datafetch()
-                  console.log(response,"succc");
-                  setPage(true)
-                  setModal(false)
-                } else{
-                  toast.error(`${response.message}`)
-                  console.log(response,"error");
+              if (!image ){
+                toast.error("Please Select Atleast One Image ")
+              }else if(module.length===0){
+                toast.error("Please Upload Atleast One Module")
+              }else{
+                // setState(true)
+                const tokencreate = await token("token-refresh-vini")
+                const formdata ={
+                     name:data.name,
+                     description : data.description,
+                     thumbnail:image,
+                     duration:data.duration,
+                     category:data.category,
+                     modules:module
                 }
-                console.log(formData,"formdata");
+                 const response = await AddCourses(formdata,tokencreate.access);
+                 if(response.success === true){
+                  datafetch()
+                   toast.success(response.message)
+                   console.log(response,"succc");
+                   setPage(true)
+                   setModal(false)
+                 } else{
+                   toast.error(`${response.message}`)
+                   console.log(response,"error");
+                 }
+             
+              }
+             
             } catch (error) {
               console.log(error);
             }
@@ -148,9 +167,9 @@ console.log(module,"modules");
       }} >
              
               <form onSubmit={handleSubmit(onSubmit)}>
-              {state?(
+              {/* {state?(
                 <div className="loader-container"> <div className="loader"></div> </div>
-              ):(
+              ):( */}
                 <div className="modal-body">
                     
                     <h4 style={{textAlign:"center"}}>Add course</h4>
@@ -199,7 +218,9 @@ console.log(module,"modules");
                           className="form-control"
                           name="thumbnail"
                           onChange={handleImage}
+                          ref={fileInputRef}
                       />
+                       <p className='text-black mt-2'  style={{fontSize:"13px",color:"#3f3a5e"}}> <img src={info} alt="" height={14} /> <i>Image should be below 1 MB</i> </p>
                         {image?   <img className='mt-4 mb-3' src={image} height={55} alt="" />:""}
                       {errors.thumbnail && <span className="text-danger">{errors.thumbnail.message}</span>}
                   </div>
@@ -286,7 +307,7 @@ console.log(module,"modules");
 
                     <div className="form-group m-2 mt-3">
                     <label htmlFor="thumbnail" style={{color:"#2A254D"}}>Modules</label>
-                      <input style={{borderRadius:"10px"}}
+                   { !state?   <input style={{borderRadius:"10px"}}
                           {...register('modules')}
                           className="form-control"
                           type="file"
@@ -294,9 +315,9 @@ console.log(module,"modules");
                            accept="video/mp4, application/vnd.ms-powerpoint ,application/vnd.openxmlformats-officedocument.presentationml.presentation"
                           name="modules"
                           onChange={(e)=>handleFileSelect(e)}
-                      />
-                       <p className='text-black mt-2'  style={{fontSize:"13px",color:"#3f3a5e"}}> <img src={info} alt="" height={14} /> <i>Please Upload Modules One by One</i> </p>
-                      {/* {errors.modules && <span className="text-danger">{errors.modules.message}</span>} */}
+                      />:<><div className="loader"></div><p className='text-danger'>Module Uploading Please Wait</p></>  }
+                       <p className='text-black mt-2'  style={{fontSize:"13px",color:"#3f3a5e"}}> <img src={info} alt="" height={14} /> <i>Please Upload Modules One by One . File format should be ppt having file size of 30 MB and mp4 of below 1 GB </i> </p>
+                    
                   </div>
                   <div className="d-flex justify-content-between mt-5">
                     
@@ -305,13 +326,13 @@ console.log(module,"modules");
                       className="btn btn-outline-danger mt-2"
                       data-bs-dismiss="modal"
                       type="button"
-                      onClick={()=>setModal(false)}>Cancel</button>
+                      onClick={()=>{setModal(false),setPage(true)}}>Cancel</button>
                     <button className="btn btn-primary btn-block mt-2" type="submit">
                       Add Course
                     </button>
                     </div>
                   </div>
-              ) }
+             
                 </form>
                 {/* modal-body */}
               </div>

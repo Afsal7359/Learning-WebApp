@@ -60,17 +60,9 @@ const PasswordChange = ({Modal,setModal}) => {
           border: "1px solid rgba(255, 255, 255, 0.26)"}}>
         <form onSubmit={handleSubmit(onSubmits)}>
             <div className="modal-body">
-              <button
-                aria-label="Close"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                type="button"
-                onClick={()=>setModal(false)}
-              >
-              </button>
-             
+            
               <div className="form-group m-2 mt-4">
-                <label htmlFor="old_password" style={{color:"#fff"}}>old password</label>
+                <label htmlFor="old_password" style={{color:"#fff"}}>Old password</label>
                 <input
                     {...register('old_password', { required: 'old password is required' })}
                     type="text"

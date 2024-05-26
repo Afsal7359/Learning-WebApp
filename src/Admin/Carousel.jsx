@@ -60,52 +60,39 @@ const Carousel = () => {
     },[])
     console.log(carouselData,"carosueldata");
 
-    const onSubmitForm =async (event) => {
+    const onSubmitForm = async (event) => {
       event.preventDefault();
-        try {
-           
-            const tokencreate = await token("token-admin-refresh-vini")
-            console.log(tokencreate,'tokeens');
-            const formdata = new FormData()
-            formdata.append('carousel_image', image);
-            console.log(formdata, "formdata");
-
-            const response = await AddCarousel(formdata,tokencreate.access);
-            console.log(response,"response");
-            if (response.success === true){
-                console.log(response);
-                toast.success(`${response.message}`)
-                CarosuelDataFetch();
-                setIsModalOpen(false);
-            }else{
-                console.log(response,"error");
-                toast.error(`${response.message}`)
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    const handleDelete = async(payload)=>{
       try {
-        console.log(payload);
-        const gettoken = localStorage.getItem("token-admin-refresh-vini")
-        const token = await refreshToken(gettoken)
-        if(token.access){
-          const response = await DeleteCarosuel(payload,token.access);
-          CarosuelDataFetch();
-        if(response.success === true){
-          toast.success(`${response.message}`)
-        }else{
+        const tokencreate = await token("token-admin-refresh-vini");
+        console.log(tokencreate, 'token');
+    
+        // Check if the image size exceeds 1 MB
+        if (image.size > 1024 * 1024) {
+          toast.error("Image size exceeds 1 MB limit");
+          return;
+        }
+    
+        const formdata = new FormData();
+        formdata.append('carousel_image', image);
+        console.log(formdata, "formdata");
+    
+        const response = await AddCarousel(formdata, tokencreate.access);
+        console.log(response, "response");
+        if (response.success === true) {
           console.log(response);
+          toast.success(`${response.message}`);
+          CarosuelDataFetch();
+          setIsModalOpen(false);
+        } else {
+          console.log(response, "error");
+          toast.error(`${response.message}`);
         }
-        }
-
-        
       } catch (error) {
         console.log(error);
-        // toast.error(`${error}`)
       }
     }
+    
+  
     const handledelete =async()=>{
       try {
         const gettoken = await token("token-admin-refresh-vini")

@@ -25,7 +25,7 @@ const CourseList = lazy(()=> import('./Admin/CourseList'))
 
 function App() {
 
- 
+ console.log("afsal");
 
   const student = localStorage.getItem('student-refresh-vini')
   const tutor = localStorage.getItem("token-refresh-vini")

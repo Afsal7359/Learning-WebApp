@@ -84,9 +84,12 @@ const Category = () => {
             }
             const response = await DeleteCategory(deleteid , tokencreate.access)
             setIsLoading(false)
+       
             if(response.success === true){
+                Categorydatafetch()
                 toast.success(response.message)
                 setDeleteModal(false)
+              
             }
            
         } catch (error) {
@@ -94,8 +97,9 @@ const Category = () => {
         }
     }
   return (
-    <div>
+    <div >
         <Adminheader/>
+        <div className="row home">
         <div className='d-flex justify-content-end mt-5 mb-5' style={{ paddingRight: '5em' }}>
         <div className='align-center' style={{ maxWidth: '200px' }}>
             <button className='btn btn-success'      onClick={openModal}>Add Category</button>
@@ -229,7 +233,7 @@ const Category = () => {
             </div>
         </div>
        </div>}
-    
+       </div>
        {/* Delete Modal Close  */}
     </div>
   )

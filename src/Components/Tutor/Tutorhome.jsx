@@ -11,41 +11,63 @@ import logo2 from '../../assets/images/logo-vinjan.png'
 import proficon from '../../assets/images/proficon.png'
 import bgimg1 from '../../assets/images/shapes/banner-bg-2.png'
 import bannerimg1 from '../../assets/images/resources/banner-2-1.jpg'
+import { GetTutorProfile } from '../../Api/Profile';
+import { token } from '../../Api/token';
+import './swiper.css'
 
 const Tutorhome = () => {
     const [modalvisible,setModalvisible]=useState(false);
     const [pageUI,setPageUI]=useState(true)
-    const [data,setData]=useState([])
+    const [courseData,setCourseData]=useState([])
     const [isloading,setLoading]=useState(true)
     const [deleteid,setDeleteId]=useState(null)
-
+    const [DeleteModal,setDeleteModal]=useState(false)
     const [detailPage,setDetailPage]=useState(false)
     const [detailPageData,setDetailPageData]=useState([])
+    const [tutor,setTutor]=useState([]);
 
     const handlemodal = async()=>{
         setModalvisible(true)
         setPageUI(false)
     }
 
-    const CourseDataFetch=async()=>{
-      try {
-        const response = await GetAllCourse()
-        if(response.success === true){
-          console.log(response,"sucess");
-          setData(response.courses)
+    // const CourseDataFetch=async()=>{
+    //   try {
+    //     const response = await GetAllCourse()
+    //     if(response.success === true){
+    //       console.log(response,"sucess");
+    //       setCourseData(response.courses)
+    //       setLoading(false)
+    //     }else{
+    //       console.log(response,"error..................");
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
+
+      const TutorCourseFetch=async()=>{
+        try {
+          const userid =localStorage.getItem("tutor-data-vini")
+        const item= JSON.parse(userid)
+        const response = await GetTutorProfile(item[0].id)
+        if(response.success){
+          console.log(response,"res");
+          setCourseData(response.courses)
+          setTutor(response.profile)
           setLoading(false)
         }else{
-          console.log(response,"error..................");
+          console.log(response);
         }
-      } catch (error) {
-        console.log(error);
+        } catch (error) {
+          console.log(error);
+        }
       }
-    }
-
+      
     useEffect(()=>{
-      CourseDataFetch();
+      // CourseDataFetch();
+      TutorCourseFetch()
     },[])
-
       const handledetailclick =(item)=>{
         try {
           console.log(item,"data");
@@ -58,11 +80,13 @@ const Tutorhome = () => {
       }
       const handleDeleteCourse =async()=>{
         try {
-          const response = await DeleteCourse(deleteid)
+          const tokens = await token("token-refresh-vini")
+          const response = await DeleteCourse(deleteid,tokens.access)
           if(response.success === true){
             console.log(response,"success");
             toast.success(`${response.message}`)
-            CourseDataFetch();
+            TutorCourseFetch();
+            setDeleteModal(false)
           }else{
             toast.error(`${response.message}`)
             console.log(response,"error");
@@ -76,49 +100,7 @@ const Tutorhome = () => {
   return (
     <div>
      <>
-       {/* <header className="main-header">
-        <nav className="main-menu">
-        <div className="container">
-            <div className="main-menu__logo">
-            <button
-                className="main-menu__login p-2 "
-                onClick={handlemodal}
-                style={{
-                height: 40,
-                width: 150,
-                color: "#ffffff",
-                backgroundColor: "#064f89",
-                borderRadius: 15,
-                
-                }}
-            >
-                <span className="eduact-btn__curve" />
-                Add Course
-            </button>
-            </div>
-            
-            <div className="main-menu__nav"></div>
-         
-            <div className="main-menu__right">
-            <Link
-                to="/tutor/Profile"
-                className="main-menu__login p-2"
-                style={{
-                height: 40,
-                width: 110,
-                color: "#ffffff",
-                backgroundColor: "#064f89",
-                borderRadius: 15
-                }}
-            >
-                <i className="icon-account-1" />
-                <span className="eduact-btn__curve" />
-                Profile
-            </Link>
-            </div>
-        </div>
-        </nav>
-      </header> */}
+     
       <header className="main-header-two">
   <nav className="main-menu">
     <div className="container">
@@ -150,7 +132,7 @@ const Tutorhome = () => {
   </nav>
   {/* /.main-menu */}
 </header>
-<section
+{pageUI&&<><section
   className="hero-banner-two"
   style={{ backgroundImage:bgimg1 }}
   id="home"
@@ -220,54 +202,53 @@ const Tutorhome = () => {
 
     <section className="course-two course-two--page" >
       <div
-        className="course-two__shape-top wow fadeInRight"
+        className="course-two__shape-top wow fadeInRight "
         data-wow-delay="300ms"
       >
         {/* <img src={img2} alt="eduact" /> */}
       </div>
       <div className="container">
         <div className="row">
-          {/* <div className="section-title text-center">
-            <h5 className="section-title__tagline">
-              Hai Welcome Tutor
-              <svg
-                className="arrow-svg"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 55 13"
-              >
-                <g clipPath="url(#clip0_324_36194)">
-                  <path d="M10.5406 6.49995L0.700562 12.1799V8.56995L4.29056 6.49995L0.700562 4.42995V0.819946L10.5406 6.49995Z" />
-                  <path d="M25.1706 6.49995L15.3306 12.1799V8.56995L18.9206 6.49995L15.3306 4.42995V0.819946L25.1706 6.49995Z" />
-                  <path d="M39.7906 6.49995L29.9506 12.1799V8.56995L33.5406 6.49995L29.9506 4.42995V0.819946L39.7906 6.49995Z" />
-                  <path d="M54.4206 6.49995L44.5806 12.1799V8.56995L48.1706 6.49995L44.5806 4.42995V0.819946L54.4206 6.49995Z" />
-                </g>
-              </svg>
-            </h5>
-            <h3 className="section-title__title">{data.length === 0 ?"No Course Found !!!":"Course List" }</h3>
-          </div> */}
+        
           
         {isloading? (
           <div className="loader-container">
             <div className="loader"></div>
           </div>
-        ) :(data.data ? data.data.map((item,index)=>(
-          <div className="col-xl-4 col-md-6 wow fadeInUp"
+        ) :(courseData ? courseData.map((data,index)=>(
+          <div className="col-xl-4 col-md-6 wow fadeInUp course-card"
             data-wow-delay="400ms" key={index}>
             <div >
-            <a> 
-              <div className="course-two__thumb" onClick={()=>handledetailclick(item)}>
-                <img src={item.thumbnail} alt="eduact" style={{ width: "300px", height: "200px" }}  />
+            <div className="course-card">
+          <div>
+            <img
+              src={data.thumbnail}
+              alt="eduact"
+              className="course-image"
+              height={125}
+              style={{ borderRadius: "20px" }}
+            />
+          </div>
+      
+          <div className="course-two__content">
+            <div className='container pt-2 pb-2 d-flex justify-content-between' style={{  alignItems: 'center', borderRadius: "12px" }}>
+              {/* <div>
+                <img src={data.tutor?.profile_image || profileimg} alt="" style={{ height: 45, width: 45, borderRadius: '50%' }} />
+              </div> */}
+              <div style={{ marginLeft: 10 }}>
+                <h5 style={{ fontWeight: "bolder", fontFamily: "sans-serif", fontSize: 25 }}>{data.name}</h5>
               </div>
-              <div className="course-two__content">
-                <h3 className="course-two__title">
-                  <a >
-                    {item.name}
-                  </a>
-                </h3>
-                <p>{item.description}</p>
-                <button className='btn btn-danger' onClick={()=>{setDeleteId(item.id)}} data-bs-target="#deletemodal" data-bs-toggle="modal">Delete</button>
+              <div>
+                <i><p style={{ fontSize: "14px" }}>Duration: {data.duration}</p></i>
               </div>
-              </a>
+            </div>
+          <div className='d-flex justify-content-between'>
+          <button className='btn btn-danger'  onClick={()=>{setDeleteId(data.id),setDeleteModal(true)}}>Delete</button>
+          <button className='btn btn-success'  onClick={()=>handledetailclick(data)}>View Details</button>
+          </div>
+           
+          </div>
+        </div>
             </div>
           </div>
         )):<div className="loader-container"><p className='text-danger'>No Course Found !!!</p></div>)}
@@ -280,40 +261,56 @@ const Tutorhome = () => {
       >
         <img src={img1} alt="eduact" />
       </div>
-    </section>
+    </section></>}
     </>
    
-   {modalvisible && <AddCourse setPage={setPageUI} setModal={setModalvisible} datafetch={CourseDataFetch} setLoading={setLoading}/>}
+   {modalvisible && <AddCourse setPage={setPageUI} setModal={setModalvisible}  datafetch={TutorCourseFetch} setLoading={setLoading}/>}
 
-    {detailPage && <Tutorcourse data={detailPageData}  setDetailPage={setDetailPage} setPageUI={setPageUI}/>}
+    {detailPage && <Tutorcourse data={detailPageData}  setDetailPage={setDetailPage} tutor={tutor} setPageUI={setPageUI}/>}
   
-    <div id="deletemodal" class="modal fade">
+    {DeleteModal&&<div className="modal bg" tabIndex="-1" role="dialog" style={{
+      display:"block",
+          background: "rgba(102, 54, 255, 0.12)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(10.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"
+      }}>
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style={{
+          display: 'block',
+          background: "rgba(102, 54, 255, 0.12)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(10.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"
+      }}>
             <div className="modal-body">
             <button
               aria-label="Close"
               className="btn-close"
               data-bs-dismiss="modal"
-              type="button"
+              type="button" onClick={()=>setDeleteModal(false)}
             >
               {/* <span aria-hidden="true">&times;</span> */}
             </button>
             <div class="modal-body">
-                        <p>Are you sure you want to delete?</p>
+                        <p className='text-white'>Are you sure you want to delete?</p>
                       </div>
                       <div class="modal-footer">
                        <button type="button" class="btn btn-secondary"
                         aria-label="Close"
                         data-bs-dismiss="modal"
-                        id="close-modal">No</button>
+                        id="close-modal" onClick={()=>setDeleteModal(false)}>No</button>
                         <a onClick={handleDeleteCourse}  class="btn btn-danger" type="button">Yes</a>
                        </div>
           
           </div>
         </div>
     </div>
-   </div>
+   </div>}
     </div>
   )
 }

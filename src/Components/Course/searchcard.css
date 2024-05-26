@@ -1,0 +1,14 @@
+.course-card {
+    overflow: hidden; /* Ensure the image doesn't overflow the card */
+    border-radius: 15px; /* Maintain the border radius of the card */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for the card */
+  }
+  
+  .course-cards:hover {
+    background-color: #e4e9f7;
+    transform: scale(1.02); /* Scale up the card slightly */
+    transform-origin: top;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  
+  }
+  

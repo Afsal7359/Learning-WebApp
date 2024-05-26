@@ -148,7 +148,7 @@ console.log(selectedFile,"selectfile");
       <div className="col-xl-12 col-md-12">
         <div className="card user-card-full">
           <div className="row m-l-0 m-r-0">
-            <div className="col-sm-4 bg-c-lite-green user-profile">
+            <div className="col-sm-4 col-md-12 col-md-12 bg-c-lite-green user-profile">
               <div className="card-block text-center text-white">
                 <div className="m-b-1">
                   <img
@@ -160,10 +160,14 @@ console.log(selectedFile,"selectfile");
 
                 </div>
                 <a style={{cursor:"pointer"}}>
-               <img src={Edit} alt="" className='m-b-25'  onClick={handleEditModal} />
+               {/* <img src={Edit} alt="" className='m-b-25'  onClick={handleEditModal} /> */}
+               <Link onClick={handleEditModal}>
+               Edit
+               </Link>
                </a>
+                
+                <p className='mt-4' style={{fontWeight:"900", fontSize:"25px"}}>{data?data.username:""}</p>
                 <h6 className="f-w-600">{data?data.person:""}</h6>
-                <p>{data?data.username:""}</p>
                 <i className=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16" />
               </div>
             </div>

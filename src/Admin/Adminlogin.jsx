@@ -165,8 +165,8 @@ const Adminlogin = () => {
                                 {...register('password', {
                                     required: 'Password is required',
                                     minLength: {
-                                      value: 8,
-                                      message: 'Password must be at least 8 characters long',
+                                      value: 5,
+                                      message: 'Password must be at least 5 characters long',
                                     },
                                     pattern: {
                                       value: /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/,

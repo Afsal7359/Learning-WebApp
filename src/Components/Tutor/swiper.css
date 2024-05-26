@@ -1,0 +1,94 @@
+
+  
+
+  
+  .swiper {
+    width: 100%; /* Full viewport height */
+  }
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    width: 100%;
+    height: fit-content;
+  }
+
+  .course-card {
+    overflow: hidden; /* Ensure the image doesn't overflow the card */
+    border-radius: 15px; /* Maintain the border radius of the card */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for the card */
+  }
+  
+  .course-card:hover {
+    background-color: #e4e9f7;
+    transform: scale(1.02); /* Scale up the card slightly */
+    transform-origin: top;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.8px);
+    -webkit-backdrop-filter: blur(5.8px);
+    border: 1px solid rgba(255, 255, 255, 0.26);
+  }
+  
+  .course-image {
+    height: 200px;
+    width: 100%;
+    transition: transform 0.3s ease, padding 0.3s ease; /* Smooth transition for the image */
+  }
+  
+  .course-card:hover .course-image {
+    transform: scale(0.95); /* Slightly shrink the image */
+   padding: 0;
+  }
+  .bannerimg {
+    display: block;
+    width: 100%;
+    height: 550px;
+  }
+  
+  .glasscard {
+   
+    border: 1px solid rgba(255, 255, 255, 0.26);
+   
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .course-two__thumb {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  /* .course-image {
+    height: 200px;
+    width: 100%;
+  } */
+  
+  .course-two__content {
+    text-align: center;
+  }
+  
+  .course-two__title a {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  @media (max-width: 768px) {
+    .glasscard {
+      width: calc(100% - 20px); /* Adjust width to ensure proper padding */
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .glasscard {
+      width: calc(100% - 20px); /* Adjust width to ensure proper padding */
+    }
+  
+    .course-image {
+      height: 150px; /* Adjust height for smaller screens */
+    }
+  }
+  

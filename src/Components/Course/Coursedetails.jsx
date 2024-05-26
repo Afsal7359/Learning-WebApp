@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import './Coursedetails.css'
 import { token } from '../../Api/token';
 import { GetMeeting } from '../../Api/Meeting';
-import DocViewer from 'react-doc-viewer';
+import profimg from '../../assets/images/profileimg.png'
+import { Link } from 'react-router-dom';
 
 function Coursedetails({data,setIntroPage,setcoursedetail,modules}) {
 console.log(modules,"moduless");
-    const [activeTab, setActiveTab] = useState(1);
-
+    const [activeTab, setActiveTab] = useState(0);
+    const [Meetingdata,setMeetingData]=useState([])
+console.log(data,"dddddddddddddddddd");
     const handleTabClick = (tabNumber) => {
       setActiveTab(tabNumber);
     };
@@ -16,6 +18,7 @@ console.log(modules,"moduless");
         const response = await GetMeeting(data.id)
         if(response.success=== true){
           console.log(response ,"res-succeess");
+          setMeetingData(response.data)
         }else{
           console.log(response,"error");
         }
@@ -23,101 +26,32 @@ console.log(modules,"moduless");
         console.log(error);
       }
     }
-
+    const convertTo12HourFormat = (time24) => {
+      const [hours, minutes] = time24.split(':').map(Number);
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      const hours12 = hours % 12 || 12;
+      return `${hours12}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
+    };
   return (
     <div>
-         <header className="main-header">
-            <nav className="main-menu">
-            <div className="container">
-                <div className="main-menu__logo">
-                <a onClick={()=>{setIntroPage(true)
-                  setcoursedetail(false)
-                }}>
-                    <i className="icon-arrow-left" />
-                </a>
-                </div>
-                {/* /.main-menu__logo */}
-                <div className="main-menu__nav"></div>
-                {/* /.main-menu__nav */}
-                <div className="main-menu__right">
-                {/* <a href="#" class="main-menu__toggler mobile-nav__toggler">
-                        <i class="fa fa-bars"></i>
-                    </a> */}
-                {/* /.mobile menu btn */}
-                <div className="search-popup__contents">
-                    <form
-                    role="search"
-                    method="get"
-                    className="search-popup__form"
-                    action="#"
-                    >
-                    <input type="text" id="search" placeholder="Search Here..." />
-                    <button type="submit" className="eduact-btn">
-                        <span className="eduact-btn__curve" />
-                        <i className="icon-Search" />
-                    </button>
-                    </form>
-                </div>
-                {/* /.search btn */}
-                <a href="#" className="main-menu__login">
-                    <i className="icon-account-1" />
-                </a>
-                {/* /.login btn */}
-                {/* <a href="contact.html" class="eduact-btn"><span class="eduact-btn__curve"></span>Get In Touch</a>/.contact btn */}
-                </div>
-                {/* /.main-menu__right */}
-            </div>
-            {/* /.container */}
-            </nav>
-            {/* /.main-menu */}
-        </header>
+        
         
     {/* course-details-start */}
     <section className="course-details">
       <div className="container">
         <div className="row">
-          <div className="col-xl-8">
-            <div className="course-details__thumb">
-              <img src={data.thumbnail} alt="eduact" style={{height:"400px",}}/>
-            </div>
-            <h3 className="course-details__title">
-              {data.name}
-            </h3>
-            {/* details-title */}
-            <div className="course-details__tabs tabs-box">
-              <div className="tabs-content">
-                <div className="tab active-tab fadeInUp animated">
-                  <div className="course-details__curriculum">
-                    <h4 className="course-details__curriculum__title" />
-                    <p className="course-details__curriculum__text">
-                     {data.description}
-                    </p>
-                  </div>
+        <div className="main-menu__logo">
+                <Link onClick={()=>{setIntroPage(true)
+                  setcoursedetail(false)
+                }}>
+                    <i className="icon-arrow-left" />
+                </Link>
                 </div>
-                {/* tab-content-curriculum */}
-              </div>
-              {/* tab-content */}
-            </div>
-            {/* tabs */}
-            <div className="course-details__tabs tabs-box">
-              <ul className="course-details__tabs__lists tab-buttons list-unstyled">
-              <ul className="tab-buttons">
-                {modules.length !==0 ?modules.map((item,index) => (
-                <li
-                    key={index}
-                    className={`tab-btn ${activeTab === index ? 'active-btn' : ''}`}
-                    onClick={() => handleTabClick(index)}
-                >
-                    <span>Module {index + 1}</span>
-                </li>
-                )):(
-                  <li> <span>No Module Found !!!!</span> </li>
-                )}
-              </ul>
-              </ul>
-              {/* tab-title */}
-
-              <div className="tabs-content">
+          <div className="col-xl-8" style={{backgroundColor:"#fff",borderRadius:25}}>
+            {/* <div className="course-details__thumb">
+              <img src={data.thumbnail} alt="eduact" style={{height:"400px",}}/>
+            </div> */}
+             <div className="tabs-content">
               <div>
                 {modules.map((item,index) => (
                 <div
@@ -136,6 +70,7 @@ console.log(modules,"moduless");
                             width="600"
                             src={item.module_content_video}
                             allowFullScreen
+                            sandbox="allow-scripts allow-same-origin allow-popups"
                           ></iframe>
                         ):(
                           <div className="document-viewer">
@@ -144,6 +79,7 @@ console.log(modules,"moduless");
                             width="600"
                             src={item.module_content_ppt}
                             allowFullScreen
+                            
                           ></iframe>
                           </div>
                         )}
@@ -154,8 +90,47 @@ console.log(modules,"moduless");
                 )) }
               </div>
               </div>
+                {/* tabs */}
+            <div className="course-details__tabs tabs-box mt-4">
+              <ul className="course-details__tabs__lists tab-buttons list-unstyled">
+              <ul className="tab-buttons">
+                {modules.length !==0 ?modules.map((item,index) => (
+                <li
+                    key={index}
+                    className={`tab-btn ${activeTab === index ? 'active-btn' : ''}`}
+                    onClick={() => handleTabClick(index)}
+                >
+                    <span>Module {index + 1}</span>
+                </li>
+                )):(
+                  <li> <span>No Module Found !!!!</span> </li>
+                )}
+              </ul>
+              </ul>
+              {/* tab-title */}
+
+             
               </div>
             {/* tabs */}
+            <h3 className="course-details__title">
+              {data.name}
+            </h3>
+            {/* details-title */}
+            <div className="course-details__tabs tabs-box">
+              <div className="tabs-content">
+                <div className="tab active-tab fadeInUp animated">
+                  <div className="course-details__curriculum">
+                    <h4 className="course-details__curriculum__title" />
+                    <p className="course-details__curriculum__text">
+                     {data.description}
+                    </p>
+                  </div>
+                </div>
+                {/* tab-content-curriculum */}
+              </div>
+              {/* tab-content */}
+            </div>
+          
           </div>
           <div className="col-xl-4 wow fadeInRight" data-wow-delay="300ms">
             <div className="course-details__sidebar">
@@ -166,7 +141,7 @@ console.log(modules,"moduless");
                 <ul className="course-details__sidebar__lists clerfix">
                   <li>
                     <i className="icon-history" />
-                    Duration:<span>20 Hours</span>
+                    Duration:<span>{data.duration}</span>
                   </li>
                   <li>
                     <i className="icon-book" />
@@ -174,7 +149,7 @@ console.log(modules,"moduless");
                   </li>
                   <li>
                     <i className="icon-Digital-marketing" />
-                    Tutor:<span>{data.tutor_name}</span>
+                    Tutor:<span>{data.tutor.username}</span>
                   </li>
                 </ul>
                 <a
@@ -194,21 +169,45 @@ console.log(modules,"moduless");
       </div>
     </section>
     {/* course-details-end */}
-    <div id="modaldemo1" className="modal fade">
+    <div id="modaldemo1" className="modal fade" style={{
+          background: "rgba(102, 54, 255, 0.12)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(10.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"
+      }}>
       <div className="modal-dialog" role="document">
-        <div className="modal-content">
+        <div className="modal-content" style={{
+          display: 'block',
+          background: "rgba(102, 54, 255, 0.12)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(5.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"
+      }}>
           <div className="modal-body">
             <button
               aria-label="Close"
               className="btn-close"
               data-bs-dismiss="modal"
               type="button"
+              color='white'
             >
               {/* <span aria-hidden="true">&times;</span> */}
             </button>
             <div>
-              <h4 className="mt-2">Upcomming</h4>
-              <div className="upcomemeet m-2 ">
+              {Meetingdata.length !==0?Meetingdata.map((item,index)=>(
+                <>
+              <h4 className="mt-2 text-white">Meetings</h4>
+              <div className="upcomemeet m-2 " style={{   
+           background: "#fff",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(5.8px)",
+          WebkitBackdropFilter: "blur(5.8px)",
+          border: "1px solid rgba(255, 255, 255, 0.26)"}}>
                 <div className=" d-flex">
                   <img
                     src="/src/assets/images/favicons/dateandtime.png"
@@ -222,133 +221,29 @@ console.log(modules,"moduless");
                     }}
                   />
                   <div style={{ justifyContent: "center", marginTop: "1em" }}>
-                    <p>Date: 16/07/2023</p>
-                    <p>Time : 6:00 pm</p>
+                    <p>Date: {item.date}</p>
+                    <p>Time : {convertTo12HourFormat(item.time)}</p>
                   </div>
                 </div>
                 <div
                   className="d-flex"
                   style={{ justifyContent: "space-around" }}
                 >
-                  <a href="https://meet.google.com/nvz-uyzo-tvu">
-                    https://meet.google.com/nvz-uyzo-tvu
-                  </a>
-                  <p>1 hour</p>
+                  <Link to={`${item.link}`}>
+                    {item.link}
+                  </Link>
+                  <p>{item.duration} . min</p>
                 </div>
               </div>
-              <div className="upcomemeet m-2 ">
-                <div className=" d-flex">
-                  <img
-                    src="/src/assets/images/favicons/dateandtime.png"
-                    alt="image"
-                    height="55px"
-                    width="55px"
-                    style={{
-                      marginRight: "2em",
-                      marginTop: "1em",
-                      marginLeft: "1em"
-                    }}
-                  />
-                  <div style={{ justifyContent: "center", marginTop: "1em" }}>
-                    <p>Date: 16/07/2023</p>
-                    <p>Time : 6:00 pm</p>
-                  </div>
-                </div>
-                <div
-                  className="d-flex"
-                  style={{ justifyContent: "space-around" }}
-                >
-                  <a href="https://meet.google.com/nvz-uyzo-tvu">
-                    https://meet.google.com/nvz-uyzo-tvu
-                  </a>
-                  <p>1 hour</p>
-                </div>
-              </div>
-              <h4 style={{ color: "coral" }} className="mt-5">
-                Previous
-              </h4>
-              <div className="upcomemeetp m-2 ">
-                <div className="m-2 d-flex">
-                  <img
-                    src="/src/assets/images/favicons/dateandtime.png"
-                    alt="image"
-                    height="55px"
-                    width="55px"
-                    style={{
-                      marginRight: "2em",
-                      marginTop: "1em",
-                      marginLeft: "1em"
-                    }}
-                  />
-                  <div style={{ justifyContent: "center" }}>
-                    <p>Date: 16/07/2023</p>
-                    <p>Time : 6:00 pm</p>
-                  </div>
-                </div>
-                <div
-                  className="d-flex"
-                  style={{ justifyContent: "space-around" }}
-                >
-                  <p>https://meet.google.com/nvz-uyzo-tvu</p>
-                  <p>Finished</p>
-                </div>
-              </div>
-              <div className="upcomemeetp m-2 ">
-                <div className="m-2 d-flex">
-                  <img
-                    src="/src/assets/images/favicons/dateandtime.png"
-                    alt="image"
-                    height="55px"
-                    width="55px"
-                    style={{
-                      marginRight: "2em",
-                      marginTop: "1em",
-                      marginLeft: "1em"
-                    }}
-                  />
-                  <div style={{ justifyContent: "center" }}>
-                    <p>Date: 16/07/2023</p>
-                    <p>Time : 6:00 pm</p>
-                  </div>
-                </div>
-                <div
-                  className="d-flex"
-                  style={{ justifyContent: "space-around" }}
-                >
-                  <p>https://meet.google.com/nvz-uyzo-tvu</p>
-                  <p>Finished</p>
-                </div>
-              </div>
-              <div className="upcomemeetp m-2 ">
-                <div className="m-2 d-flex">
-                  <img
-                    src="/src/assets/images/favicons/dateandtime.png"
-                    alt="image"
-                    height="55px"
-                    width="55px"
-                    style={{
-                      marginRight: "2em",
-                      marginTop: "1em",
-                      marginLeft: "1em"
-                    }}
-                  />
-                  <div style={{ justifyContent: "center" }}>
-                    <p>Date: 16/07/2023</p>
-                    <p>Time : 6:00 pm</p>
-                  </div>
-                </div>
-                <div
-                  className="d-flex"
-                  style={{ justifyContent: "space-around" }}
-                >
-                  <p>https://meet.google.com/nvz-uyzo-tvu</p>
-                  <p>Finished</p>
-                </div>
-              </div>
+             
+              </>
+              )): <h4 className="mt-2 text-white">No Meeting Found</h4>}
+              
+             
             </div>
             <button
               aria-label="Close"
-              className="btn btn-outline-danger mt-5"
+              className="btn btn-danger mt-5"
               data-bs-dismiss="modal"
               type="button"
             >

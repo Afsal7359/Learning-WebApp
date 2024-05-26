@@ -1,0 +1,89 @@
+#app {
+    height: 100%;
+  }
+  
+
+  
+  .swiper {
+    width: 100%; /* Full viewport height */
+  }
+  .course-card {
+    overflow: hidden; /* Ensure the image doesn't overflow the card */
+    border-radius: 15px; /* Maintain the border radius of the card */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for the card */
+  }
+  
+  .course-card:hover {
+    transform: scale(1.02); /* Scale up the card slightly */
+    transform-origin: top;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  
+  }
+  .course-image{
+    height: 150px;
+    width: 350px;
+  }
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    width: 100%;
+    height: fit-content;
+  }
+  
+  .course-card {
+    border-radius: 12px;
+  }
+  
+
+  .bannerimg {
+    display: block;
+    width: 100%;
+    height: 650px;
+  }
+  
+  .glasscard {
+    border: 1px solid rgba(255, 255, 255, 0.26);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .course-two__thumb {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .course-image {
+    height: 200px;
+    width: 100%;
+  }
+  
+  .course-two__content {
+    text-align: center;
+  }
+  
+  .course-two__title a {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  @media (max-width: 768px) {
+    .glasscard {
+      width: calc(100% - 20px); /* Adjust width to ensure proper padding */
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .glasscard {
+      width: calc(100% - 20px); /* Adjust width to ensure proper padding */
+    }
+  
+    .course-image {
+      height: 150px; /* Adjust height for smaller screens */
+    }
+  }
+  

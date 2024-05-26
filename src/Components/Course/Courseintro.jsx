@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { GetModules } from '../../Api/Course';
 import { token } from '../../Api/token';
 import Coursedetails from './Coursedetails';
+import proficon from '../../assets/images/profileimg.png'
+import { Link } from 'react-router-dom';
 
-
-function Courseintro({data,setPage,setIntroPage}) {
+function Courseintro({data,setPage,setIntroPage,setsearchbar}) {
     console.log(data,"daaataaa");
     const [coursedetail,setcoursedetail]=useState(false)
     const [intropage,setintropage]=useState(true)
@@ -14,7 +15,7 @@ function Courseintro({data,setPage,setIntroPage}) {
 
     const Modulefetch =async()=>{
         try {
-            const tokens = await token("token-refresh-vini")
+            const tokens = await token("student-refresh-vini")
             console.log(tokens.access);
             const response = await GetModules(data.id,tokens.access)
             if(response.success === true){
@@ -34,53 +35,16 @@ function Courseintro({data,setPage,setIntroPage}) {
     
     <>
         {intropage&& <div>
-        <header className="main-header">
-            <nav className="main-menu">
-            <div className="container">
-                <div className="main-menu__logo">
-                <a  onClick={()=> {setIntroPage(false); setPage(true)}}>
-                    <i className="icon-arrow-left" />
-                </a>
-                </div>
-                {/* /.main-menu__logo */}
-                <div className="main-menu__nav"></div>
-                {/* /.main-menu__nav */}
-                <div className="main-menu__right">
-                {/* <a href="#" class="main-menu__toggler mobile-nav__toggler">
-                        <i class="fa fa-bars"></i>
-                    </a> */}
-                {/* /.mobile menu btn */}
-                <div className="search-popup__contents">
-                    <form
-                    role="search"
-                    method="get"
-                    className="search-popup__form"
-                    action="#"
-                    >
-                    <input type="text" id="search" placeholder="Search Here..." />
-                    <button type="submit" className="eduact-btn">
-                        <span className="eduact-btn__curve" />
-                        <i className="icon-Search" />
-                    </button>
-                    </form>
-                </div>
-                {/* /.search btn */}
-                <a href="#" className="main-menu__login">
-                    <i className="icon-account-1" />
-                </a>
-                {/* /.login btn */}
-                {/* <a href="contact.html" class="eduact-btn"><span class="eduact-btn__curve"></span>Get In Touch</a>/.contact btn */}
-                </div>
-                {/* /.main-menu__right */}
-            </div>
-            {/* /.container */}
-            </nav>
-            {/* /.main-menu */}
-        </header>
+      
         <section className="course-details">
             <div className="container">
             <div className="row">
-                <div className="col-xl-8">
+            <div className="main-menu__logo">
+                <Link  onClick={()=> {setIntroPage(false); setPage(true);setsearchbar(true)}}>
+                    <i className="icon-arrow-left" />
+                </Link>
+                </div>
+                <div className="col-xl-8" style={{backgroundColor:"#fff",borderRadius:25}}>
                 <div className="course-details__thumb">
                     <img src={data.thumbnail} alt="eduact" style={{height:"400px",}}/>
                 </div>
@@ -89,13 +53,13 @@ function Courseintro({data,setPage,setIntroPage}) {
                     {data.name}
                 </h3>
                 {/* details-title */}
-                <div className="course-details__tabs tabs-box">
+                <div className="course-details__tabs tabs-box" >
                     <div className="tabs-content">
                     <div className="tab active-tab fadeInUp animated">
                         <div className="course-details__curriculum">
                         <h4 className="course-details__curriculum__title" />
                         <p className="course-details__curriculum__text">
-                            {data.description}
+                            {data.description} In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.
                         </p>
                         </div>
                     </div>
@@ -114,7 +78,7 @@ function Courseintro({data,setPage,setIntroPage}) {
                     <ul className="course-details__sidebar__lists clerfix">
                   <li>
                     <i className="icon-history" />
-                    Duration:<span>{data.duration} . hour</span>
+                    Duration:<span>{data.duration} . Minutes</span>
                   </li>
                   <li>
                     <i className="icon-book" />
@@ -122,7 +86,7 @@ function Courseintro({data,setPage,setIntroPage}) {
                   </li>
                   <li>
                     <i className="icon-Digital-marketing" />
-                    Tutor:<span>{data.tutor_name}</span>
+                    Tutor:<span>{data.tutor.username}</span>
                   </li>
                 </ul>
                     <a className="eduact-btn eduact-btn-second" onClick={()=>{
@@ -140,7 +104,7 @@ function Courseintro({data,setPage,setIntroPage}) {
             </div>
         </section>
         </div>}
-        {coursedetail && <Coursedetails data={data} setIntroPage={setintropage} setcoursedetail={setcoursedetail} modules={modules}/>}
+        {coursedetail && <Coursedetails data={data} setIntroPage={setintropage} setcoursedetail={setcoursedetail} modules={modules} />}
     </>
   )
 }
