@@ -30,13 +30,13 @@ function App() {
   const student = localStorage.getItem('student-refresh-vini')
   const tutor = localStorage.getItem("token-refresh-vini")
   const admin = localStorage.getItem("token-admin-refresh-vini")
-  const isAuthenticated = student || tutor;
+  // const isAuthenticated = student || tutor;
   return (
     <>
             <Router>
             <Suspense fallback={<div className="loader-container"><div class="loader"></div></div>}>
                 <Routes>
-                <Route path="/" element={isAuthenticated ?<Home/>:<Navigate to={"/login"}/>}/>
+                <Route path="/" element={student?<Home/>:<Navigate to={"/login"}/>}/>
                 <Route path="/course-intro" element={student?<Courseintro/>:<Navigate to={"/login"}/>}/>
                 <Route path="/course-detail" element={student?<Coursedetails/>:<Navigate to={"/login"}/>}/>
                 <Route path="/profile" element={student?<Studentprofile/>:<Navigate to={"/login"}/>}/>

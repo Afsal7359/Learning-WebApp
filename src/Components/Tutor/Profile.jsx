@@ -21,7 +21,7 @@ function Profile() {
   const [logoutmodal,setLogoutModal]=useState(false)
   const [passwordModal,setPasswordModal]=useState(false) 
   const [EditModal,setEditModal]=useState(false) 
-
+  const user = "token-refresh-vini"
 
     const passwordmodalvisible =()=>{
       setPasswordModal(true)
@@ -341,7 +341,7 @@ console.log(selectedFile,"selectfile");
 }
   {passwordModal && <PasswordChange Modal={passwordModal} setModal={setPasswordModal}/>}
 
-   {EditModal && <ProfileEdit Modal={EditModal} setModal={setEditModal} handle={ProfileDataFetch()}/>}
+   {EditModal && <ProfileEdit Modal={EditModal} setModal={setEditModal} handle={ProfileDataFetch} users={user}/>}
     </div>
   )
 }

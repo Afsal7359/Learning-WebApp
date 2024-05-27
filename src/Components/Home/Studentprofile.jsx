@@ -17,37 +17,35 @@ function Studentprofile() {
   const [isloading,setLoading]=useState(true)
   const [logoutmodal,setLogoutModal]=useState(false)
 
-
+    const user = "student-refresh-vini"
     const passwordmodalvisible =()=>{
       setPasswordModal(true)
     }
     const handleEditModal =()=>{
       setEditModal(true)
     }
-    
+    const handleProfiledatafetch =async()=>{
+      try {
+        // if (data.length === 0){
+          const Item = localStorage.getItem("student-data-vini")
+          const datas = JSON.parse(Item)
+          
+          const response = await GetUserProfile(datas[0].id)
+          if(response.success===true){
+            console.log(response,'suuccess');
+            setLoading(false)
+            setData(response.student_profile)
+
+          }else{
+            console.log("error");
+          }
+        }
+        catch (error) {
+        toast.error(`${error}`)
+      }
+    }
   useEffect(()=>{
   
-   
-      const handleProfiledatafetch =async()=>{
-        try {
-          // if (data.length === 0){
-            const Item = localStorage.getItem("student-data-vini")
-            const datas = JSON.parse(Item)
-            
-            const response = await GetUserProfile(datas[0].id)
-            if(response.success===true){
-              console.log(response,'suuccess');
-              setLoading(false)
-              setData(response.student_profile)
-
-            }else{
-              console.log("error");
-            }
-          }
-          catch (error) {
-          toast.error(`${error}`)
-        }
-      }
       handleProfiledatafetch();
     
     
@@ -230,7 +228,7 @@ function Studentprofile() {
           }
    {passwordModal && <PasswordChange Modal={passwordModal} setModal={setPasswordModal}/>}
 
-   {EditModal && <ProfileEdit Modal={EditModal} setModal={setEditModal}/>}
+   {EditModal && <ProfileEdit Modal={EditModal} setModal={setEditModal}  handle={handleProfiledatafetch} users={user}/>}
     </div>
   )
 }

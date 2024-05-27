@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form"
 import { ProfileImageChange, refreshToken } from '../../Api/Authentication';
+import { token } from '../../Api/token';
 
-const ProfileEdit = ({Modal,setModal,handle}) => {
+const ProfileEdit = ({Modal,setModal,handle,users}) => {
     const { register, handleSubmit, watch, formState: { errors },} = useForm()
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -17,19 +18,9 @@ const ProfileEdit = ({Modal,setModal,handle}) => {
         setLoading(true)
         try {
             console.log(data);
-            const token={
-                refresh:localStorage.getItem("token-refresh-vini")
-                }
-              const tokencreate = await refreshToken(token);
-                if(tokencreate.success === true){
-                    localStorage.removeItem("token-access-vini")
-                    localStorage.setItem("token-access-vini" , tokencreate.access)
-                    console.log(tokencreate);
-                
-                }else{
-                    console.log(tokencreate.access,"error");
-                    toast.error(tokencreate.message)
-                }
+            console.log(users,"users");
+              const tokencreate = await token(users);
+           
                 const formdata = new FormData()
                 formdata.append('profile_image', selectedFile);
                 const response = await ProfileImageChange(formdata,tokencreate.access)
