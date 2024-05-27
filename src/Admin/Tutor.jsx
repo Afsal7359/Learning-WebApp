@@ -202,14 +202,14 @@ function Tutor() {
                 {/* <span aria-hidden="true">&times;</span> */}
               </button>
               <div class="modal-body">
-                          <p className='text-white'>Are you sure you want to Block?</p>
+                          <p className='text-white'>Are you sure, You want to Verify this Tutor?</p>
                         </div>
                         <div className="d-flex justify-content-between mt-5">
                          <button type="button" class="btn btn-secondary"
                           aria-label="Close"
                           data-bs-dismiss="modal"
                           id="close-modal" onClick={()=>setVerifyModal(false)}>No</button>
-                          <a onClick={handleverifyClick}  class="btn btn-danger" type="button">Block</a>
+                          <a onClick={handleverifyClick}  class="btn btn-success" type="button">Verify</a>
                          </div>
             
             </div>

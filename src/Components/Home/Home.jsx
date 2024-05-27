@@ -223,7 +223,7 @@ function Home() {
   }}
   className="mySwiper"
 >
-  {item.data
+  {item.data.length !==0
     ? item.data.map((data, index) => (
       <SwiperSlide key={index} >
         <div className="course-card" >
@@ -257,7 +257,7 @@ function Home() {
       </SwiperSlide>
       
     ))
-    : ""}
+    : <p className='text-danger text-left'>No Course Found Under This Category !!!</p>}
   {/* Navigation arrows */}
 
 </Swiper>
