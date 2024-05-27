@@ -242,7 +242,7 @@ function Home() {
     <img src={data.tutor?.profile_image || profileimg} alt="" style={{ height: 45, width: 45, border: "0.1px solid black", borderRadius: '50%' }} />&nbsp;&nbsp;
   </div>
   <div >
-    <h5 style={{ fontWeight: "bolder", fontFamily: "sans-serif", fontSize: 25, width:"max-content" }}>{data.name}</h5>
+    <h5 style={{ fontWeight: "bolder", fontFamily: "sans-serif", fontSize: 25, width:"max-content" }}>{data.name.split(' ').slice(0, 2).join(' ')}...</h5>
     <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
       <i><p style={{ fontSize: "14px", margin: 0 }}>Duration: {data.duration} &nbsp; </p></i>
       <i><p style={{ fontSize: "14px", margin: 0, marginLeft: 'auto' }}>Tutor: {data.tutor?.username || ""}</p></i>
