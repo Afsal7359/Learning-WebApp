@@ -23,40 +23,58 @@ const AddCourse = ({setPage,setModal,datafetch}) => {
             const files = event.target.files[0];
             
             if (files.type === 'video/mp4') {
-              const datas = {
-                video : files,
-              }
-              setState(true)
-              console.log(datas,"daaaat");
-              const tokens= await token("token-refresh-vini")
-              const response = await AddFiles(datas ,"video",tokens.access)
-              if(response.success === true){
-                console.log(response);
-                const name = module.length
-                console.log(name,"length");
-                setState(false)
-                setModule([...module,{module_name:`Module ${name}`,module_type:"video",module_content_video:response.data.video}])
-              }else{
-                console.log(response,"error");
-              }
+                const fileSize = files.size;
+                const maxSize = 100 * 1024 * 1024; 
+        
+                if (fileSize > maxSize) {
+                   toast.error('File size exceeds 100 MB limit.');
+                } else {
+                  const datas = {
+                    video : files,
+                  }
+                  setState(true)
+                  console.log(datas,"daaaat");
+                  const tokens= await token("token-refresh-vini")
+                  const response = await AddFiles(datas ,"video",tokens.access)
+                  if(response.success === true){
+                    console.log(response);
+                    const name = module.length
+                    console.log(name,"length");
+                    setState(false)
+                    setModule([...module,{module_name:`Module ${name}`,module_type:"video",module_content_video:response.data.video}])
+                  }else{
+                    console.log(response,"error");
+                  }
+                }
+         
             }else if(files.type === 'application/vnd.openxmlformats-officedocument.presentationml.presentation' || files.type === "application/vnd.ms-powerpoint"){
-              const datas = {
-                ppt : files,
-              }
-              setState(true)
-              const tokens= await token("token-refresh-vini")
-              const response = await AddFiles(datas,"pdf",tokens.access)
-              if(response.success){
-                console.log(response,"success");
-                const name = module.length+1
-                console.log(name,"length");
-                setModule([...module,{module_name:`Module ${name}`,module_type:"ppt",module_content_ppt:response.data.pdf}])
-                setState(false)
-              }else{
-                console.log(response,"error");
-              }
-              console.log(datas,"dataaaa");
-            }
+      
+                const fileSize = files.size; // size in bytes
+                const maxSize = 30 * 1024 * 1024; // 30 MB in bytes
+        
+                if (fileSize > maxSize) {
+                   toast.error('File size exceeds 30 MB limit.');
+                } else {
+                  const datas = {
+                    ppt : files,
+                  }
+                  setState(true)
+                  const tokens= await token("token-refresh-vini")
+                  const response = await AddFiles(datas,"pdf",tokens.access)
+                  if(response.success){
+                    console.log(response,"success");
+                    const name = module.length+1
+                    console.log(name,"length");
+                    setModule([...module,{module_name:`Module ${name}`,module_type:"ppt",module_content_ppt:response.data.pdf}])
+                    setState(false)
+                  }else{
+                    console.log(response,"error");
+                  }
+                  console.log(datas,"dataaaa");
+                }
+                }
+
+           
             console.log(module,"modules");
           }
       
@@ -200,7 +218,7 @@ console.log(module,"modules");
                           required: 'Course Description is required',
                           validate: (value) => {
                             const wordCount = value.trim().split(/\s+/).length;
-                            return wordCount <= 10000 || 'Description must not exceed 10,000 words';
+                            return wordCount <= 1000 || 'Description must not exceed 1000 words';
                           }
                         })}
                         className={`form-control ${errors.description ? 'is-invalid' : ''}`}
@@ -209,6 +227,7 @@ console.log(module,"modules");
                       />
                        
                       {errors.description && <div className="invalid-feedback">{errors.description.message}</div>}
+                      <p className='text-black mt-2'  style={{fontSize:"13px",color:"#3f3a5e"}}> <img src={info} alt="" height={14} /> <i>Description must not exceed 1000 words</i> </p>
                   </div>
                     <div className="form-group m-2 mt-3">
                     <label htmlFor="thumbnail" style={{color:"#2A254D"}}>Thumbnail Image</label>
@@ -316,7 +335,7 @@ console.log(module,"modules");
                           name="modules"
                           onChange={(e)=>handleFileSelect(e)}
                       />:<><div className="loader"></div><p className='text-danger'>Module Uploading Please Wait</p></>  }
-                       <p className='text-black mt-2'  style={{fontSize:"13px",color:"#3f3a5e"}}> <img src={info} alt="" height={14} /> <i>Please Upload Modules One by One . File format should be ppt having file size of 30 MB and mp4 of below 1 GB </i> </p>
+                       <p className='text-black mt-2'  style={{fontSize:"13px",color:"#3f3a5e"}}> <img src={info} alt="" height={14} /> <i>Please Upload Modules One by One . File format should be ppt having file size of 30 MB and mp4 of below 100 MB </i> </p>
                     
                   </div>
                   <div className="d-flex justify-content-between mt-5">

@@ -6,6 +6,7 @@ import DocViewer from 'react-doc-viewer';
 import Createmeeting from '../Modals/Createmeeting';
 import { Link } from 'react-router-dom';
 import { GetMeeting } from '../../Api/Meeting';
+import dateicon from '../..//assets/images/favicons/dateandtime.png'
 
 function Tutorcourse({data ,tutor, setPageUI,setDetailPage}) {
     const [activeTab, setActiveTab] = useState(0);
@@ -127,7 +128,7 @@ function Tutorcourse({data ,tutor, setPageUI,setDetailPage}) {
                 )):<h3>No Modules Found</h3>}
               </div>
               </div>
-              <ul className="course-details__tabs__lists tab-buttons list-unstyled">
+              <ul className="course-details__tabs__lists tab-buttons list-unstyled mt-5">
               <ul className="tab-buttons">
                 {moduledata.length!==0?moduledata.map((item,index) => (
                 <li
@@ -257,7 +258,7 @@ function Tutorcourse({data ,tutor, setPageUI,setDetailPage}) {
           border: "1px solid rgba(255, 255, 255, 0.26)"}}>
                 <div className=" d-flex">
                   <img
-                    src="/src/assets/images/favicons/dateandtime.png"
+                    src={dateicon}
                     alt="image"
                     height="55px"
                     width="55px"

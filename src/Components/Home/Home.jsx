@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import './swiper.css';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { GetAllCourse, SearchCourse } from '../../Api/Course';
 import { GetCategory } from '../../Api/Category';
 import 'pure-react-carousel/dist/react-carousel.es.css';
@@ -173,7 +173,7 @@ function Home() {
       </div>
     ):<div>
   
-      <Swiper   loop={true} navigation={true} modules={[Navigation]} className="mySwiper mb-5" id="home"  >
+      <Swiper   loop={true} navigation={true} modules={[Navigation,Autoplay]}  autoplay={{ delay: 2000, disableOnInteraction: false }} className="mySwiper mb-5" id="home"  >
         {banner.map((item,index)=>(
           <SwiperSlide key={index}>
           <img src={item.carousel_image} alt="" className='bannerimg' />
@@ -198,7 +198,8 @@ function Home() {
         </div>
         
         <Swiper
-         navigation={true} modules={[Navigation]} 
+         navigation={true} modules={[Navigation,Autoplay]} 
+         autoplay={{ delay: 3000, disableOnInteraction: false }}
   slidesPerView={3}
   spaceBetween={30}
   loop={true}
