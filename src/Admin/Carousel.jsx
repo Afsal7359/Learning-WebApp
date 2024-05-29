@@ -7,6 +7,7 @@ import { refreshToken } from '../Api/Authentication';
 import instance, { setAuthToken } from '../Api/instance';
 import axios from 'axios';
 import { token } from '../Api/token';
+import { TokenExpiry } from '../Api/Tokenexpiry';
 
 const Carousel = () => {
     const [isloading,setIsLoading]=useState(true)
@@ -14,7 +15,23 @@ const Carousel = () => {
     const [image, setImage] = useState(null);
     const { register, handleSubmit, watch, formState: { errors },} = useForm()
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const UsertokenCheck = async()=>{
+      try {
+          const response = await TokenExpiry('token-admin-access-vini',"admin")
+          if(response){
+          console.log("not expired");
+          }else{
+            console.log("token -expired");
+            window.location.href='/admin-login'
+          }
+      
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    useEffect(()=>{
+      UsertokenCheck()
+    },[])
     const [selectedFile, setSelectedFile] = useState(null);
     const [deleteid,setdeleteId]=useState(0);
     const [deletemodal,setdeletemodal]=useState(false)

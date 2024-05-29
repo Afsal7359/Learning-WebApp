@@ -5,6 +5,7 @@ import { GetAllUsers, VerifyTutor } from '../Api/Profile'
 import { token } from '../Api/token'
 import BlockuserModal from '../Components/Modals/BlockuserModal'
 import UnblockModal from '../Components/Modals/UnblockModal'
+import { TokenExpiry } from '../Api/Tokenexpiry'
 const Student = () => {
     
     const [student,setStudent]=useState([])
@@ -47,6 +48,24 @@ const handlePageChanges = (pageNumber) => {
   setCurrentPagetutor(pageNumber);
 };
 
+
+const UsertokenCheck = async()=>{
+  try {
+      const response = await TokenExpiry('token-admin-access-vini',"admin")
+      if(response){
+      console.log("not expired");
+      }else{
+        console.log("token -expired");
+        window.location.href='/admin-login'
+      }
+  
+  } catch (error) {
+    console.log(error);
+  }
+}
+useEffect(()=>{
+  UsertokenCheck()
+},[])
     const Userdatafetch=async()=>{
       try {
        

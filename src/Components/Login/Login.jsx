@@ -30,16 +30,18 @@ function Login() {
             console.log(response);
             console.log("ffffffffffffffffffff");
             toast.success(`${response.message}`)
-            
+            const expiryTime = new Date().getTime() + 6 * 24 * 60 * 60 * 1000;
             if (response.data[0].person === "tutor"){
                 window.location.href=('/tutor')
                 localStorage.setItem("token-access-vini" , response.access)
                 localStorage.setItem("token-refresh-vini" , response.refresh)
+                localStorage.setItem('tokenExpiry-tutor', expiryTime);
                 localStorage.setItem("tutor-data-vini", JSON.stringify(response.data))
             }else if(response.data[0].person === 'student'){
                 localStorage.setItem("student-data-vini", JSON.stringify(response.data))
                 localStorage.setItem("student-access-vini" , response.access)
               localStorage.setItem("student-refresh-vini" , response.refresh)
+              localStorage.setItem('tokenExpiry-student', expiryTime);
                 window.location.href=('/')
             }
         }else{

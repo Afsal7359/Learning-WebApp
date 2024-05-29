@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import Adminheader from './Adminheader';
 import { token } from '../Api/token';
 import UpdateToTrending from '../Components/Modals/UpdateToTrending';
+import { TokenExpiry } from '../Api/Tokenexpiry';
 
 const CourseList = () => {
     const [data,setData]=useState([])
@@ -11,7 +12,23 @@ const CourseList = () => {
     const [deleteid,setDeleteId]=useState(null)
     const [Modal,setModal]=useState(false)
     const [deleteModal,setDeleteModal]=useState(false)
-
+    const UsertokenCheck = async()=>{
+      try {
+          const response = await TokenExpiry('token-admin-access-vini',"admin")
+          if(response){
+          console.log("not expired");
+          }else{
+            console.log("token -expired");
+            window.location.href='/admin-login'
+          }
+      
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    useEffect(()=>{
+      UsertokenCheck()
+    },[])
     const CourseDatafetch=async()=>{
         try {
             const response = await GetAllCourse()

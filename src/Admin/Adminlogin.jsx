@@ -28,6 +28,9 @@ const Adminlogin = () => {
                 toast.success(`${response.message}`)
                 console.log(response);
                 console.log("ffffffffffffffffffff");
+                
+                const expiryTime = new Date().getTime() + 6 * 24 * 60 * 60 * 1000;
+                localStorage.setItem('tokenExpiry-admin', expiryTime);
                 localStorage.setItem("token-admin-access-vini" , response.access)
                 localStorage.setItem("token-admin-refresh-vini" , response.refresh)
              
@@ -44,6 +47,7 @@ const Adminlogin = () => {
         }
       };
 
+ 
   return (
     <div>
         {/* <div id="login" style={{ backgroundColor: "#064f89", height: "100vh" }}>

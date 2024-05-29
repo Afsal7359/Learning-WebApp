@@ -4,6 +4,7 @@ import { AddCategory, DeleteCategory, GetCategory } from '../Api/Category'
 import { useForm } from "react-hook-form"
 import { refreshToken } from '../Api/Authentication'
 import { toast } from 'react-toastify'
+import { TokenExpiry } from '../Api/Tokenexpiry'
 
 const Category = () => {
     const { register, handleSubmit, watch, formState: { errors },} = useForm()
@@ -15,6 +16,23 @@ const Category = () => {
       const closeModal = () => {
         setIsModalOpen(false);
       };
+      const UsertokenCheck = async()=>{
+        try {
+            const response = await TokenExpiry('token-admin-access-vini',"admin")
+            if(response){
+            console.log("not expired");
+            }else{
+              console.log("token -expired");
+              window.location.href='/admin-login'
+            }
+        
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      useEffect(()=>{
+        UsertokenCheck()
+      },[])
 
     const [categorydata,setCategoryData]=useState([])
     const [deleteid,setdeleteId]=useState(0);

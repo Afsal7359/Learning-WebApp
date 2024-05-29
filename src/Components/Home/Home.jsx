@@ -16,6 +16,7 @@ import banner1 from '../../assets/images/gallery/fg-1.jpg'
 import profileimg from '../../assets/images/gallery/fg-5.jpg'
 import Search from '../Course/Search';
 import { GetAllCarousel } from '../../Api/Carousel';
+import { TokenExpiry } from '../../Api/Tokenexpiry';
 
 function Home() {
 
@@ -32,6 +33,24 @@ function Home() {
   const [search ,setSearch]=useState(false)
   const [banner,setBanner]=useState([])
   const [searchbar,setsearchbar]=useState(true)
+
+  const UsertokenCheck = async()=>{
+    try {
+        const response = await TokenExpiry('student-refresh-vini',"student")
+        if(response){
+        console.log("not expired");
+        }else{
+          console.log("token -expired");
+          window.location.href='/login'
+        }
+    
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(()=>{
+    UsertokenCheck()
+  },[])
 
   const fetchSearchResults = async (searchQuery) => {
     try {
@@ -213,7 +232,7 @@ function Home() {
       spaceBetween: 30,
     },
     768: {
-      slidesPerView: 2,
+      slidesPerView: 1,
       spaceBetween: 60,
     },
     1024: {

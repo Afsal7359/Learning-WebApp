@@ -36,6 +36,7 @@
   
   .course-card {
     border-radius: 12px;
+    width: 450px;
   }
   
 
@@ -75,6 +76,9 @@
     .glasscard {
       width: calc(100% - 20px); /* Adjust width to ensure proper padding */
     }
+    .course-card{
+      width: 450px;
+    }
   }
   
   @media (max-width: 640px) {
@@ -84,6 +88,9 @@
   
     .course-image {
       height: 150px; /* Adjust height for smaller screens */
+    }
+    .course-card{
+      width: 450px;
     }
   }
   

@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -24,12 +24,14 @@ const CourseList = lazy(()=> import('./Admin/CourseList'))
 
 
 function App() {
-
- console.log("afsal");
-
   const student = localStorage.getItem('student-refresh-vini')
   const tutor = localStorage.getItem("token-refresh-vini")
   const admin = localStorage.getItem("token-admin-refresh-vini")
+  
+
+
+
+  
   // const isAuthenticated = student || tutor;
   return (
     <>

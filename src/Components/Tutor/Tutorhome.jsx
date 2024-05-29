@@ -14,6 +14,7 @@ import bannerimg1 from '../../assets/images/resources/banner-2-1.jpg'
 import { GetTutorProfile } from '../../Api/Profile';
 import { token } from '../../Api/token';
 import './swiper.css'
+import { TokenExpiry } from '../../Api/Tokenexpiry';
 
 const Tutorhome = () => {
     const [modalvisible,setModalvisible]=useState(false);
@@ -45,6 +46,24 @@ const Tutorhome = () => {
     //     console.log(error);
     //   }
     // }
+    
+  const UsertokenCheck = async()=>{
+    try {
+        const response = await TokenExpiry('token-refresh-vini',"tutor")
+        if(response){
+        console.log("not expired");
+        }else{
+          console.log("token -expired");
+          window.location.href='/login'
+        }
+    
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(()=>{
+    UsertokenCheck()
+  },[])
 
       const TutorCourseFetch=async()=>{
         try {
