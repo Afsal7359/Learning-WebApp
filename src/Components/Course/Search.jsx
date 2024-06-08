@@ -21,7 +21,7 @@ console.log(data,"data");
                 <div className="card-body d-flex flex-column justify-content-between" style={{ height: '150px' }}>
                   <div>
                     <h5 className="card-title">{item.name}</h5>
-                    <p className="card-text">{item.description.split(' ').slice(0, 30).join(' ')} </p>
+                    <p className="card-text">{item.description.split(' ').slice(0, 10).join(' ')} </p>
                     <div className="d-flex align-items-center">
                       <img 
                         src={item.tutor ? item.tutor.profile_image : ""} 
