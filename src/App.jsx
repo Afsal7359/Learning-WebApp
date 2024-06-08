@@ -5,7 +5,8 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Student from "./Admin/Student";
+const  Student = lazy(()=>import("./Admin/Student"));
+const Error = lazy(()=>import("./Components/404/Error"))
 const Home = lazy(()=> import('./Components/Home/Home'))
 const Courseintro = lazy(()=> import('./Components/Course/Courseintro'))
 const Coursedetails = lazy(()=> import('./Components/Course/Coursedetails'))
@@ -59,7 +60,7 @@ function App() {
                 <Route path="/register" element={<Registration/>}/>
                 <Route path="/forgot-password" element={<Forgotpassword/>}/>
 
-
+                <Route path="*" element={<Error />} />
                 </Routes>
                 </Suspense>
             </Router>
