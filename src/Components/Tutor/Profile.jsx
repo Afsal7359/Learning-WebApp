@@ -9,7 +9,8 @@ import ProfileEdit from '../Modals/ProfileEdit'
 import Edit from "../../assets/images/edit.png"
 import profimg from '../../assets/images/gallery/fg-3.jpg'
 import './Course.css'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
+
 
 
 function Profile() {
@@ -22,7 +23,7 @@ function Profile() {
   const [passwordModal,setPasswordModal]=useState(false) 
   const [EditModal,setEditModal]=useState(false) 
   const user = "token-refresh-vini"
-
+  const navigate = useNavigate();
     const passwordmodalvisible =()=>{
       setPasswordModal(true)
     }
@@ -105,8 +106,9 @@ console.log(selectedFile,"selectfile");
             localStorage.removeItem('tutor-data-vini')
             localStorage.removeItem('token-refresh-vini')
             toast.success(`${response.message}`)
-            window.location.href = '/login'
+            // window.location.href = '/login'
             // navigate('/login')
+            navigate('/login'); 
           }else{
             toast.success(`${response.message}`)
           }

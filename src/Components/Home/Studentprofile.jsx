@@ -8,9 +8,10 @@ import profileimg from "../../assets/images/gallery/fg-4.jpg"
 import Edit from "../../assets/images/edit.png"
 import './Profile.css'
 import { LogoutUser } from '../../Api/Authentication';
+import { useNavigate } from 'react-router-dom';
 
 function Studentprofile() {
-
+  const navigate = useNavigate();
   const [data,setData]=useState([])
   const [passwordModal,setPasswordModal]=useState(false) 
   const [EditModal,setEditModal]=useState(false) 
@@ -63,8 +64,9 @@ function Studentprofile() {
           localStorage.removeItem('student-access-vini')
           localStorage.removeItem('student-data-vini')
           toast.success(`${response.message}`)
-          window.location.href = '/login'
+          // window.location.href = '/login'
           // navigate('/login')
+          navigate('/login'); 
         }else{
           toast.success(`${response.message}`)
         }

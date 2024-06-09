@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink,useNavigate } from 'react-router-dom'
 import './header.css'
 import logo2 from '../assets/images/logo-vinjan.png'
 import sidebaricon1 from '../assets/images/home.png'
@@ -15,7 +15,7 @@ function Adminheader() {
     const [isSidebarClosed, setSidebarClosed] = useState(false);
     const [isDarkMode, setDarkMode] = useState(false);
     const [logoutmodal,setLogoutModal]=useState(false)
-  
+    const navigate = useNavigate();
     const handleToggleSidebar = () => {
       setSidebarClosed(!isSidebarClosed);
     };
@@ -37,7 +37,7 @@ function Adminheader() {
           localStorage.removeItem('token-admin-refresh-vini')
           localStorage.removeItem('token-admin-access-vini')
           toast.success(`${response.message}`)
-          window.location.href = '/admin-login'
+          navigate('/admin-login'); 
         }else{
           toast.success(`${response.message}`)
         }
