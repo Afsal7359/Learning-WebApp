@@ -34,8 +34,7 @@ const Adminlogin = () => {
                 localStorage.setItem('tokenExpiry-admin', expiryTime);
                 localStorage.setItem("token-admin-access-vini" , response.access)
                 localStorage.setItem("token-admin-refresh-vini" , response.refresh)
-                navigate('/admin')
-                    // window.location.href=('/admin')
+                navigate('/admin');
             }else{
                 toast.error(`${response.message}`)
                 console.log(response,"tttttttttt");

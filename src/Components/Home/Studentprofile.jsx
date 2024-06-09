@@ -64,8 +64,6 @@ function Studentprofile() {
           localStorage.removeItem('student-access-vini')
           localStorage.removeItem('student-data-vini')
           toast.success(`${response.message}`)
-          // window.location.href = '/login'
-          // navigate('/login')
           navigate('/login'); 
         }else{
           toast.success(`${response.message}`)

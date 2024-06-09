@@ -44,8 +44,7 @@ function Login() {
                 localStorage.setItem("student-access-vini" , response.access)
               localStorage.setItem("student-refresh-vini" , response.refresh)
               localStorage.setItem('tokenExpiry-student', expiryTime);
-                // window.location.href=('/')
-                navigate('/')
+                navigate('/');
             }
         }else{
             console.log(response,"tttttttttt");
