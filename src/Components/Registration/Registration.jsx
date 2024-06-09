@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Register.css'
 import { RegisterUser } from '../../Api/Authentication';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import bgimg from '../../assets/images/backgroundgif.gif'
 import { useForm } from 'react-hook-form';
@@ -17,7 +17,7 @@ function Registration() {
     const [gender,setGender]=useState('');
     const [message,setMessage]=useState('');
     const [selectedRole, setSelectedRole] = useState(''); // Initial state is empty
-
+    const navigate = useNavigate();
     const handleSelection = (role) => {
         setSelectedRole(role);
         setValue('role', role, { shouldValidate: true }); // Update the role value and trigger validation
@@ -44,7 +44,8 @@ function Registration() {
                     toast.success(`${response.message}`)
                     console.log("sucess",response,"response data");
                     setTimeout(() => {
-                        window.location.href='/login'
+                        // window.location.href='/login'
+                        navigate('/login'); 
                     }, 1000); 
                 }else{
                     console.log(response);

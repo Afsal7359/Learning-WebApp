@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ForgotPassword } from '../../Api/Authentication';
 import './Login.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import bgimg from '../../assets/images/backgroundgif.gif'
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
@@ -10,7 +10,7 @@ const Forgotpassword = () => {
     const [message,setMessage]=useState('');
     const [email,setEmail]=useState('');
     const { register, handleSubmit, formState: { errors } } = useForm();
-
+    const navigate = useNavigate();
     const onSubmit =async (event) => {
         try {
             const data ={
@@ -22,8 +22,8 @@ const Forgotpassword = () => {
                 console.log("ffffffffffffffffffff");
                 toast.success(" Password send Successfully !!  Please Check Your Email")
             // setMessage()
-            window.location.href='/login'
-             
+            // window.location.href='/login'
+            navigate('/login'); 
             }else{
                 console.log(response,"tttttttttt");
                 setMessage(response.message)
