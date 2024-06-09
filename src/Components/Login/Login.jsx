@@ -9,13 +9,15 @@ import bgimg from '../../assets/images/backgroundgif.gif'
 import { useForm } from 'react-hook-form';
 
 function Login() {
+    const navigate = useNavigate();
+
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [message,setMessage]=useState('');
 
-    const navigate = useNavigate();
+  
     const togglePasswordVisibility = () => {
       setPasswordVisible(!passwordVisible);
     };
@@ -32,23 +34,24 @@ function Login() {
             console.log("ffffffffffffffffffff");
             toast.success(`${response.message}`)
             const expiryTime = new Date().getTime() + 6 * 24 * 60 * 60 * 1000;
-            if (response.data[0].person === "tutor"){
-              
-                navigate('/tutor',{ replace: true });
+            if (response.person === "tutor"){
+              navigate('/tutor', { replace: true });
+              console.log("Navigated to /tutor");
                 localStorage.setItem("token-access-vini" , response.access)
                 localStorage.setItem("token-refresh-vini" , response.refresh)
                 localStorage.setItem('tokenExpiry-tutor', expiryTime);
                 localStorage.setItem("tutor-data-vini", JSON.stringify(response.data))
-            }else if(response.data[0].person === 'student'){
+            }else if(response.person === 'student'){
+              navigate('/', { replace: true });
+              console.log("Navigated to /");
                 localStorage.setItem("student-data-vini", JSON.stringify(response.data))
                 localStorage.setItem("student-access-vini" , response.access)
               localStorage.setItem("student-refresh-vini" , response.refresh)
               localStorage.setItem('tokenExpiry-student', expiryTime);
-                navigate('/',{ replace: true });
+                
             }
         }else{
             console.log(response,"tttttttttt");
-            setMessage(response.message)
             toast.error(`${response.message}`)
             console.log(response,"tttttttttt");
         }

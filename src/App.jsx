@@ -39,7 +39,7 @@ function App() {
             <Route path="/course-detail" element={student ? <Coursedetails /> : <Navigate to={"/login"} />} />
             <Route path="/profile" element={student ? <Studentprofile /> : <Navigate to={"/login"} />} />
 
-            <Route path="/tutor" element={tutor ? <Tutorhome /> : <Navigate to={"/login"} />} />
+            <Route path="/tutor" element={tutor ? <Tutorhome/> : <Navigate to={"/login"} />} />
             <Route path="/tutor/course-detail" element={tutor ? <Tutorcourse /> : <Navigate to={"/login"} />} />
             <Route path="/tutor-Profile" element={tutor ? <Profile /> : <Navigate to={"/login"} />} />
 
