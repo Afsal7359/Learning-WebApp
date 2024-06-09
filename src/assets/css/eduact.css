@@ -16651,7 +16651,12 @@ body.boxed-wrapper .hero-banner__thumb {
     75% {background-position:100% 0   ,0 0   ,0    100%}
     100%{background-position:100% 100%,0 0   ,0    100%}
 }
-
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh; /* Full height of the viewport */
+}
 /* @keyframes spin {
   0% {
     transform: rotate(0deg);
