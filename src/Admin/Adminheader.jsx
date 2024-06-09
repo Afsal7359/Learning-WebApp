@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { Link, NavLink,useNavigate } from 'react-router-dom'
 import './header.css'
 import logo2 from '../assets/images/logo-vinjan.png'
@@ -16,6 +16,7 @@ function Adminheader() {
     const [isDarkMode, setDarkMode] = useState(false);
     const [logoutmodal,setLogoutModal]=useState(false)
     const navigate = useNavigate();
+    const [loginSuccess, setLoginSuccess] = useState(false); 
     const handleToggleSidebar = () => {
       setSidebarClosed(!isSidebarClosed);
     };
@@ -27,6 +28,19 @@ function Adminheader() {
     const handleModeSwitch = () => {
       setDarkMode(!isDarkMode);
     };
+    useEffect(() => {
+      if (loginSuccess) {
+          const admintoken = localStorage.getItem("token-admin-refresh-vini");
+
+          if (admintoken) {
+              console.log(studentToken, "Navigating to student dashboard");
+              navigate('/admin', { replace: true });
+          } 
+
+          // Reset loginSuccess to prevent infinite loop
+          setLoginSuccess(false);
+      }
+  }, [loginSuccess, navigate]); 
     const handlelogout =async()=>{
       try {
         const data ={
@@ -37,7 +51,8 @@ function Adminheader() {
           localStorage.removeItem('token-admin-refresh-vini')
           localStorage.removeItem('token-admin-access-vini')
           toast.success(`${response.message}`)
-          navigate('/admin-login'); 
+          // navigate('/admin-login');
+          setLoginSuccess(true) 
         }else{
           toast.success(`${response.message}`)
         }

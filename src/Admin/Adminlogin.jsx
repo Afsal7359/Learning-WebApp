@@ -41,7 +41,6 @@ const Adminlogin = () => {
                 setMessage(response.message)
                 console.log(response,"tttttttttt");
             }
-            console.log(data,"formsubmit");
         } catch (error) {
             console.log(error);
         }

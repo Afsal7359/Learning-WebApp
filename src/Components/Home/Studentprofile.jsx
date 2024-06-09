@@ -63,6 +63,7 @@ function Studentprofile() {
           localStorage.removeItem('student-refresh-vini')
           localStorage.removeItem('student-access-vini')
           localStorage.removeItem('student-data-vini')
+          localStorage.removeItem('tokenExpiry-student');
           toast.success(`${response.message}`)
           navigate('/login'); 
         }else{
