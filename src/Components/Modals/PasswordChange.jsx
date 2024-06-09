@@ -2,24 +2,15 @@ import React from 'react'
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form"
 import { ChangePassword, refreshToken } from '../../Api/Authentication';
+import { token } from '../../Api/token';
 
-const PasswordChange = ({Modal,setModal}) => {
+const PasswordChange = ({Modal,setModal,users}) => {
     const { register, handleSubmit, watch, formState: { errors },} = useForm()
 
     const onSubmits =async(data)=>{
         try {
-         const token={
-           refresh:localStorage.getItem("token-admin-refresh-vini")
-           }
-         const tokencreate = await refreshToken(token);
-           if(tokencreate.success === true){
-               localStorage.setItem("token-admin-access-vini" , tokencreate.access)
-               console.log(tokencreate);
-              
-           }else{
-               console.log(tokencreate,"error");
-               toast.error(tokencreate.message)
-           }
+      
+          const tokencreate = await token(users)
            const datas ={
              old_password:data.old_password,
              new_password:data.new_password,
@@ -27,11 +18,11 @@ const PasswordChange = ({Modal,setModal}) => {
            const responses = await ChangePassword(datas,tokencreate.access)
            if(responses.success === true){
              console.log(responses);
-             toast.success(responses.message)
+             toast.success(`${responses.message}`)
              setModal(false)
            }else{
              console.log(responses,"error");
-             toast.error(responses.message)
+             toast.error(`${responses.message}`)
            }
        } catch (error) {
          console.log(error);

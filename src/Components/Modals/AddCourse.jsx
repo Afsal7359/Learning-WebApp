@@ -239,7 +239,8 @@ console.log(module,"modules");
                           onChange={handleImage}
                           ref={fileInputRef}
                       />
-                       <p className='text-black mt-2'  style={{fontSize:"13px",color:"#3f3a5e"}}> <img src={info} alt="" height={14} /> <i>Image should be below 1 MB</i> </p>
+                       <p className='text-black mt-2'  style={{fontSize:"13px",color:"#3f3a5e"}}> <img src={info} alt="" height={14} /> <i>Image should be below 1 MB and the file Format Should be jpg</i> </p>
+                       <p className='text-black mt-2'  style={{fontSize:"13px",color:"#3f3a5e"}}> <img src={info} alt="" height={14} /> <i>In Case of any Change on Thumbnail Please Click on Choose File</i> </p>
                         {image?   <img className='mt-4 mb-3' src={image} height={55} alt="" />:""}
                       {errors.thumbnail && <span className="text-danger">{errors.thumbnail.message}</span>}
                   </div>

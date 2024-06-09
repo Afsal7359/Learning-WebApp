@@ -4,7 +4,7 @@ import { Loginuser } from '../../Api/Authentication';
 import { toast } from 'react-toastify';
 import Tutor from '../../assets/images/tutor.png'
 import STudent from '../../assets/images/student.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import bgimg from '../../assets/images/backgroundgif.gif'
 import { useForm } from 'react-hook-form';
 
@@ -15,6 +15,7 @@ function Login() {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [message,setMessage]=useState('');
 
+    const navigate = useNavigate();
     const togglePasswordVisibility = () => {
       setPasswordVisible(!passwordVisible);
     };
@@ -32,7 +33,8 @@ function Login() {
             toast.success(`${response.message}`)
             const expiryTime = new Date().getTime() + 6 * 24 * 60 * 60 * 1000;
             if (response.data[0].person === "tutor"){
-                window.location.href=('/tutor')
+                // window.location.href=('/tutor')
+                navigate('/tutor')
                 localStorage.setItem("token-access-vini" , response.access)
                 localStorage.setItem("token-refresh-vini" , response.refresh)
                 localStorage.setItem('tokenExpiry-tutor', expiryTime);
@@ -42,7 +44,8 @@ function Login() {
                 localStorage.setItem("student-access-vini" , response.access)
               localStorage.setItem("student-refresh-vini" , response.refresh)
               localStorage.setItem('tokenExpiry-student', expiryTime);
-                window.location.href=('/')
+                // window.location.href=('/')
+                navigate('/')
             }
         }else{
             console.log(response,"tttttttttt");

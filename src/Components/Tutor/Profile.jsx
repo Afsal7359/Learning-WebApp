@@ -45,6 +45,7 @@ console.log(selectedFile,"selectfile");
         const response= await GetTutorProfile(item[0].id)
         if(response.success === true){
           console.log(response,"response success");
+         
           setData(response.profile)
           setQualification(response.qualifications)
           setLoading(false)
@@ -266,10 +267,8 @@ console.log(selectedFile,"selectfile");
                                       <iframe
                                         src={item.certificate}
                                         style={{ width: '100%', height: '200px' }} 
-                                        frameBorder="0"
                                         scrolling="auto"
                                         allowFullScreen
-                                        title="PDF Preview"
                                       />
                           <div className="card-body">
                             <h5 className="card-title">{item.qualification}</h5> 
@@ -341,7 +340,7 @@ console.log(selectedFile,"selectfile");
 </div>
         </div>)
 }
-  {passwordModal && <PasswordChange Modal={passwordModal} setModal={setPasswordModal}/>}
+  {passwordModal && <PasswordChange Modal={passwordModal} setModal={setPasswordModal} users={user}/>}
 
    {EditModal && <ProfileEdit Modal={EditModal} setModal={setEditModal} handle={ProfileDataFetch} users={user}/>}
     </div>

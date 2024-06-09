@@ -4,6 +4,7 @@ import './Admin.css'
 import { toast } from 'react-toastify';
 import bgimg from '../assets/images/backgroundgif.gif'
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 
 const Adminlogin = () => {
@@ -12,7 +13,7 @@ const Adminlogin = () => {
     const [password,setPassword]=useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [message,setMessage]=useState('');
-
+    const navigate = useNavigate();
     const togglePasswordVisibility = () => {
       setPasswordVisible(!passwordVisible);
     };
@@ -33,8 +34,8 @@ const Adminlogin = () => {
                 localStorage.setItem('tokenExpiry-admin', expiryTime);
                 localStorage.setItem("token-admin-access-vini" , response.access)
                 localStorage.setItem("token-admin-refresh-vini" , response.refresh)
-             
-                    window.location.href=('/admin')
+                navigate('/admin')
+                    // window.location.href=('/admin')
             }else{
                 toast.error(`${response.message}`)
                 console.log(response,"tttttttttt");

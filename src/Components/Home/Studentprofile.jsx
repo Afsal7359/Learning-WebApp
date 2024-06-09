@@ -18,7 +18,7 @@ function Studentprofile() {
   const [isloading,setLoading]=useState(true)
   const [logoutmodal,setLogoutModal]=useState(false)
 
-    const user = "student-refresh-vini"
+    const users = "student-refresh-vini"
     const passwordmodalvisible =()=>{
       setPasswordModal(true)
     }
@@ -228,9 +228,9 @@ function Studentprofile() {
           </div>
                   </div>)
           }
-   {passwordModal && <PasswordChange Modal={passwordModal} setModal={setPasswordModal}/>}
+   {passwordModal && <PasswordChange Modal={passwordModal} setModal={setPasswordModal} users={users}/>}
 
-   {EditModal && <ProfileEdit Modal={EditModal} setModal={setEditModal}  handle={handleProfiledatafetch} users={user}/>}
+   {EditModal && <ProfileEdit Modal={EditModal} setModal={setEditModal}  handle={handleProfiledatafetch} users={users}/>}
     </div>
   )
 }
