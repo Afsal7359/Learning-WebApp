@@ -107,8 +107,6 @@ console.log(selectedFile,"selectfile");
             localStorage.removeItem('tutor-data-vini')
             localStorage.removeItem('token-refresh-vini')
             toast.success(`${response.message}`)
-            // window.location.href = '/login'
-            // navigate('/login')
             navigate('/login'); 
           }else{
             toast.success(`${response.message}`)

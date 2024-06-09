@@ -33,8 +33,8 @@ function Login() {
             toast.success(`${response.message}`)
             const expiryTime = new Date().getTime() + 6 * 24 * 60 * 60 * 1000;
             if (response.data[0].person === "tutor"){
-                // window.location.href=('/tutor')
-                navigate('/tutor')
+              
+                navigate('/tutor',{ replace: true });
                 localStorage.setItem("token-access-vini" , response.access)
                 localStorage.setItem("token-refresh-vini" , response.refresh)
                 localStorage.setItem('tokenExpiry-tutor', expiryTime);
@@ -44,7 +44,7 @@ function Login() {
                 localStorage.setItem("student-access-vini" , response.access)
               localStorage.setItem("student-refresh-vini" , response.refresh)
               localStorage.setItem('tokenExpiry-student', expiryTime);
-                navigate('/');
+                navigate('/',{ replace: true });
             }
         }else{
             console.log(response,"tttttttttt");
