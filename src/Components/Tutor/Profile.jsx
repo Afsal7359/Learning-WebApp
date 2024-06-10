@@ -271,7 +271,7 @@ console.log(selectedFile,"selectfile");
                                         allowFullScreen
                                       /> */}
                                      <div style={{backgroundColor:"#fff"}}>
-                                     <Link to={`${item.certificate}`}>Click to View Certificate</Link>
+                                     <a href={`${item.certificate}`} target='_blank'>Click to View Certificate</a>
                                      </div>
                                       
                           <div className="card-body">
