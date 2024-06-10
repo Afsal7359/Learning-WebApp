@@ -37,18 +37,20 @@ function Login() {
               toast.success(`${response.message}`);
              
               if (response.person === "tutor") {
+                navigate('/tutor');
                 localStorage.setItem("token-access-vini", response.access);
                 localStorage.setItem("token-refresh-vini", response.refresh);
                 localStorage.setItem('tokenExpiry-tutor', expiryTime);
                 localStorage.setItem("tutor-data-vini", JSON.stringify(response.data));
-                navigate('/tutor');
+               
                 
               } else if (response.person === "student") {
+                navigate('/');
                 localStorage.setItem("student-data-vini", JSON.stringify(response.data));
                 localStorage.setItem("student-access-vini", response.access);
                 localStorage.setItem("student-refresh-vini", response.refresh);
                 localStorage.setItem('tokenExpiry-student', expiryTime);
-                navigate('/');
+                
               }
               
           } else {
