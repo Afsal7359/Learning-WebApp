@@ -51,7 +51,7 @@ function Adminheader() {
           localStorage.removeItem('token-admin-refresh-vini')
           localStorage.removeItem('token-admin-access-vini')
           toast.success(`${response.message}`)
-          navigate('/admin-login',{ replace: true });
+          window.location.reload();
           setLoginSuccess(true) 
         }else{
           toast.success(`${response.message}`)
