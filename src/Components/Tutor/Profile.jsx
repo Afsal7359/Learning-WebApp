@@ -232,7 +232,7 @@ console.log(selectedFile,"selectfile");
                                   <form onSubmit={handleSubmit(onformsubmit)}>
                                   <div className="form-group local-forms">
                                     
-                                    {selectedFile && (
+                                    {/* {selectedFile && (
                                       <iframe
                                         src={selectedFile}
                                         style={{ width: '100%', height: '200px' }} 
@@ -241,7 +241,7 @@ console.log(selectedFile,"selectfile");
                                         allowFullScreen
                                         title="PDF Preview"
                                       />
-                                    )}
+                                    )} */}
                                     <input 
                                     {...register("qualification")}
                                     type="text" className='form-control mb-4 mt-3' placeholder='Qualification...' required/>
@@ -264,12 +264,16 @@ console.log(selectedFile,"selectfile");
                     {qualification && qualification.length !== 0 ? qualification.map((item, index) => (
                       <div className={`col-lg-4 `} key={index}>
                         <div className="card mb-3">
-                                      <iframe
+                                      {/* <iframe
                                         src={item.certificate}
                                         style={{ width: '100%', height: '200px' }} 
                                         scrolling="auto"
                                         allowFullScreen
-                                      />
+                                      /> */}
+                                     <div style={{backgroundColor:"#fff"}}>
+                                     <Link to={`${item.certificate}`}>Click to View Certificate</Link>
+                                     </div>
+                                      
                           <div className="card-body">
                             <h5 className="card-title">{item.qualification}</h5> 
                             {/* <p className="card-text">
