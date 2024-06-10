@@ -3,12 +3,11 @@ import PasswordChange from '../Modals/PasswordChange';
 import ProfileEdit from '../Modals/ProfileEdit';
 import { toast } from 'react-toastify';
 import { GetUserProfile } from '../../Api/Profile';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import profileimg from "../../assets/images/gallery/fg-4.jpg"
 import Edit from "../../assets/images/edit.png"
 import './Profile.css'
 import { LogoutUser } from '../../Api/Authentication';
-import { useNavigate } from 'react-router-dom';
 
 function Studentprofile() {
   const navigate = useNavigate();
@@ -65,7 +64,7 @@ function Studentprofile() {
           localStorage.removeItem('student-data-vini')
           localStorage.removeItem('tokenExpiry-student');
           toast.success(`${response.message}`)
-          navigate('/login'); 
+          window.location.reload();
         }else{
           toast.success(`${response.message}`)
         }

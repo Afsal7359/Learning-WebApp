@@ -108,7 +108,8 @@ console.log(selectedFile,"selectfile");
             localStorage.removeItem('token-refresh-vini')
             localStorage.removeItem('tokenExpiry-tutor');
             toast.success(`${response.message}`)
-            navigate('/login'); 
+            // navigate('/login');
+            window.location.reload(); 
           }else{
             toast.success(`${response.message}`)
           }

@@ -4,19 +4,31 @@ import { Loginuser } from '../../Api/Authentication';
 import { toast } from 'react-toastify';
 import Tutor from '../../assets/images/tutor.png'
 import STudent from '../../assets/images/student.png'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link  } from 'react-router-dom';
 import bgimg from '../../assets/images/backgroundgif.gif'
 import { useForm } from 'react-hook-form';
+import {useNavigate} from 'react-router-dom'
 
 function Login() {
-    const navigate = useNavigate();
-    const [loginSuccess, setLoginSuccess] = useState(false); 
- 
 
+    const [loginSuccess, setLoginSuccess] = useState(false); 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [tutors,setTutors]=useState(false)
+    const [students,setstudents]=useState(false)
+    const navigate = useNavigate();
+    // const tutorlog =async ()=>{
+    //         navigate('/tutor');
+    //         console.log("Login tutor successful");
+       
+    // }
+    // const studentlog = async()=>{
+    //        navigate('/');
+    //         console.log("Login student successful");
+        
+    // }
 
   
     const togglePasswordVisibility = () => {
@@ -35,24 +47,24 @@ function Login() {
               const expiryTime = new Date().getTime() + 6 * 24 * 60 * 60 * 1000;
               console.log("Login successful");
               toast.success(`${response.message}`);
-             
+        
               if (response.person === "tutor") {
-                navigate('/tutor');
+                // navigate('/tutor')
                 localStorage.setItem("token-access-vini", response.access);
                 localStorage.setItem("token-refresh-vini", response.refresh);
                 localStorage.setItem('tokenExpiry-tutor', expiryTime);
                 localStorage.setItem("tutor-data-vini", JSON.stringify(response.data));
-               
-                
+              
               } else if (response.person === "student") {
-                navigate('/');
+                // navigate('/')
                 localStorage.setItem("student-data-vini", JSON.stringify(response.data));
                 localStorage.setItem("student-access-vini", response.access);
                 localStorage.setItem("student-refresh-vini", response.refresh);
                 localStorage.setItem('tokenExpiry-student', expiryTime);
-                
-              }
-              
+             
+              }setTutors(true)
+              window.location.reload()
+             
           } else {
               console.log(response, "Login failed");
               toast.error(`${response.message}`);
@@ -61,6 +73,7 @@ function Login() {
           console.log(error);
       }
   };
+
 
   return (
     <div>

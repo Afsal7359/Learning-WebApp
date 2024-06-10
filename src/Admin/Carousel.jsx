@@ -8,6 +8,7 @@ import instance, { setAuthToken } from '../Api/instance';
 import axios from 'axios';
 import { token } from '../Api/token';
 import { TokenExpiry } from '../Api/Tokenexpiry';
+import { Navigate } from 'react-router-dom';
 
 const Carousel = () => {
     const [isloading,setIsLoading]=useState(true)
@@ -22,7 +23,7 @@ const Carousel = () => {
           console.log("not expired");
           }else{
             console.log("token -expired");
-            window.location.href='/admin-login'
+            Navigate='/admin-login'
           }
       
       } catch (error) {

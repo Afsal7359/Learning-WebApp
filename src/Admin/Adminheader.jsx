@@ -51,7 +51,7 @@ function Adminheader() {
           localStorage.removeItem('token-admin-refresh-vini')
           localStorage.removeItem('token-admin-access-vini')
           toast.success(`${response.message}`)
-          // navigate('/admin-login');
+          navigate('/admin-login',{ replace: true });
           setLoginSuccess(true) 
         }else{
           toast.success(`${response.message}`)
@@ -123,7 +123,7 @@ function Adminheader() {
                 </NavLink>
               </li>
               <li className="nav-link">
-                <NavLink to={"/admin-carosuel"} activeClassName='active'>
+                <NavLink to={"/admin-carousel"} activeClassName='active'>
                   {/* <i className="bx bx-bell icon" /> */}
                   <img src={carouselimg} alt="" height={35} />
                   <span className="text nav-text mx-3">Carousel</span>

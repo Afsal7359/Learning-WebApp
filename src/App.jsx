@@ -53,8 +53,13 @@ function App() {
           <Route path="/admin" element={auth.admin ? <CourseList /> : <Navigate to="/admin-login" />} />
           <Route path="/admin-carousel" element={auth.admin ? <Carousel /> : <Navigate to="/admin-login" />} />
           <Route path="/admin-category" element={auth.admin ? <Category /> : <Navigate to="/admin-login" />} />
-
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={
+            auth.tutor
+              ? <Navigate to="/tutor" />
+              : auth.student
+                ? <Navigate to="/" />
+                : <Login />
+          } />
           <Route path="/register" element={<Registration />} />
           <Route path="/forgot-password" element={<Forgotpassword />} />
 
