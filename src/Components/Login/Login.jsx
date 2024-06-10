@@ -11,39 +11,7 @@ import { useForm } from 'react-hook-form';
 function Login() {
     const navigate = useNavigate();
     const [loginSuccess, setLoginSuccess] = useState(false); 
-    // Initial token check and navigation
-    useEffect(() => {
-      const studentToken = localStorage.getItem("student-refresh-vini");
-      const tutorToken = localStorage.getItem("token-refresh-vini");
-
-      if (studentToken) {
-          console.log(studentToken, "Navigating to student dashboard");
-          navigate('/', { replace: true });
-      } else if (tutorToken) {
-          console.log(tutorToken, "Navigating to tutor dashboard");
-          navigate('/tutor', { replace: true });
-      }
-  }, [navigate]); // Ensure navigate is included in the dependency array
-
-  // Handle login success navigation
-  useEffect(() => {
-      if (loginSuccess) {
-          const studentToken = localStorage.getItem("student-refresh-vini");
-          const tutorToken = localStorage.getItem("token-refresh-vini");
-
-          if (studentToken) {
-              console.log(studentToken, "Navigating to student dashboard");
-              navigate('/', { replace: true });
-          } else if (tutorToken) {
-              console.log(tutorToken, "Navigating to tutor dashboard");
-              navigate('/tutor', { replace: true });
-          }
-
-          // Reset loginSuccess to prevent infinite loop
-          setLoginSuccess(false);
-      }
-  }, [loginSuccess, navigate]); 
-
+ 
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [email,setEmail]=useState('');
@@ -64,21 +32,25 @@ function Login() {
           const response = await Loginuser(data);
           if (response.success === true) {
               console.log(response);
+              const expiryTime = new Date().getTime() + 6 * 24 * 60 * 60 * 1000;
               console.log("Login successful");
               toast.success(`${response.message}`);
-              const expiryTime = new Date().getTime() + 6 * 24 * 60 * 60 * 1000;
+             
               if (response.person === "tutor") {
-                  localStorage.setItem("token-access-vini", response.access);
-                  localStorage.setItem("token-refresh-vini", response.refresh);
-                  localStorage.setItem('tokenExpiry-tutor', expiryTime);
-                  localStorage.setItem("tutor-data-vini", JSON.stringify(response.data));
+                localStorage.setItem("token-access-vini", response.access);
+                localStorage.setItem("token-refresh-vini", response.refresh);
+                localStorage.setItem('tokenExpiry-tutor', expiryTime);
+                localStorage.setItem("tutor-data-vini", JSON.stringify(response.data));
+                navigate('/tutor');
+                
               } else if (response.person === "student") {
-                  localStorage.setItem("student-data-vini", JSON.stringify(response.data));
-                  localStorage.setItem("student-access-vini", response.access);
-                  localStorage.setItem("student-refresh-vini", response.refresh);
-                  localStorage.setItem('tokenExpiry-student', expiryTime);
+                localStorage.setItem("student-data-vini", JSON.stringify(response.data));
+                localStorage.setItem("student-access-vini", response.access);
+                localStorage.setItem("student-refresh-vini", response.refresh);
+                localStorage.setItem('tokenExpiry-student', expiryTime);
+                navigate('/');
               }
-              setLoginSuccess(true); // Trigger useEffect after successful login
+              
           } else {
               console.log(response, "Login failed");
               toast.error(`${response.message}`);

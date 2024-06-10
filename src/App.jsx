@@ -1,10 +1,5 @@
-import React, { lazy, Suspense } from "react";
-import {
-  HashRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import React, { lazy, Suspense, useEffect, useState } from "react";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 const Student = lazy(() => import("./Admin/Student"));
 const Error = lazy(() => import("./Components/404/Error"));
@@ -25,41 +20,48 @@ const Forgotpassword = lazy(() => import("./Components/Login/Forgotpassword"));
 const CourseList = lazy(() => import("./Admin/CourseList"));
 
 function App() {
-  
-  const student = localStorage.getItem('student-refresh-vini');
-  const tutor = localStorage.getItem("token-refresh-vini");
-  const admin = localStorage.getItem("token-admin-refresh-vini");
+  const [auth, setAuth] = useState({
+    student: false,
+    tutor: false,
+    admin: false,
+  });
+
+  useEffect(() => {
+    setAuth({
+      student: !!localStorage.getItem('student-refresh-vini'),
+      tutor: !!localStorage.getItem("token-refresh-vini"),
+      admin: !!localStorage.getItem("token-admin-refresh-vini"),
+    });
+  }, []);
 
   return (
-    <>
-      <Router>
-        <Suspense fallback={<div className="loader-container"><div className="loader"></div></div>}>
-          <Routes>
-            <Route path="/" element={student ? <Home /> : <Navigate to={"/login"} />} />
-            <Route path="/course-intro" element={student ? <Courseintro /> : <Navigate to={"/login"} />} />
-            <Route path="/course-detail" element={student ? <Coursedetails /> : <Navigate to={"/login"} />} />
-            <Route path="/profile" element={student ? <Studentprofile /> : <Navigate to={"/login"} />} />
+    <Router>
+      <Suspense fallback={<div className="loader-container"><div className="loader"></div></div>}>
+        <Routes>
+          <Route path="/" element={auth.student ? <Home /> : <Navigate to="/login" />} />
+          <Route path="/course-intro" element={auth.student ? <Courseintro /> : <Navigate to="/login" />} />
+          <Route path="/course-detail" element={auth.student ? <Coursedetails /> : <Navigate to="/login" />} />
+          <Route path="/profile" element={auth.student ? <Studentprofile /> : <Navigate to="/login" />} />
 
-            <Route path="/tutor" element={tutor ? <Tutorhome/> : <Navigate to={"/login"} />} />
-            <Route path="/tutor/course-detail" element={tutor ? <Tutorcourse /> : <Navigate to={"/login"} />} />
-            <Route path="/tutor-Profile" element={tutor ? <Profile /> : <Navigate to={"/login"} />} />
+          <Route path="/tutor" element={auth.tutor ? <Tutorhome /> : <Navigate to="/login" />} />
+          <Route path="/tutor/course-detail" element={auth.tutor ? <Tutorcourse /> : <Navigate to="/login" />} />
+          <Route path="/tutor-profile" element={auth.tutor ? <Profile /> : <Navigate to="/login" />} />
 
-            <Route path="/admin-login" element={<Adminlogin />} />
-            <Route path="/admin-Users" element={admin ? <Tutor /> : <Navigate to={"/admin-login"} />} />
-            <Route path="/admin-students" element={admin ? <Student /> : <Navigate to={"/admin-login"} />} />
-            <Route path="/admin" element={admin ? <CourseList /> : <Navigate to={"/admin-login"} />} />
-            <Route path="/admin-carosuel" element={admin ? <Carousel /> : <Navigate to={"/admin-login"} />} />
-            <Route path="/admin-category" element={admin ? <Category /> : <Navigate to={"/admin-login"} />} />
+          <Route path="/admin-login" element={<Adminlogin />} />
+          <Route path="/admin-users" element={auth.admin ? <Tutor /> : <Navigate to="/admin-login" />} />
+          <Route path="/admin-students" element={auth.admin ? <Student /> : <Navigate to="/admin-login" />} />
+          <Route path="/admin" element={auth.admin ? <CourseList /> : <Navigate to="/admin-login" />} />
+          <Route path="/admin-carousel" element={auth.admin ? <Carousel /> : <Navigate to="/admin-login" />} />
+          <Route path="/admin-category" element={auth.admin ? <Category /> : <Navigate to="/admin-login" />} />
 
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Registration />} />
-            <Route path="/forgot-password" element={<Forgotpassword />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
+          <Route path="/forgot-password" element={<Forgotpassword />} />
 
-            <Route path="*" element={<Error />} />
-          </Routes>
-        </Suspense>
-      </Router>
-    </>
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </Suspense>
+    </Router>
   );
 }
 
